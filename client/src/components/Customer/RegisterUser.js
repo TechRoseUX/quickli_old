@@ -6,14 +6,25 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import Colors from '../constants/colors';
 import lockb from '../../rersources/svg/lockb.svg';
 import userb from '../../rersources/svg/userb.svg';
 import { MainBG, NewDiv } from './Styled/StyledComponents';
 import mainLogo from '../../rersources/mainLogo.png';
+import { device } from './Styled/StyledMediaQuery';
 
 import TextField from './TextField';
 import Button from './Styled/Button';
 import Text from './Styled/Text';
+
+const RegisterContainer = styled(NewDiv)`
+  @media ${device.tablet} {
+    width: 418px;
+    height: 700px;
+    margin: 0 auto;
+  } 
+
+`
 
 
 const FIELDS = [
@@ -25,6 +36,9 @@ const FIELDS = [
   },
   {
     label: 'Confirm Password', name: 'password2', svg: lockb, placeholder: 'Confirm Password....', noValueError: 'Please confirm your password'
+  },
+  {
+    label: 'Company Name', name: 'companyName', svg: lockb, placeholder: 'Enter Company Name....', noValueError: 'Please enter a name for your company'
   }
 ]
 
@@ -52,28 +66,30 @@ class RegisterUser extends Component {
       console.log('The input field is being changed.')
   }
 
+  handleNewUser = (values) => {
+    const { createNewUser, history } = this.props
+    createNewUser(values);
+  //  history.push('/login')
+  }
+
   render() {
     const { createNewUser } = this.props
     return (
       <div>
           <MainBG>
-            <NewDiv
-              width="418px"
-              height="700px"
-              background="purple"
-              margin="0 auto"
+            <RegisterContainer
             >
               <NewDiv
-                margin="200px 0 56px 0"
+                padding="200px 0 56px 0"
               >
                   <img src = { mainLogo } />
                 </NewDiv>
-                <form onSubmit={this.props.handleSubmit(values => createNewUser(values))}>
+                <form onSubmit={this.props.handleSubmit(values => this.handleNewUser(values))}>
                   {this.renderFields()}
                   <Button
                     width="416px"
                     height="50px"
-                    backgroundColor="#004A6A"
+                    backgroundColor={Colors.darkBlue}
                     type="submit"
                   >
                     <Text
@@ -82,11 +98,8 @@ class RegisterUser extends Component {
                       Sign Up
                     </Text>
                   </Button>
-                  <Link to ="/">
-                    Cancel
-                  </Link>
                 </form>
-            </NewDiv>
+            </RegisterContainer>
           </MainBG>
       </div>
     );

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { device } from './Styled/StyledMediaQuery';
 import { NewDiv } from './Styled/StyledComponents';
+import Colors from '../constants/colors';
 import lockb from '../../rersources/svg/lockb.svg';
 import userb from '../../rersources/svg/userb.svg';
 //import ReactSVG from 'react-svg';
@@ -9,7 +10,7 @@ import SVG from 'react-inlinesvg';
 
 const FormField = styled.input`
     -webkit-appearance: none;
-    background-color: #FFFFFF;
+    background-color: ${Colors.fullWhite};
     outline: none;
     border: none;
     border-radius: 0px 10px 10px 0px;
@@ -43,14 +44,14 @@ const FormFieldLeft = styled.div`
     border-radius: 10px 0px 0px 10px;
     width: 61px;
     height: 50px;
-    background-color: #FFFFFF;
+    background-color: ${Colors.fullWhite};
     float: left;
 `
 
 const FormFieldSplit = styled.div`
     width: 1px;
     height: 50px;
-    background: #008ECC;
+    background: ${Colors.lightBlue};
     float: left;
 `
 

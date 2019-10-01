@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ToMessageSchema = require('./ToMessage');
 
 //Create Schema
-const VehicleSchema = new Schema ({
+const ServiceSchema = new Schema ({
     user:{
+        type: String,
+        required: true
+    },
+    serviceid:{
         type: String,
         required: true
     },
@@ -12,50 +17,41 @@ const VehicleSchema = new Schema ({
         default: Date.now,
         required: true
     },
-    ownerid:{
+    customerid:{
         type: String,
         required: true
     },
-    vehicleid: {
+    customerName:{
         type: String,
         required: true
     },
-    phoneNumber1:{
+    vehicleid:{
         type: String,
         required: true
     },
-    phoneNumber2:{
+    phoneNumber:{
         type: String,
         required: true
     },
-    vehicleYear:{
+    mileage:{
         type: String,
         required: true
     },
-    vehicleMake:{
+    reason:{
         type: String,
         required: true
     },
-    vehicleModel:{
+    tagNumber:{
         type: String,
         required: true
     },
-    vehicleLicenseNumber:{
-        type: String,
-        required: true
+    details:{
+        type: String
     },
-    vehicleVinNumber:{
-        type: String,
-        required: true
-    },
-    vehicleMileage:{
-        type: String,
-        required: true
-    },
-    vehicleTagNumber:{
-        type: String,
+    status:{
+        type: Boolean,
         required: true
     }
 });
 
-mongoose.model('vehicles', VehicleSchema)
+mongoose.model('services', ServiceSchema)

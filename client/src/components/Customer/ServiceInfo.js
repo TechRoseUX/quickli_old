@@ -16,8 +16,11 @@ import userb from '../../rersources/svg/userb.svg';
 import lockb from '../../rersources/svg/lockb.svg';
 import userw from '../../rersources/svg/userw.svg';
 import phonew from '../../rersources/svg/phonew.svg';
-import mailw from '../../rersources/svg/mailw.svg';
-import carw from '../../rersources/svg/carw.svg';
+import detailsw from '../../rersources/svg/detailsw.svg';
+import mileagew from '../../rersources/svg/mileagew.svg';
+import pencilw from '../../rersources/svg/pencilw.svg';
+import calendarw from '../../rersources/svg/calendarw.svg';
+import historyw from '../../rersources/svg/historyw.svg';
 import arrowleftw from '../../rersources/svg/arrowleftw.svg';
 import { NewDiv, MainBG, MainHeading } from './Styled/StyledComponents';
 import StyledBackIcon from './Styled/StyledBackIcon';
@@ -59,83 +62,21 @@ const InfoEText = styled(NewDiv)`
     }
 `
 
-class CustomerInfo extends Component {
+class ServiceInfo extends Component {
   componentDidMount() {
-    const { selectedCustomer, getSelectedCustomer, realCustomers, customerVehicles, getRealCustomers } = this.props
-
-    getRealCustomers()
-
+    const { getSelectedVehicle, customerVehicles, customerServices, selectedVehicle } = this.props
     const {
-        match: { params: { customerid } }
+        match: { params: { vehicleid } }
     } = this.props
-
-    const sc = this.search(customerid, realCustomers);
-    if (realCustomers.length > 1) {
-        console.log(getSelectedCustomer);
-        getSelectedCustomer(sc);
-        console.log(sc);
-    } else {
-        console.log('error');
-    }
 }
 
   search = (id, myArray) => {
     for (var i=0; i < myArray.length; i++) {
-        if (myArray[i].customerid === id) {
+        if (myArray[i].vehicleid === id) {
             return myArray[i];
         }
     }
 }
-    openNewVehicle = () => {
-        const customerid = this.props.selectedCustomer.customerid
-        const history = this.props.history;
-        history.push(`/new-vehicle`);
-    }
-
-    openVehicleDetails = (v) => {
-        const { getSelectedVehicle, selectedVehicle, history } = this.props
-        const vehicleid = v.vehicleid
-        getSelectedVehicle(v)
-        console.log(selectedVehicle)
-        history.push(`/customers/vehicles/${vehicleid}`);
-   //   const sc = this.search(customerid, realCustomers);
-   //   getSelectedCustomer(sc);
-      console.log(v);
-    }
-
-    renderVehicles = () => {
-        const { customerVehicles, selectedCustomer } = this.props
-        const customerid = this.props.selectedCustomer.customerid
-        const newVehicleArray =[]
-         for (var i=0; i < customerVehicles.length; i++) {
-            if (customerVehicles[i].ownerid === customerid) {
-                newVehicleArray.push(customerVehicles[i])
-            }  else {
-                console.log('did not match');
-            }  
-        }
-
-        console.log(customerVehicles);
-        console.log(newVehicleArray);
-        const vehicles = newVehicleArray
-        console.log(vehicles);
-        return vehicles.map((v) => {
-            console.log(v);
-            return (
-                <NewDiv>
-                    <Text
-                        dblue22
-                        borderBottom
-                        padding="20px 0 5px 0"
-                        color={Colors.lightBlue}
-                        onClick={() => this.openVehicleDetails(v)}
-                    >
-                        {v.vehicleMake} {v.vehicleModel}
-                    </Text>
-                </NewDiv>
-            )
-        })
-    }
 
     goBack() {
         const { history } = this.props
@@ -143,8 +84,10 @@ class CustomerInfo extends Component {
     }
 
   render() {
-    const { realCustomers, selectedCustomer, customerVehicles } = this.props
-    if (realCustomers.length >= 1) {
+    const { selectedVehicle, selectedCustomer, selectedService } = this.props
+    console.log(this.props.state);
+
+    if (selectedService) {
         return (
             <MainBG>
                 <StyledBackIcon
@@ -157,7 +100,7 @@ class CustomerInfo extends Component {
                   mainHeading
                   padding="30px 0 50px 0"
                 >
-                  Customer Info
+                  Service Info
                 </Text>
               </MainHeading>
               <InfoElement>
@@ -172,7 +115,7 @@ class CustomerInfo extends Component {
                       customerIE
                       dblue22
                       >
-                         CUSTOMER NAME:
+                          CUSTOMER NAME
                       </Text>
                   </InfoEText>
                   <InfoEText>
@@ -180,7 +123,31 @@ class CustomerInfo extends Component {
                       customerIE
                       white20
                       >
-                          {selectedCustomer.name}
+                          {selectedService.customerName}
+                      </Text>
+                  </InfoEText>
+              </InfoElement>
+              <InfoElement>
+                  <InfoEIcon>
+                      <SVG src={calendarw} />
+                  </InfoEIcon>
+                  <InfoEText
+                    width="250px"
+                    marginLeft="50px"
+                  >
+                      <Text
+                      customerIE
+                      dblue22
+                      >
+                          DATE:
+                      </Text>
+                  </InfoEText>
+                  <InfoEText>
+                      <Text
+                      customerIE
+                      white20
+                      >
+                          {selectedService.date}
                       </Text>
                   </InfoEText>
               </InfoElement>
@@ -204,13 +171,13 @@ class CustomerInfo extends Component {
                       customerIE
                       white20
                       >
-                          {selectedCustomer.phoneNumber1}
+                          {selectedService.phoneNumber}
                       </Text>
                   </InfoEText>
               </InfoElement>
               <InfoElement>
                   <InfoEIcon>
-                      <SVG src={mailw} />
+                      <SVG src={mileagew} />
                   </InfoEIcon>
                   <InfoEText
                     width="250px"
@@ -220,7 +187,7 @@ class CustomerInfo extends Component {
                       customerIE
                       dblue22
                       >
-                          EMAIL:
+                          MILEAGE:
                       </Text>
                   </InfoEText>
                   <InfoEText>
@@ -228,44 +195,58 @@ class CustomerInfo extends Component {
                       customerIE
                       white20
                       >
-                          {selectedCustomer.email}
+                          {selectedService.mileage}
                       </Text>
                   </InfoEText>
               </InfoElement>
               <InfoElement>
-              <InfoEIcon>
-                      <SVG src={carw} />
+                  <InfoEIcon>
+                      <SVG src={pencilw} />
                   </InfoEIcon>
                   <InfoEText
-                    height="auto"
+                    width="250px"
                     marginLeft="50px"
                   >
                       <Text
                       customerIE
                       dblue22
                       >
-                            VEHICLES:
+                          REASON FOR VISIT:
                       </Text>
-                      {this.renderVehicles()}
+                  </InfoEText>
+                  <InfoEText>
+                      <Text
+                      customerIE
+                      white20
+                      >
+                          {selectedService.reason}
+                      </Text>
                   </InfoEText>
               </InfoElement>
-              <NewDiv
-                margin="0 auto"
-                width="100%"
-              >
-                  <Button
-                    largeBtn
-                    margin="0 auto"
-                    backgroundColor={Colors.darkBlue}
-                    onClick={() => this.openNewVehicle()}
+              <InfoElement>
+                  <InfoEIcon>
+                      <SVG src={detailsw} />
+                  </InfoEIcon>
+                  <InfoEText
+                    width="250px"
+                    marginLeft="50px"
                   >
-                    <Text
+                      <Text
+                      customerIE
+                      dblue22
+                      >
+                          DETAILS:
+                      </Text>
+                  </InfoEText>
+                  <InfoEText>
+                      <Text
+                      customerIE
                       white20
-                    >
-                      Add New Vehicle
-                    </Text>
-                  </Button>
-              </NewDiv>
+                      >
+                          {selectedService.details}
+                      </Text>
+                  </InfoEText>
+              </InfoElement>
             </MainBG>
           );
     } else {
@@ -283,8 +264,7 @@ const mapStateToProps = (state) => ({
 })
 
 const dispatchToProps = (dispatch) => ({
-   getSelectedCustomer: (customer) => dispatch(getSelectedCustomer(customer)),
-   getRealCustomers: () => dispatch(getRealCustomers())
+   getSelectedCustomer: (customer) => dispatch(getSelectedCustomer(customer))
 })
 
-export default withRouter(connect(mapStateToProps, dispatchToProps)(CustomerInfo));
+export default withRouter(connect(mapStateToProps, dispatchToProps)(ServiceInfo));

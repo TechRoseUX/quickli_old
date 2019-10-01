@@ -9,6 +9,7 @@ import { device } from './Styled/StyledMediaQuery';
 import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom';
 import SVG from 'react-inlinesvg';
 
+import Colors from '../constants/colors';
 import userb from '../../rersources/svg/userb.svg';
 import lockb from '../../rersources/svg/lockb.svg';
 import { NewDiv } from './Styled/StyledComponents';
@@ -19,7 +20,7 @@ import { getSelectedCustomer } from '../../store/reducers/environment';
 const CustomerCellDiv = styled(NewDiv)`
     width: 100%
     height: 80px;
-    background: #DEDEDE;
+    background: ${Colors.lighterGray};
     border-bottom: 1px solid black;
 `
 
@@ -27,7 +28,7 @@ const CellID = styled(NewDiv)`
     width: 50px;
     height: 50px;
     border-radius: 25px;
-    background: #008ECC;
+    background: ${Colors.lightBlue};
     display: inline-block;
     float: left;
     margin-left: 20px;
@@ -70,7 +71,8 @@ class CustomerCellRow extends Component {
   }
 
   render() {
-      const { customerid, name } = this.props
+      const { customerid, name, phoneNumber1, email } = this.props
+      console.log(this.props)
     return (
       <CustomerCellDiv
         onClick={() => {this.openCustomerProfile() }}
@@ -78,7 +80,9 @@ class CustomerCellRow extends Component {
           <CellID>
           </CellID>
           <CellInfoLeft>
-              <NewDiv>
+              <NewDiv
+                width="275px"
+              >
                 <Text
                     inline
                     lblue20
@@ -89,6 +93,7 @@ class CustomerCellRow extends Component {
                     inline
                     padding="0 0 0 15px"
                     dblue16
+                    acName
                 >
                     {name}
                 </Text>
@@ -108,7 +113,7 @@ class CustomerCellRow extends Component {
                     padding="0 0 0 15px"
                     dblue16
                 >
-                    {customerid}
+                    {phoneNumber1}
                 </Text>
               </NewDiv>
 
@@ -126,7 +131,7 @@ class CustomerCellRow extends Component {
                     padding="0 0 0 15px"
                     dblue16
                 >
-                    johnSmith@live.com
+                    {email}
                 </Text>
               </NewDiv>
 

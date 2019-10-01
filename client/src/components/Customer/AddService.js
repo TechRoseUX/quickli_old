@@ -10,10 +10,6 @@ import SVG from 'react-inlinesvg';
 import lockb from '../../rersources/svg/lockb.svg';
 import userb from '../../rersources/svg/userb.svg';
 import phoneb from '../../rersources/svg/phoneb.svg';
-import calendarb from '../../rersources/svg/calendarb.svg';
-import carb from '../../rersources/svg/carb.svg';
-import licenseb from '../../rersources/svg/licenseb.svg';
-import vinb from '../../rersources/svg/vinb.svg';
 import pencilb from '../../rersources/svg/pencilb.svg';
 import mileageb from '../../rersources/svg/mileageb.svg';
 import hashb from '../../rersources/svg/hashb.svg';
@@ -37,39 +33,23 @@ const FormContainer = styled(NewDiv)`
 
 const FIELDS = [
   {
-    label: 'Phone Number', name: 'pnumber', svg: phoneb, placeholder: 'Enter phone number...', noValueError: 'You must provide a phone number'
+    label: 'Name', name: 'name', svg: userb, placeholder: 'Enter name...', noValueError: 'You must provide a name'
   },
   {
-    label: 'Secondary Phone Number', name: 'pnumber2', svg: phoneb, placeholder: 'Enter secondary phone number...',  noValueError: 'You must provide a secondary phone number'
+    label: 'Mileage', name: 'mileage', svg: mileageb, placeholder: 'Enter vehicle mileage...', noValueError: 'You must provide a value for mileage'
   },
   {
-    label: 'Vehicle Year', name: 'vyear', svg: calendarb, placeholder: 'Enter vehicle year...', noValueError: 'You must provide a vehicle year'
+    label: 'Phone Number', name: 'pnumber', svg: phoneb, placeholder: 'Enter phone number...',  noValueError: 'You must provide a phone number'
   },
   {
-    label: 'Vehicle Make', name: 'vmake', svg: carb, placeholder: 'Enter vehicle make...', noValueError: 'You must provide a vehicle make'
-  },
-  {
-    label: 'Vehicle Model', name: 'vmodel', svg: carb, placeholder: 'Enter vehicle model..', noValueError: 'You must provide a vehicle model'
-  },
-  {
-    label: 'License Plate Number', name: 'lpnumber', svg: licenseb, placeholder: 'Enter license plate number...', noValueError: 'You must provide a license plate number'
-  },
-  {
-    label: 'Vehicle Vin Number', name: 'vnumber', svg: vinb, placeholder: 'Enter vehicle vin number...', noValueError: 'You must provide a vin number'
-  },
-  {
-    label: 'Mileage', name: 'mileage', svg: mileageb, placeholder: 'Enter mileage...', noValueError: 'You must provide the mileage'
+    label: 'Reason For Visit', name: 'reason', svg: pencilb, placeholder: 'Enter reason...', noValueError: 'You must provide a reason for visit'
   },
   {
     label: 'Tag Number', name: 'tnumber', svg: hashb, placeholder: 'Enter tag number...', noValueError: 'You must provide a tag number'
-  },
+  }
 ]
 
-class AddVehicle extends Component {
-  componentDidMount() {
-    const { getSelectedCustomer, realCustomers } = this.props
-
-  }
+class AddService extends Component {
 
   renderFields = () => {
     const selectedCustomer = this.props.selectedCustomer
@@ -95,27 +75,25 @@ class AddVehicle extends Component {
   }
 
   goBack() {
-    const { history, selectedCustomer } = this.props
-    console.log(this.props)
-    console.log(`Here is the selected customer ${selectedCustomer}`);
+    const { history } = this.props
     history.go(-1)
   }
 
   render() {
-    const { createNewVehicle, selectedCustomer } = this.props
+    const { createNewService, selectedCustomer, selectedVehicle } = this.props
     console.log(this.props);
     console.log(selectedCustomer);
+    console.log(selectedVehicle);
     const props = this.props
 
     const createBody = (values, props) => {
-      const history = props.history
+      const history = this.props.history;
         let dataa = {
           values: values,
           props: props
         }
-        createNewVehicle(dataa);
-        console.log(history)
-        history.push('/new-vehicle/confirmation');
+        createNewService(dataa);
+        history.push('/customers/chat/service')
         window.location.reload();
     }
 
@@ -172,5 +150,5 @@ const validate = (values) => {
 
 export default reduxForm({
   validate,
-  form: 'newVehicleForm'
-})(AddVehicle)
+  form: 'newServiceForm'
+})(AddService)

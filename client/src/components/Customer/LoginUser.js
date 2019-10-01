@@ -10,11 +10,21 @@ import lockb from '../../rersources/svg/lockb.svg';
 import userb from '../../rersources/svg/userb.svg';
 import { MainBG, NewDiv } from './Styled/StyledComponents';
 import mainLogo from '../../rersources/mainLogo.png';
+import { device } from './Styled/StyledMediaQuery';
 
 import TextField from './TextField';
 import Button from './Styled/Button';
 import Text from './Styled/Text';
+import colors from '../constants/colors';
 
+const LoginContainer = styled(NewDiv)`
+  @media ${device.tablet} {
+    width: 418px;
+    height: 700px;
+    margin: 0 auto;
+  } 
+
+`
 
 const FIELDS = [
   {
@@ -43,6 +53,12 @@ class LoginUser extends Component {
     });
   }
 
+  handleLoginSubmit = (values) => {
+    const { userLogin, history } = this.props
+    userLogin(values);
+   // window.location.reload()
+  }
+
   handleInputChange = () => {
       console.log('The input field is being changed.')
   }
@@ -52,22 +68,19 @@ class LoginUser extends Component {
     return (
       <div>
           <MainBG>
-            <NewDiv
-              width="418px"
-              height="700px"
-              margin="0 auto"
+            <LoginContainer
             >
               <NewDiv
                 padding="200px 0 56px 0"
               >
                   <img src = { mainLogo } />
                 </NewDiv>
-                <form onSubmit={this.props.handleSubmit(values => userLogin(values))}>
+                <form onSubmit={this.props.handleSubmit(values => this.handleLoginSubmit(values))}>
                   {this.renderFields()}
                   <Button
                     width="416px"
                     height="50px"
-                    backgroundColor="#004A6A"
+                    backgroundColor={colors.darkBlue}
                     type="submit"
                   >
                     <Text
@@ -77,7 +90,7 @@ class LoginUser extends Component {
                     </Text>
                   </Button>
                 </form>
-            </NewDiv>
+            </LoginContainer>
           </MainBG>
       </div>
     );

@@ -9,10 +9,13 @@ import { device } from './Styled/StyledMediaQuery';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import SVG from 'react-inlinesvg';
 
-import { getSelectedCustomer } from '../../store/reducers/environment';
+import Colors from '../constants/colors';
+
+import { getSelectedCustomer, updateCustomerSearch, getCurrentFilter } from '../../store/reducers/environment';
 import CustomerCellRow from './CustomerCellRow';
 import userb from '../../rersources/svg/userb.svg';
 import lockb from '../../rersources/svg/lockb.svg';
+import barsw from '../../rersources/svg/barsw.svg';
 import { NewDiv, MainBG, MainHeading } from './Styled/StyledComponents';
 import Button from './Styled/Button';
 import Text from './Styled/Text';
@@ -21,12 +24,16 @@ const CustomerSearchBar = styled.input`
     @media ${device.tablet} {
         width: 100%;
         height: 100%;
-        background-color: #FFFFF;
+        background-color: ${Colors.fullWhite};
         margin: 0 auto;
         padding-left: 10px;
         font-size: 16px;
         border: none;
         border-radius: 20px;
+
+        :focus {
+          outline: none;
+        }
     } 
 `
 
@@ -65,7 +72,7 @@ const StyledSelect = styled.select`
       width: 100%;
       height: 100%
       font-size: 16px;
-      color: grey;
+      color: ${Colors.lightGray};
       -webkit-border-top-right-radius: 15px;
       -webkit-border-bottom-right-radius: 15px;
       -moz-border-radius-topright: 15px;
@@ -107,14 +114,86 @@ class AllCustomers extends Component {
 
   componentDidMount() {
     this.props.getRealCustomers();
+    const {showNavBar, toggleNavBar, toggleNavToggle } = this.props
+    if (showNavBar === 'block') {
+      toggleNavBar('none')
+      toggleNavToggle(barsw);
+    } else {
+      console.log('Not showing....');
+    }
+  }
+
+  searchCustomers = (event) => {
+    const { search, updateCustomerSearch } = this.props
+    var searchText = event.target.value
+    updateCustomerSearch(searchText)
+
+    var s = document.getElementById('search-select');
+    var strSelect = s.options[s.selectedIndex].value
+
+    console.log(strSelect)
+  }
+
+  updateFilter = (event) => {
+    const { getCurrentFilter } = this.props
+    var cFilter = event.target.value
+    getCurrentFilter(cFilter)
+    console.log(cFilter)
   }
 
   renderRows = () => {
-    const { realCustomers, selectedCustomer, getSelectedCustomer, history } = this.props
+    const { realCustomers, selectedCustomer, getSelectedCustomer, history, search, currentFilter } = this.props
     console.log(selectedCustomer);
 
-    return realCustomers.map((d) => {
-      console.log(realCustomers);
+    var filteredCustomers;
+
+    if (currentFilter === 'Name') {
+      if (search === null || search === '') {
+        filteredCustomers = realCustomers
+      } else {
+        filteredCustomers = realCustomers.filter((item) => {
+          var name = item.name.toLowerCase()
+          var filterVal = search.toLowerCase();
+          var n = name.match(filterVal)
+          if (n != null) {
+            return true
+          }
+        })
+      }
+      
+    } else if (currentFilter === 'Phone Number') {
+      if (search === null || search === '') {
+        filteredCustomers = realCustomers
+      } else {
+        filteredCustomers = realCustomers.filter((item) => {
+          var number = item.phoneNumber1.toLowerCase()
+          var filterVal = search.toLowerCase();
+          var n = number.match(filterVal)
+          if (n != null) {
+            return true
+          }
+        })
+      }
+    } else if (currentFilter === 'Email') {
+      if (search === null || search === '') {
+        filteredCustomers = realCustomers
+      } else {
+        filteredCustomers = realCustomers.filter((item) => {
+          var email = item.email.toLowerCase()
+          var filterVal = search.toLowerCase();
+          var n = email.match(filterVal)
+          if (n != null) {
+            return true
+          }
+        })
+      }
+    } else {
+      filteredCustomers = realCustomers
+    }
+
+    return filteredCustomers.map((d) => {
+      console.log(filteredCustomers);
+      console.log(currentFilter)
       return (
         <CustomerCellRow
           key={d.customerid}
@@ -129,7 +208,7 @@ class AllCustomers extends Component {
   }
 
   render() {
-    const realCustomers = this.props.realCustomers
+    const { realCustomers, updateCustomerSearch, search } = this.props
 
     return (
       <div>
@@ -148,6 +227,8 @@ class AllCustomers extends Component {
         >
           <CustomerSearchBar 
             placeholder="Search"
+            onChange={this.searchCustomers}
+            value={search}
           />
         </NewDiv>
         <CustomerSearchSelectSec>
@@ -160,8 +241,14 @@ class AllCustomers extends Component {
               Search By:
             </Text>
             <NameSelectDiv>
-              <StyledSelect>
+              <StyledSelect 
+              id="search-select"
+              onChange={this.updateFilter}
+              >
                 <option>Name</option>
+                <option>Phone Number</option>
+                <option>Email</option>
+                <option>Vin Number</option>
               </StyledSelect>
             </NameSelectDiv>
           </SearchNameBox>
@@ -205,12 +292,16 @@ class AllCustomers extends Component {
 const mapStateToProps = (state) => ({
   realCustomers: state.realCustomers,
   selectedCustomer: state.environment.selectedCustomer,
+  search: state.environment.search,
+  currentFilter: state.environment.currentFilter,
   state: state
 })
 
 const dispatchToProps = (dispatch) => ({
    getRealCustomers: () => dispatch(getRealCustomers()),
-   getSelectedCustomer: (customer) => dispatch(getSelectedCustomer(customer))
+   getSelectedCustomer: (customer) => dispatch(getSelectedCustomer(customer)),
+   updateCustomerSearch: (search) => dispatch (updateCustomerSearch(search)),
+   getCurrentFilter: (filter) => dispatch (getCurrentFilter(filter))
 })
 
 export default connect(mapStateToProps, dispatchToProps)(AllCustomers);

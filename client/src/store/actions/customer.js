@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {GET_CUSTOMERS, UPDATE_CUSTOMER, GET_REAL_CUSTOMERS, FETCH_USER, GET_VEHICLES} from './constants';
+import {GET_CUSTOMERS, UPDATE_CUSTOMER, GET_REAL_CUSTOMERS, FETCH_USER, GET_VEHICLES, GET_SERVICES, GET_ACTIVE_SERVICES, GET_ACTIVE_TO_MESSAGES} from './constants';
 
 export const getCustomers = () => dispatch => {
   return fetch('/api/customers')
@@ -19,16 +19,34 @@ export const getCustomerVehicles = () => dispatch => {
   .then(customerVehicles => dispatch({type: GET_VEHICLES, payload: customerVehicles}))
 }
 
+export const getCustomerServices = () => dispatch => {
+  return fetch('/customer/vehicles-services')
+  .then(res => res.json())
+  .then(customerServices => dispatch({type: GET_SERVICES, payload: customerServices}))
+}
+
+export const getActiveCustomerServices = () => dispatch => {
+  return fetch('/customers/chat/service')
+  .then(res => res.json())
+  .then(customerActiveServices => dispatch({type: GET_ACTIVE_SERVICES, payload: customerActiveServices}))
+}
+
+export const getCustomerActiveToMessages = () => dispatch => {
+  return fetch('/customers/chat/service/messages')
+  .then(res => res.json())
+  .then(activeToMessages => dispatch({type: GET_ACTIVE_TO_MESSAGES, payload: activeToMessages}))
+}
+
 export const createNewCustomer = (values) => async dispatch => {
   const res = await axios.post('/new-customer', values);
   console.log('Here is the new customer nfndfnsdfnskdhfkshdf')
-  dispatch({type: GET_CUSTOMERS, payload: res.data})
+  dispatch({type: GET_CUSTOMERS, payload: res.data});
+  window.location.reload();
 }
 
 export const createNewVehicle = (dataa) => async dispatch => {
   const res = await axios.post('/new-vehicle', dataa);
-  console.log('Here is the new vehicle yeysadkhkajhsd')
-  dispatch({type: GET_CUSTOMERS, payload: res.data})
+  dispatch({type: GET_CUSTOMERS, payload: res.data});
 }
 
 export const createNewUser = (values) => async dispatch => {
@@ -37,8 +55,20 @@ export const createNewUser = (values) => async dispatch => {
   dispatch({type: UPDATE_CUSTOMER, payload: res.data})
 }
 
+export const createNewService = (dataa) => async dispatch => {
+  const res = await axios.post('/customers/service/:customerid', dataa);
+  dispatch({type: GET_CUSTOMERS, payload: res.data})
+}
+
+export const createNewToMessage = (value) => async dispatch => {
+  console.log(value)
+  const res = await axios.post('/customers/chat/service', value);
+  dispatch({type: GET_CUSTOMERS, payload: res.data})
+}
+
 export const userLogin = (values) => async dispatch => {
   const res = await axios.post('/login', values);
+  window.location.reload();
   console.log('Here is the new user being logged in.')
   dispatch({type: UPDATE_CUSTOMER, payload: res.data})
 }
