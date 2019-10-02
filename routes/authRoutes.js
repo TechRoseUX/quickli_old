@@ -1,4 +1,8 @@
 const passport = require('passport');
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+
+const User = mongoose.model('users');
 
 module.exports = (app) => {
     //User Register Route
@@ -56,5 +60,5 @@ app.post('/login', (req, res, next) => {
       })(req, res, next);
     });
 
-    
+
 }
