@@ -100,7 +100,7 @@ class CustomerConfirmation extends Component {
                                 <Text
                                     white20
                                 >
-                                    {currentCus.name}
+                                    {currentCus.name},
                                     &nbsp;
                                 The new customer has been added successfully. Would you like to add a vehicle for this customer now?
                                 </Text>
