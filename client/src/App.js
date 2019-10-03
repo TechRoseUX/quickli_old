@@ -136,6 +136,7 @@ class App extends Component {
     const customerVehicles = this.props.state.customerVehicles;
     const customerServices = this.props.state.customerServices;
     const activeToMessages = this.props.state.activeToMessages;
+    const auth = this.props.auth;
 ;
     console.log(this.props);
     console.log(this.props.environment);
@@ -155,6 +156,7 @@ class App extends Component {
               showNavToggle={environment.showNavToggle}
               logoutUser={logoutUser}
               history={history}
+              auth={auth}
             />
             <Switch>
             <Route exact path="/" 

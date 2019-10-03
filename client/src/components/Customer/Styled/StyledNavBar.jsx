@@ -141,9 +141,15 @@ class StyledNavBar extends Component  {
         window.location.reload()
     }
 
-
     render() {
-        const { renderContent, toggleNavBar, toggleNavToggle, fetchUser, showNavBar, showNavToggle } = this.props
+        const { renderContent, toggleNavBar, toggleNavToggle, fetchUser, showNavBar, showNavToggle, auth } = this.props
+        const data = this.props && this.props.auth ? this.props.auth.data: null
+        var companyName;
+        if (data) {
+            companyName = data.email
+        } else {
+            companyName = 'No Company Name'
+        }
         console.log(showNavToggle);
         console.log(showNavBar);
         const toggleNav = () => {
@@ -171,7 +177,7 @@ class StyledNavBar extends Component  {
                             padding="10px 0 0 0"
                             maxWidth="300px"
                           >
-                              Haron Jaguar Land Rover
+                              {companyName}
                           </Text>
                           <Text
                             gray30
