@@ -145,13 +145,15 @@ class AllCustomers extends Component {
     const { realCustomers, selectedCustomer, getSelectedCustomer, history, search, currentFilter } = this.props
     console.log(selectedCustomer);
 
+    const realCustomersReversed = realCustomers.reverse()
+
     var filteredCustomers;
 
     if (currentFilter === 'Name') {
       if (search === null || search === '') {
-        filteredCustomers = realCustomers
+        filteredCustomers = realCustomersReversed
       } else {
-        filteredCustomers = realCustomers.filter((item) => {
+        filteredCustomers = realCustomersReversed.filter((item) => {
           var name = item.name.toLowerCase()
           var filterVal = search.toLowerCase();
           var n = name.match(filterVal)
@@ -163,9 +165,9 @@ class AllCustomers extends Component {
       
     } else if (currentFilter === 'Phone Number') {
       if (search === null || search === '') {
-        filteredCustomers = realCustomers
+        filteredCustomers = realCustomersReversed
       } else {
-        filteredCustomers = realCustomers.filter((item) => {
+        filteredCustomers = realCustomersReversed.filter((item) => {
           var number = item.phoneNumber1.toLowerCase()
           var filterVal = search.toLowerCase();
           var n = number.match(filterVal)
@@ -176,9 +178,9 @@ class AllCustomers extends Component {
       }
     } else if (currentFilter === 'Email') {
       if (search === null || search === '') {
-        filteredCustomers = realCustomers
+        filteredCustomers = realCustomersReversed
       } else {
-        filteredCustomers = realCustomers.filter((item) => {
+        filteredCustomers = realCustomersReversed.filter((item) => {
           var email = item.email.toLowerCase()
           var filterVal = search.toLowerCase();
           var n = email.match(filterVal)
@@ -188,7 +190,7 @@ class AllCustomers extends Component {
         })
       }
     } else {
-      filteredCustomers = realCustomers
+      filteredCustomers = realCustomersReversed
     }
 
     return filteredCustomers.map((d) => {

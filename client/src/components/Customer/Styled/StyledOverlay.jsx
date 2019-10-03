@@ -55,6 +55,17 @@ const CustomerInputMessage = styled.input`
     }
 `
 
+const CustomerInputMessageLarge = styled.input`
+    @media ${device.tablet} {
+        width: 300px;
+        height: 100px !important;
+        outline: none;
+        border: none;
+        height: 40px;
+        border-bottom: 1px solid ${Colors.fullWhite};
+    }
+`
+
 const TemplateNavContainer = styled.div`
     @media ${device.tablet} {
         bottom: 100px;
@@ -300,8 +311,67 @@ class StyledOverlay extends Component  {
         )
     }
 
+
+    template4 = () => {
+        const { selectedServiceMessage } = this.props
+        console.log(selectedServiceMessage)
+        const text1 = `Hello ${selectedServiceMessage.customerName},`;
+        const newText = `${text1} ${this.state.customText}`;
+
+
+       const getCorrectMessageText = () => {
+            const { getSelectedMessageText, selectedMessageText, toggleTemplateOverlay } = this.props
+            console.log(newText)
+            getSelectedMessageText(newText);
+            toggleTemplateOverlay(false)
+        }
+
+        return (
+            <NewDiv
+                width="90%"
+                margin="0 auto"
+            >
+                <OverlayContentContainer>
+                    <form onSubmit={(e) => this.handleNew(e, this)}>
+                    <Text
+                        inline
+                        white20
+                        padding="10px 0 0 0"
+                    >
+                        {text1}
+                    </Text>
+                    <NewDiv
+                        padding="10px 0 0 0"
+                    >
+                        <CustomerInputMessageLarge 
+                            type="text"
+                            onChange={this.handleChange.bind(this)}
+                            name="customMessage"
+                            value={this.state.customText}
+                        />
+                    </NewDiv>
+                    <NewDiv
+                        padding="50px 0 0 0"
+                    >
+                        <Button
+                            standardBtn
+                            margin="0 auto"
+                            onClick={getCorrectMessageText}
+                        >
+                            <Text
+                            >
+                                Send Message
+                            </Text>
+                        </Button>
+                    </NewDiv>
+                    </form>
+                </OverlayContentContainer>
+            </NewDiv>
+        )
+    }
+
     forwardTemplate = () => {
-        const messageTemplates = [this.template1, this.template2, this.template3]
+        const messageTemplates = [this.template1, this.template2, this.template3, this.template4]
 
         if (this.state.templateNumber < messageTemplates.length - 1) {
             this.setState({
@@ -315,7 +385,7 @@ class StyledOverlay extends Component  {
     }
 
     backTemplate = () => {
-        const messageTemplates = [this.template1, this.template2, this.template3]
+        const messageTemplates = [this.template1, this.template2, this.template3, this.template4]
 
         if (this.state.templateNumber > 0) {
             this.setState({
@@ -330,7 +400,7 @@ class StyledOverlay extends Component  {
 
 
     render() {
-        const messageTemplates = [this.template1, this.template2, this.template3]
+        const messageTemplates = [this.template1, this.template2, this.template3, this.template4]
         var currentTemplate = messageTemplates[this.state.templateNumber]
 
         const { getSelectedMessageText } = this.props

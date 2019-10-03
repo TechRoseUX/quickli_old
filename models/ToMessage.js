@@ -8,8 +8,7 @@ const MessageSchema = new Schema ({
         required: true
     },
     date:{
-        type: Date,
-        default: Date.now,
+        type: String,
         required: true
     },
     textMessage:{
@@ -25,6 +24,10 @@ const MessageSchema = new Schema ({
         required: true
     },
     vehicleid:{
+        type: String,
+        required: true
+    },
+    customerid: {
         type: String,
         required: true
     },

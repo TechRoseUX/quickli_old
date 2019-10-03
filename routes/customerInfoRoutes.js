@@ -61,6 +61,7 @@ module.exports = (app) => {
               var uniqid = Date.now();
               const newCustomer = new Customer ({
                   customerid: uniqid,
+                  date: uniqid,
                   user: user,
                   name: req.body.cname,
                   email: req.body.email,
@@ -77,6 +78,7 @@ module.exports = (app) => {
       
         const newVehicle = new Vehicle ({
             user: req.body.props.selectedCustomer.user,
+            date: uniqid,
             vehicleid: uniqid,
             ownerid: req.body.props.selectedCustomer.customerid,
             phoneNumber1: req.body.values.pnumber,

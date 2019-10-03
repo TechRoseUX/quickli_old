@@ -145,6 +145,7 @@ class CustomerInfo extends Component {
   render() {
     const { realCustomers, selectedCustomer, customerVehicles } = this.props
     if (realCustomers.length >= 1) {
+
         return (
             <MainBG>
                 <StyledBackIcon

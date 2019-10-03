@@ -13,8 +13,7 @@ const ServiceSchema = new Schema ({
         required: true
     },
     date:{
-        type: Date,
-        default: Date.now,
+        type: String,
         required: true
     },
     customerid:{

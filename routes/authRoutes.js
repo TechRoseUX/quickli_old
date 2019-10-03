@@ -16,6 +16,7 @@ app.post('/register', (req, res) => {
           var uniqid = Date.now();
           const newUser = new User ({
               email: req.body.email,
+              date: uniqid,
               password: req.body.password,
               userid: uniqid,
               companyName: req.body.companyName
@@ -59,6 +60,4 @@ app.post('/login', (req, res, next) => {
         failureFlash: true
       })(req, res, next);
     });
-
-
 }

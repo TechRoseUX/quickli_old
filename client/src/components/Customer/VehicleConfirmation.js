@@ -72,7 +72,8 @@ class VehicleConfirmation extends Component {
     }
 
     openAllVehicles = () => {
-        console.log('Opening all vehicles')
+        const { history, selectedVehicle, getSelectedVehicle, customerVehicles, selectedCustomer } = this.props
+        history.push('/all-customers');
     }
     openAddService = () => {
         const { realCustomers, selectedCustomer, getSelectedVehicle, history, customerVehicles, selectedVehicle } = this.props

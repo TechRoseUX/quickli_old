@@ -87,13 +87,30 @@ const MessageCellContentBottom = styled(NewDiv)`
 const MessengerSearchBar = styled.input`
     @media ${device.tablet} {
         width: ${({ width }) => (width|| '100%')};
-        height: 40px;
+        height: ${props => (props.height || '40px')};
         background-color: ${Colors.fullWhite};
         margin: 0 auto;
         padding-left: 10px;
         font-size: 16px;
         border: none;
         border-radius: 20px;
+    } 
+`
+
+const MessengerTextBox = styled.textarea`
+    @media ${device.tablet} {
+        width: ${({ width }) => (width|| '100%')};
+        height: 90px;
+        background-color: ${Colors.fullWhite};
+        margin: 0 auto;
+        padding-left: 10px;
+        padding-top: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 20px;
+        :focus {
+            outline: none;
+          }
     } 
 `
 
@@ -121,7 +138,7 @@ const MessengerChatTopSec = styled(NewDiv)`
 const MessengerFixedBottom = styled(NewDiv)`
     @media ${device.tablet} {
         width: 511px;
-        height: 55px;
+        height: 115px;
         position: fixed;
         bottom: 0;
     } 
@@ -140,6 +157,7 @@ const BottomLeftButton = styled(NewDiv)`
         height: 40px;
         padding: 5px;
         display: inline-block;
+        padding-top: 60px;
         float: left;
 
         svg {
@@ -155,6 +173,7 @@ const BottomRightButton = styled(NewDiv)`
         height: 40px;
         padding: 5px;
         display: inline-block;
+        padding-top: 60px;
         float: right;
 
         svg {
@@ -167,7 +186,7 @@ const BottomRightButton = styled(NewDiv)`
 const BottomMiddleText = styled(NewDiv)`
     @media ${device.tablet} {
         width: 400px;
-        height: 40px;
+        height: 100px;
         padding: 5px 0;
         display: inline-block;
     } 
@@ -249,7 +268,7 @@ class ChatMessenger extends Component {
 
   renderChatCells = () => {
     var activeServiceArray = []
-    const customerServices = this.props.customerServices
+    const { customerServices, activeToMessages } = this.props
     console.log(customerServices);
 
     for (var i=0; i < customerServices.length; i++) {
@@ -261,7 +280,25 @@ class ChatMessenger extends Component {
         console.log(activeServiceArray)
     }
     activeServiceArray.reverse()
+
         return activeServiceArray.map((v) => {
+            var vMessages = []
+            var lastMessage;
+
+            for (var i=0; i < activeToMessages.length; i++) {
+                if (v.serviceid == activeToMessages[i].serviceid) {
+                    vMessages.push(activeToMessages[i])
+                } else {
+                    console.log('Did not match')
+                }
+            }
+
+            if (vMessages.length > 0) {
+                lastMessage = vMessages.slice(-1)[0]
+            } else {
+                lastMessage = 'No messages sent.'
+            }
+
             return (
                 <MessageCell
                     onClick={() => this.openThisChat(v)}
@@ -291,7 +328,7 @@ class ChatMessenger extends Component {
                             ellipsis
                             maxWidth="100%"
                         >
-                            Hey james we just wanted to reach out and let you know that we have completed the service for your vehicle and it is now ready
+                            {lastMessage.textMessage}
                         </Text>
                     </MessageCellContentBottom>
                 </MessageCell>
@@ -307,7 +344,7 @@ class ChatMessenger extends Component {
                     dblue30
                     padding="10px 0 0 10px"
                 >
-                    {selectedServiceMessage.serviceid}
+                    {selectedServiceMessage.customerName}
                 </Text>
             )
       } else {
@@ -379,8 +416,13 @@ class ChatMessenger extends Component {
   }
 
   toggleTemplateTrue = () => {
-      const { toggleTemplateOverlay } = this.props
-      toggleTemplateOverlay(true);
+      const { toggleTemplateOverlay, selectedServiceMessage } = this.props
+      if (selectedServiceMessage) {
+        toggleTemplateOverlay(true);
+      } else {
+          console.log('There is no selected message');
+      }
+      
   }
 
   sendNewMessage = (e, value) => {
@@ -389,20 +431,27 @@ class ChatMessenger extends Component {
         console.log(value)
         console.log(selectedMessageText)
 
-        const info =
+        if (selectedServiceMessage) {
+            const info =
             {
                 textMessage: selectedMessageText,
                 phoneNumber: selectedServiceMessage.phoneNumber,
                 serviceid: selectedServiceMessage.serviceid,
                 vehicleid: selectedServiceMessage.vehicleid,
+                customerid: selectedServiceMessage.customerid,
                 user: selectedServiceMessage.user
             }
-        createNewToMessage(info);
-        this.forceUpdate();
+            createNewToMessage(info);
+            this.forceUpdate();
+        } else {
+            console.log('It cannot be done.')
+        }
   }
 
   handleChange = (e) => {
-      getSelectedMessageText(e.target.value)
+      const { getSelectedMessageText } = this.props
+      const messageT = e.target.value
+      getSelectedMessageText(messageT);
   }
 
   goBack() {
@@ -456,7 +505,7 @@ class ChatMessenger extends Component {
                 </BottomLeftButton>
                 <BottomMiddleText>
                     <form method="POST" onChange={this.handleChange} onSubmit={(e) => this.sendNewMessage(e, this)}>
-                        <MessengerSearchBar 
+                        <MessengerTextBox
                             width="97%"
                             placeholder="Enter Messege..."
                             value={selectedMessageText}
@@ -464,7 +513,8 @@ class ChatMessenger extends Component {
                         />
                     </form>
                 </BottomMiddleText>
-                <BottomRightButton>
+                <BottomRightButton 
+                onClick={(e) => this.sendNewMessage(e, this)}>
                     <SVG src={senddb} />
                 </BottomRightButton>
             </MessengerFixedBottom>

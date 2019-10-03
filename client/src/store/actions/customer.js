@@ -74,7 +74,9 @@ export const userLogin = (values) => async dispatch => {
 }
 
 export const logoutUser = () => dispatch => {
-  return fetch('/logout');
+  return fetch('/logout')
+  .then(res => res.json())
+    .then(customers => dispatch({type: GET_CUSTOMERS, payload: customers}))
 };
 
 export const fetchUser = () => async dispatch => {

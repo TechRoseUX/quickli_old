@@ -72,7 +72,8 @@ class CustomerConfirmation extends Component {
     }
 
     openAllVehicles = () => {
-        console.log('Opening all vehicles')
+        const { history } = this.props;
+        history.push('/all-customers')
     }
     openAddVehicle = () => {
         const { realCustomers, selectedCustomer, getSelectedCustomer, history } = this.props
@@ -100,6 +101,7 @@ class CustomerConfirmation extends Component {
                                     white20
                                 >
                                     {currentCus.name}
+                                    &nbsp;
                                 The new customer has been added successfully. Would you like to add a vehicle for this customer now?
                                 </Text>
                         </ConfirmContentText>

@@ -19,6 +19,7 @@ module.exports = (app) => {
       
         const newService = new Service ({
             user: req.body.props.selectedVehicle.user,
+            date: uniqid,
             serviceid: uniqid,
             customerid: req.body.props.selectedVehicle.ownerid,
             vehicleid: req.body.props.selectedVehicle.vehicleid,
@@ -67,10 +68,12 @@ module.exports = (app) => {
       
         const newMessage= new ToMessage ({
             messageid: uniqid,
+            date: uniqid,
             textMessage: textMessage,
             phoneNumber: phoneNumber,
             serviceid: req.body.serviceid,
             vehicleid: req.body.vehicleid,
+            customerid: req.body.customerid,
             user: req.body.user,
             active: true
         });

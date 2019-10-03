@@ -86,8 +86,37 @@ class ServiceInfo extends Component {
   render() {
     const { selectedVehicle, selectedCustomer, selectedService } = this.props
     console.log(this.props.state);
+    var strTime;
+    var strDate;
 
     if (selectedService) {
+        var jsTime = selectedService.date
+        var timestamp = jsTime.substring(0, jsTime.length - 3)
+        console.log(timestamp);
+        console.log(jsTime);
+        var newDate = new Date(timestamp*1000);
+        var fHours = newDate.getHours();
+        var fMinutes = '0' + newDate.getMinutes();
+
+
+        var fDay = newDate.getDate();
+        var fMonth = newDate.getMonth();
+        var fYear = newDate.getFullYear();
+        fMonth = fMonth + 1;
+        console.log(fMonth);
+        console.log(fDay);
+        
+      
+        var ampm = fHours >= 12 ? 'pm' : 'am';
+        fHours = fHours % 12;
+        fHours = fHours ? fHours : 12;
+      //  fMinutes = fMinutes < 10 ? '0'+ fMinutes : fMinutes;
+      var formattedTime = fHours + ':' + fMinutes.substr(-2) + ampm;
+      var formattedDate = (`${fMonth}/${fDay}/${fYear}`)
+      //  strDate = (`${fMonth}/${fDay}`);
+
+
+
         return (
             <MainBG>
                 <StyledBackIcon
@@ -147,7 +176,11 @@ class ServiceInfo extends Component {
                       customerIE
                       white20
                       >
-                          {selectedService.date}
+                          {formattedDate}
+                          &nbsp;
+                          - 
+                          &nbsp;
+                          {formattedTime} 
                       </Text>
                   </InfoEText>
               </InfoElement>
