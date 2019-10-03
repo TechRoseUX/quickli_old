@@ -446,6 +446,8 @@ class ChatMessenger extends Component {
         } else {
             console.log('It cannot be done.')
         }
+
+        window.location.reload()
   }
 
   handleChange = (e) => {

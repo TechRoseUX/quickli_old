@@ -7,6 +7,7 @@ import SVG from 'react-inlinesvg';
 import Colors from '../../constants/colors'
 import userb from '../../../rersources/svg/userb.svg';
 import lockb from '../../../rersources/svg/lockb.svg';
+import closer from '../../../rersources/svg/closer.svg';
 import { NewDiv } from '../Styled/StyledComponents';
 import Button from './Button';
 import Text from './Text';
@@ -28,13 +29,13 @@ const StyledOverlayContainer = styled(NewDiv)`
 const StyledOverlayContentBox = styled(NewDiv)`
     @media ${device.tablet} {
         width: 500px;
-        height: 500px;
+        height: 550px;
         background: rgb(89,200,248);
         background: linear-gradient(180deg, rgba(89,200,248,1) 0%, rgba(255,255,255,1) 100%);
         position: fixed
         left: 50%;
         margin-left: -250px;
-        margin-top: 200px;
+        margin-top: 150px;
         z-index: 2000;
     }
 `
@@ -55,7 +56,7 @@ const CustomerInputMessage = styled.input`
     }
 `
 
-const CustomerInputMessageLarge = styled.input`
+const CustomerInputMessageLarge = styled.textarea`
     @media ${device.tablet} {
         width: 300px;
         height: 100px !important;
@@ -68,7 +69,7 @@ const CustomerInputMessageLarge = styled.input`
 
 const TemplateNavContainer = styled.div`
     @media ${device.tablet} {
-        bottom: 100px;
+        bottom: 75px;
         position: absolute;
         margin-left: auto;
         margin-right: auto;
@@ -78,6 +79,20 @@ const TemplateNavContainer = styled.div`
         display: flex
         justify-content: space-between;
         align-items: center;
+    }
+`
+
+const CloseTemplateOverlay = styled.div`
+    @media ${device.tablet} {
+        width: 50px;
+        height: 50px;
+        margin-top: 25px;
+        margin-left: 25px;
+
+        svg {
+            height: 100%;
+            width: 100%;
+        }
     }
 `
 
@@ -344,7 +359,7 @@ class StyledOverlay extends Component  {
                         padding="10px 0 0 0"
                     >
                         <CustomerInputMessageLarge 
-                            type="text"
+                            type="textarea"
                             onChange={this.handleChange.bind(this)}
                             name="customMessage"
                             value={this.state.customText}
@@ -369,6 +384,12 @@ class StyledOverlay extends Component  {
             </NewDiv>
         )
     }
+
+    closeTemplateOverlayFunc = () => {
+        const { toggleTemplateOverlay } = this.props
+        toggleTemplateOverlay(false);
+    }
+
 
     forwardTemplate = () => {
         const messageTemplates = [this.template1, this.template2, this.template3, this.template4]
@@ -410,6 +431,11 @@ class StyledOverlay extends Component  {
                 <StyledOverlayContainer>
                 </StyledOverlayContainer>
                 <StyledOverlayContentBox>
+                    <CloseTemplateOverlay
+                        onClick={this.closeTemplateOverlayFunc}
+                    >
+                        <SVG src={closer} />
+                    </CloseTemplateOverlay>
                     {currentTemplate()}
                     <TemplateNavContainer
                         
