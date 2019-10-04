@@ -28,15 +28,30 @@ module.exports = (app) => {
             mileage: req.body.values.mileage,
             reason: req.body.values.reason,
             tagNumber: req.body.values.tnumber,
-            details: 'yo',
+            details: req.body.detailsText,
             status: true
         });
         newService.save();
       });
+
+      //Update service info to end the process
+      app.post('/end-service', async (req, res) => { 
+        const myjson = JSON.stringify(req.body.props.selectedServiceMessage)
+        console.log(`MYJSONNNNNNNNNNNNNNNNNNN${myjson}`);
+        const newDetails = req.body.detailsText
+        const serviceNum = req.body.props.selectedServiceMessage.serviceid
+        var myquery = { serviceid: serviceNum };
+        var newvalues = { $set: { details: newDetails, status: false } };
+
+        Service.updateOne(myquery, newvalues, function(err, res) {
+          if (err) throw err
+          console.log("1 document updated");
+        })
+      })
       
       //Chat Messenger
       app.get('/customers/chat/service', async (req, res) => {
-        const as = await Service.find({user: req.user.id, status: 'open'});
+        const as = await Service.find({user: req.user.id, status: true});
         const activeServices = Array.from(as);
         res.json(activeServices);
       })

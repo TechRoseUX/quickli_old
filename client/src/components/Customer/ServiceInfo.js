@@ -59,6 +59,7 @@ const InfoEText = styled(NewDiv)`
         width: ${props => (props.width || 'auto')}
         margin-left: ${props => (props.marginLeft || '0px')};
         vertical-align: top;
+        max-width: 350px;
     }
 `
 

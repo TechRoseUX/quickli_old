@@ -24,6 +24,10 @@ module.exports = (app) => {
         const realCustomers = Array.from(rcs);
         res.json(realCustomers);
       });
+
+      //Edit Customer Info Page
+      app.get('/customer/edit/:customerid', async (req, res) => { 
+      })
       
       //Customer Vehicles Page 
       app.get('/customer-vehicles', async (req, res) => {
@@ -72,6 +76,7 @@ module.exports = (app) => {
             }
           })
       });
+
       
       app.post('/new-vehicle', (req, res) => {
         var uniqid = Date.now();

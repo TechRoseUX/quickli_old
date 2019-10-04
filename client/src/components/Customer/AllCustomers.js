@@ -258,11 +258,11 @@ class AllCustomers extends Component {
             <Text
               padding="0 0 15px 0"
             >
-              Filter By:
+              Sort By:
             </Text>
             <NameSelectDiv>
               <StyledSelect>
-                <option>A-Z</option>
+                <option>Default</option>
               </StyledSelect>
             </NameSelectDiv>
           </SearchNameBox>

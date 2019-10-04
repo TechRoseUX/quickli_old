@@ -60,6 +60,12 @@ export const createNewService = (dataa) => async dispatch => {
   dispatch({type: GET_CUSTOMERS, payload: res.data})
 }
 
+export const updateService = (dataa) => async dispatch => {
+  const res = await axios.post('/end-service', dataa);
+  console.log('Updating the service!')
+  dispatch({type: GET_CUSTOMERS, payload: res.data})
+}
+
 export const createNewToMessage = (value) => async dispatch => {
   console.log(value)
   const res = await axios.post('/customers/chat/service', value);

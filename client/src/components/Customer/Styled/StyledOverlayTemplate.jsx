@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import styled from 'styled-components';
-import { device } from '../Styled/StyledMediaQuery';
+import { device } from './StyledMediaQuery';
 import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom';
 import SVG from 'react-inlinesvg';
 
@@ -8,7 +8,7 @@ import Colors from '../../constants/colors'
 import userb from '../../../rersources/svg/userb.svg';
 import lockb from '../../../rersources/svg/lockb.svg';
 import closer from '../../../rersources/svg/closer.svg';
-import { NewDiv } from '../Styled/StyledComponents';
+import { NewDiv } from './StyledComponents';
 import Button from './Button';
 import Text from './Text';
 import { toggleTemplateOverlay } from '../../../store/reducers/environment';
@@ -96,7 +96,7 @@ const CloseTemplateOverlay = styled.div`
     }
 `
 
-class StyledOverlay extends Component  {
+class StyledOverlayTemplate extends Component  {
     constructor() {
         super()
         this.state = { 
@@ -469,4 +469,4 @@ class StyledOverlay extends Component  {
    
   }
 
-  export default StyledOverlay;
+  export default StyledOverlayTemplate;

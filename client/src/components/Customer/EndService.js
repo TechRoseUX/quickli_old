@@ -70,19 +70,43 @@ const FIELDS = [
   }
 ]
 
-class AddService extends Component {
+class EndService extends Component {
   constructor() {
     super()
 
     this.state = {
       currentDetailsText: ''
     }
-
     this.updateTextarea = this.updateTextarea.bind(this)
   }
 
+  componentDidMount() {
+      const { selectedServiceMessage } = this.props
+      this.setState({ currentDetailsText: selectedServiceMessage.details })
+  }
+
   renderFields = () => {
-    const selectedCustomer = this.props.selectedCustomer
+    const { selectedCustomer, selectedServiceMessage } = this.props
+
+    const FIELDS = [
+        {
+          label: 'Name', name: 'name', svg: userb, placeholder: 'Enter name...', noValueError: 'You must provide a name', defaultValue: selectedServiceMessage.customerName
+        },
+        {
+          label: 'Mileage', name: 'mileage', svg: mileageb, placeholder: 'Enter vehicle mileage...', noValueError: 'You must provide a value for mileage', defaultValue: selectedServiceMessage.mileage
+        },
+        {
+          label: 'Phone Number', name: 'pnumber', svg: phoneb, placeholder: 'Enter phone number...',  noValueError: 'You must provide a phone number', defaultValue: selectedServiceMessage.phoneNumber
+        },
+        {
+          label: 'Reason For Visit', name: 'reason', svg: pencilb, placeholder: 'Enter reason...', noValueError: 'You must provide a reason for visit', defaultValue: selectedServiceMessage.reason
+        },
+        {
+          label: 'Tag Number', name: 'tnumber', svg: hashb, placeholder: 'Enter tag number...', noValueError: 'You must provide a tag number', defaultValue: selectedServiceMessage.tagNumber
+        }
+      ]
+
+
     return FIELDS.map(field => {
       return(
         <Field 
@@ -94,6 +118,8 @@ class AddService extends Component {
           fieldWidth="428px"
           containerWidth="500px" 
           placeholder={field.placeholder}
+          defaultValue={field.defaultValue}
+          value="Value"
           svg={field.svg}
       />
       )  
@@ -120,9 +146,11 @@ class AddService extends Component {
   }
 
   render() {
-    const { createNewService, selectedCustomer, selectedVehicle } = this.props
+    const { selectedCustomer, selectedVehicle, selectedServiceText, selectedServiceMessage, updateService } = this.props
     const props = this.props
     const currentDetailsText = this.state.currentDetailsText
+
+    console.log(selectedServiceMessage)
 
     const createBody = (values, props) => {
       const history = this.props.history;
@@ -135,7 +163,7 @@ class AddService extends Component {
         var myJSON = JSON.stringify(dataa)
 
         console.log(`Here is the data ${myJSON}`)
-        createNewService(dataa);
+        updateService(dataa);
         history.push('/customers/chat/service')
         window.location.reload();
     }
@@ -143,17 +171,12 @@ class AddService extends Component {
     return (
       <div>
       <MainBG>
-        <StyledBackIcon
-            onClick={() => this.goBack()}
-        >
-           <SVG src={arrowleftw} />
-        </StyledBackIcon>
           <MainHeading>
             <Text
               mainHeading
               padding="30px 0 50px 0"
             >
-              Enter The Fields Below
+              Confirm Information Below
             </Text>
           </MainHeading>
         <FormContainer
@@ -185,18 +208,10 @@ class AddService extends Component {
 }
 
 const validate = (values) => {
-  const errors = {};
 
-  FIELDS.forEach(({ name, noValueError }) => {
-    if (!values[name]) {
-      errors[name] = noValueError;
-    }
-  });
-
-  return errors;
 }
 
 export default reduxForm({
   validate,
   form: 'newServiceForm'
-})(AddService)
+})(EndService)

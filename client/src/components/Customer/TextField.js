@@ -67,7 +67,7 @@ const FormIconContainer = styled(NewDiv)`
     }
 `
 
-export default ({ input, label, svg, placeholder, defaultValue, fieldWidth, containerWidth, meta: { error, touched } }) => {
+export default ({ input, label, svg, placeholder, defaultValue, value, fieldWidth, containerWidth, meta: { error, touched } }) => {
     console.log(defaultValue);
     return (
         <FormFieldContainer
@@ -80,7 +80,7 @@ export default ({ input, label, svg, placeholder, defaultValue, fieldWidth, cont
                     </FormIconContainer>
                 </FormFieldLeft>
                 <FormFieldSplit />
-                <FormField {...input} placeholder={placeholder} defaultValue={defaultValue} width={fieldWidth} /> <br/>
+                <FormField {...input} placeholder={placeholder} value={value} defaultValue={defaultValue} width={fieldWidth} /> <br/>
                 {touched && error}
         </FormFieldContainer>
     )

@@ -12,6 +12,7 @@ const initialState = {
     selectedServiceMesssage: null,
     selectedMessageText: null,
     showTemplateOverlay: false,
+    showEndServiceOverlay: false,
     currentEmailId: '',
     search: '',
     currentFilter: 'Name'
@@ -73,6 +74,13 @@ export function toggleTemplateOverlay(status) {
     }
 }
 
+export function toggleEndServiceOverlay(status) {
+    return {
+        type: TOGGLE_END_SERVICE_OVERLAY,
+        status
+    }
+}
+
 export function getCurrentEmailId(email) {
     return {
         type: GET_CURRENT_EMAIL_ID,
@@ -102,6 +110,7 @@ const GET_SELECTED_SERVICE = 'GET_SELECTED_SERVICE';
 const GET_SELECTED_SERVICE_MESSAGE = 'GET_SELECTED_SERVICE_MESSAGE';
 const GET_SELECTED_MESSAGE_TEXT = 'GET_SELECTED_MESSAGE_TEXT';
 const TOGGLE_TEMPLATE_OVERLAY = 'TOGGLE_TEMPLATE_OVERLAY';
+const TOGGLE_END_SERVICE_OVERLAY = 'TOGGLE_END_SERVICE_OVERLAY';
 const GET_CURRENT_EMAIL_ID = 'GET_CURRENT_EMAIL_ID';
 const UPDATE_CUSTOMER_SEARCH = 'UPDATE_CUSTOMER_SEARCH';
 const GET_CURRENT_FILTER = 'GET_CURRENT_FILTER';
@@ -147,6 +156,11 @@ export default function (state = initialState, action) {
         return {
             ...state,
             showTemplateOverlay: action.status
+        }
+    case TOGGLE_END_SERVICE_OVERLAY:
+        return {
+            ...state,
+            showEndServiceOverlay: action.status
         }
     case GET_CURRENT_EMAIL_ID:
         return {

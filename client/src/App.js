@@ -20,11 +20,12 @@ import AddService from './components/Customer/AddService';
 import AddVehicle from './components/Customer/AddVehicle';
 import RegisterUser from './components/Customer/RegisterUser';
 import LoginUser from './components/Customer/LoginUser';
+import EndService from './components/Customer/EndService';
 import StyledNavBar from './components/Customer/Styled/StyledNavBar';
 import CustomerService from './components/Customer/CustomerService';
 import { connect } from 'react-redux';
 
-import { createNewCustomer, createNewUser, createNewVehicle, userLogin, logoutUser, fetchUser, getRealCustomers, getCustomerVehicles, createNewService, getCustomerServices, createNewToMessage, getCustomerActiveToMessages } from './store/actions/customer';
+import { createNewCustomer, createNewUser, createNewVehicle, userLogin, logoutUser, fetchUser, getRealCustomers, getCustomerVehicles, createNewService, getCustomerServices, createNewToMessage, getCustomerActiveToMessages, updateService } from './store/actions/customer';
 import { toggleNavBar, toggleNavToggle, getSelectedCustomer, getSelectedVehicle, getCurrentEmailId } from './store/reducers/environment';
 
 import styled from 'styled-components';
@@ -123,6 +124,7 @@ class App extends Component {
     const createNewUser = this.props.createNewUser;
     const createNewVehicle = this.props.createNewVehicle;
     const createNewService = this.props.createNewService;
+    const updateService = this.props.updateService;
     const createNewToMessage = this.props.createNewToMessage;
     const userLogin = this.props.userLogin;
     const logoutUser = this.props.logoutUser;
@@ -204,6 +206,15 @@ class App extends Component {
             createNewService={createNewService}
             selectedCustomer={environment.selectedCustomer}
             selectedVehicle={environment.selectedVehicle}
+            history={history}
+             />  }
+             />
+             <Route exact path="/end-service" 
+            render={(props) => <EndService
+            selectedServiceMessage={environment.selectedServiceMessage}
+            selectedCustomer={environment.selectedCustomer}
+            selectedVehicle={environment.selectedVehicle}
+            updateService={updateService}
             history={history}
              />  }
              />
@@ -333,6 +344,7 @@ const mapDispatchToProps = (dispatch) => {
     createNewUser: (values) => dispatch(createNewUser(values)),
     createNewVehicle: (values) => dispatch(createNewVehicle(values)),
     createNewService: (values) => dispatch(createNewService(values)),
+    updateService: (values) => dispatch(updateService(values)),
     createNewToMessage: (value) => dispatch(createNewToMessage(value)),
     userLogin: (values) => dispatch(userLogin(values)),
     logoutUser: (values) => dispatch(logoutUser(values)),

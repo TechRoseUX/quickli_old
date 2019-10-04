@@ -4,16 +4,17 @@ import {connect} from 'react-redux';
 import {getActiveCustomerServices, getCustomerActiveToMessages} from '../../store/actions/customer'
 import { createNewToMessage } from '../../store/actions/customer'
 import './customers.css';
-import StyledOverlay from '../Customer/Styled/StyledOverlay';
+import StyledOverlayTemplate from '../Customer/Styled/StyledOverlayTemplate';
+import StyledOverlayEndService from '../Customer/Styled/StyledOverlayEndService';
 
 import styled from 'styled-components';
 import { device } from './Styled/StyledMediaQuery';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom';
 import SVG from 'react-inlinesvg';
 
 import Colors from '../constants/colors';
 
-import { getSelectedCustomer, getSelectedServiceMessage, getSelectedMessageText, toggleTemplateOverlay } from '../../store/reducers/environment';
+import { getSelectedCustomer, getSelectedServiceMessage, getSelectedMessageText, toggleTemplateOverlay, toggleEndServiceOverlay } from '../../store/reducers/environment';
 import CustomerCellRow from './CustomerCellRow';
 import userb from '../../rersources/svg/userb.svg';
 import lockb from '../../rersources/svg/lockb.svg';
@@ -230,6 +231,8 @@ class ChatMessenger extends Component {
     } else {
         console.log('Not showing....');
     }
+
+    console.log(this.props)
   }
 
   search = (id, myArray) => {
@@ -252,7 +255,7 @@ class ChatMessenger extends Component {
         const { showTemplateOverlay, getSelectedMessageText, selectedMesageText, toggleTemplateOverlay, selectedServiceMessage } = this.props
         if (showTemplateOverlay === true) {
             return (
-                <StyledOverlay
+                <StyledOverlayTemplate
                     getSelectedMessageText={getSelectedMessageText} 
                     selectedMesageText={selectedMesageText}
                     toggleTemplateOverlay={toggleTemplateOverlay}
@@ -266,13 +269,38 @@ class ChatMessenger extends Component {
         }
     }
 
+    displayOverlayEnd = () => {
+        const { showEndServiceOverlay, getSelectedMessageText, selectedMesageText, toggleEndServiceOverlay, selectedServiceMessage, history } = this.props
+        if (showEndServiceOverlay === true) {
+            return (
+                <StyledOverlayEndService
+                    getSelectedMessageText={getSelectedMessageText} 
+                    selectedMesageText={selectedMesageText}
+                    toggleEndServiceOverlay={toggleEndServiceOverlay}
+                    selectedServiceMessage={selectedServiceMessage}
+                    history={history}
+              />
+            )
+        } else {
+            return (
+                <div></div>
+            )
+        }
+    }
+
+    endService = () => {
+        const { toggleEndServiceOverlay } = this.props
+        toggleEndServiceOverlay(true)
+        console.log('Ending the service....')
+    }
+
   renderChatCells = () => {
     var activeServiceArray = []
     const { customerServices, activeToMessages } = this.props
     console.log(customerServices);
 
     for (var i=0; i < customerServices.length; i++) {
-        if (customerServices[i].status = true) {
+        if (customerServices[i].status == true) {
             activeServiceArray.push(customerServices[i])
         } else {
             console.log('Not active');
@@ -340,12 +368,36 @@ class ChatMessenger extends Component {
       const {selectedServiceMessage } = this.props
       if (selectedServiceMessage) {
             return (
-                <Text
-                    dblue30
-                    padding="10px 0 0 10px"
-                >
-                    {selectedServiceMessage.customerName}
-                </Text>
+                <NewDiv>
+                    <Text
+                        dblue30
+                        padding="10px 0 0 10px"
+                        inline
+                    >
+                        {selectedServiceMessage.customerName}
+                    </Text>
+                    <NewDiv
+                        display='inline-block'
+                        float='right'
+                        margin='15px 15px 0 0'
+                    >
+                        <Button
+                            width='156px'
+                            height='40px'
+                            borderRadius='20px'
+                            backgroundColor={Colors.brightRed}
+                            display='inline-block'
+                            onClick={this.endService}
+                        >
+                            <Text
+                                white20
+                            >
+                                End
+                            </Text>
+                        </Button>
+                        
+                    </NewDiv>
+                </NewDiv>
             )
       } else {
           return (
@@ -470,6 +522,7 @@ class ChatMessenger extends Component {
     return (
       <div>
           {this.displayOverlay()}
+          {this.displayOverlayEnd()}
         <MessengerContainer>
             <MessengerContainerTop>
                 <StyledBackIcon
@@ -533,6 +586,7 @@ const mapStateToProps = (state) => ({
   selectedServiceMessage: state.environment.selectedServiceMessage,
   selectedMessageText: state.environment.selectedMessageText,
   showTemplateOverlay: state.environment.showTemplateOverlay,
+  showEndServiceOverlay: state.environment.showEndServiceOverlay,
   state: state
 })
 
@@ -541,7 +595,8 @@ const dispatchToProps = (dispatch) => ({
    getSelectedServiceMessage: (sm) => dispatch(getSelectedServiceMessage(sm)),
    getSelectedMessageText: (text) => dispatch(getSelectedMessageText(text)),
    toggleTemplateOverlay: (status) => dispatch(toggleTemplateOverlay(status)),
+   toggleEndServiceOverlay: (status) => dispatch(toggleEndServiceOverlay(status)),
    getCustomerActiveToMessages: (status) => dispatch(getCustomerActiveToMessages)
 })
 
-export default connect(mapStateToProps, dispatchToProps)(ChatMessenger);
+export default withRouter(connect(mapStateToProps, dispatchToProps)(ChatMessenger));
