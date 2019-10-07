@@ -73,8 +73,12 @@ export const createNewToMessage = (value) => async dispatch => {
 }
 
 export const userLogin = (values) => async dispatch => {
+  const reload = () => {
+    window.location.reload()
+  }
+  setTimeout(reload, 5000)
   const res = await axios.post('/login', values);
-  window.location.reload();
+ // window.location.reload();
   console.log('Here is the new user being logged in.')
   dispatch({type: UPDATE_CUSTOMER, payload: res.data})
 }

@@ -30,7 +30,6 @@ export const MainNavContainer = styled(NewDiv)`
     }
 `
 
-
 export const HeaderContainer = styled(NewDiv)`
     @media ${device.tablet} {
         width: 323px;
