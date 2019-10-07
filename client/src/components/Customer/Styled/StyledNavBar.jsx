@@ -235,22 +235,6 @@ class StyledNavBar extends Component  {
                       </LIRight>
                   </HeaderLIContainer>
                 </Link>
-                <Link to ='/settings'>
-                  <HeaderLIContainer>
-                      <LILeft>
-                          <NavLIIcon>
-                              <SVG src={settingsw} />
-                          </NavLIIcon>
-                      </LILeft>
-                      <LIRight>
-                          <Text
-                              navItem
-                          >
-                              Settings
-                          </Text>
-                      </LIRight>
-                  </HeaderLIContainer>
-                </Link>
                   <HeaderLIContainer
                     onClick={this.handleLogout}
                   >
