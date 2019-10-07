@@ -137,7 +137,10 @@ class StyledNavBar extends Component  {
         console.log('Handling logout....')
         logoutUser();
         history.push('/')
-        window.location.reload()
+        const reload = () => {
+            window.location.reload()
+        }
+        setTimeout(reload, 1000)
     }
 
     render() {
