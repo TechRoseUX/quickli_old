@@ -140,7 +140,7 @@ class StyledNavBar extends Component  {
         const reload = () => {
             window.location.reload()
         }
-        setTimeout(reload, 1000)
+        setTimeout(reload, 2000)
     }
 
     render() {
