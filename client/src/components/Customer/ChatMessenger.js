@@ -219,7 +219,9 @@ class ChatMessenger extends Component {
     constructor() {
         super()
         this.state = {
-            correctChats: []
+            correctChats: [],
+            correctDisplayedMessages: []
+
         }
     }
   componentDidMount() {
@@ -431,7 +433,7 @@ class ChatMessenger extends Component {
   }
 
   renderChatMessages = () => {
-    const { activeToMessages, selectedServiceMessage } = this.props
+    const { activeToMessages, selectedServiceMessage, getCustomerActiveToMessages } = this.props
     const displayedToMessages = []
 
     this.checkMessageFunc()
@@ -441,16 +443,15 @@ class ChatMessenger extends Component {
             if (activeToMessages[i].serviceid === selectedServiceMessage.serviceid) {
                 displayedToMessages.push(activeToMessages[i]);
 
-    //this.setState(prevState => ({ correctChats: [ activeToMessages[i], ...prevState.correctChats]}))
 
-                console.log('Pushed');
+                console.log(`pushed ${activeToMessages[i]}`);
             }  else {
                 console.log('did not match');
             }  
         }
-
         console.log(this.state);
-
+        console.log(displayedToMessages)
+        console.log(activeToMessages)
         return displayedToMessages.map((v) => {
             return (
                 <ChatToRow>
@@ -478,7 +479,7 @@ class ChatMessenger extends Component {
   }
 
   sendNewMessage = (e, value) => {
-      const { selectedMessageText, createNewToMessage, selectedServiceMessage } = this.props
+      const { selectedMessageText, createNewToMessage, selectedServiceMessage, getCustomerActiveToMessages } = this.props
         e.preventDefault();
         console.log(value)
         console.log(selectedMessageText)
@@ -499,7 +500,9 @@ class ChatMessenger extends Component {
             console.log('It cannot be done.')
         }
 
-        window.location.reload()
+        setTimeout(getCustomerActiveToMessages, 1000)
+        setTimeout(this.renderChatMessages, 2000)
+        //window.location.reload()
   }
 
   handleChange = (e) => {
@@ -596,7 +599,7 @@ const dispatchToProps = (dispatch) => ({
    getSelectedMessageText: (text) => dispatch(getSelectedMessageText(text)),
    toggleTemplateOverlay: (status) => dispatch(toggleTemplateOverlay(status)),
    toggleEndServiceOverlay: (status) => dispatch(toggleEndServiceOverlay(status)),
-   getCustomerActiveToMessages: (status) => dispatch(getCustomerActiveToMessages)
+   getCustomerActiveToMessages: () => dispatch(getCustomerActiveToMessages())
 })
 
 export default withRouter(connect(mapStateToProps, dispatchToProps)(ChatMessenger));

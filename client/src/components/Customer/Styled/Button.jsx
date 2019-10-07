@@ -32,7 +32,9 @@ const Button = styled.button`
     :active{
         box-shadow: 0 2px 4px 0 rgba(0,0,0,0.20), 0 1px 3px 0 rgba(0,0,0,0.30);
     }
-
+    :focus{
+        outline: 0;
+    }
     ${is('primary')`
 
     `}
