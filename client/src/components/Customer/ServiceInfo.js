@@ -37,6 +37,10 @@ const InfoElement = styled(NewDiv)`
         margin-bottom: 50px;
         text-align: left;
     } 
+
+    @media ${device.laptop} {
+        margin-left: 10%;
+    }
 `
 
 const InfoEIcon = styled(NewDiv)`
@@ -99,7 +103,6 @@ class ServiceInfo extends Component {
         var fHours = newDate.getHours();
         var fMinutes = '0' + newDate.getMinutes();
 
-
         var fDay = newDate.getDate();
         var fMonth = newDate.getMonth();
         var fYear = newDate.getFullYear();
@@ -107,7 +110,6 @@ class ServiceInfo extends Component {
         console.log(fMonth);
         console.log(fDay);
         
-      
         var ampm = fHours >= 12 ? 'pm' : 'am';
         fHours = fHours % 12;
         fHours = fHours ? fHours : 12;
@@ -115,8 +117,6 @@ class ServiceInfo extends Component {
       var formattedTime = fHours + ':' + fMinutes.substr(-2) + ampm;
       var formattedDate = (`${fMonth}/${fDay}/${fYear}`)
       //  strDate = (`${fMonth}/${fDay}`);
-
-
 
         return (
             <MainBG>

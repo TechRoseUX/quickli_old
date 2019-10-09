@@ -37,7 +37,11 @@ const InfoElement = styled(NewDiv)`
         margin-left: 80px;
         margin-bottom: 50px;
         text-align: left;
-    } 
+    }
+     
+    @media ${device.laptop} {
+        margin-left: 10%;
+    }
 `
 
 const InfoEIcon = styled(NewDiv)`

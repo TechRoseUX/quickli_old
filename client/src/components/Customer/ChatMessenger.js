@@ -14,7 +14,7 @@ import SVG from 'react-inlinesvg';
 
 import Colors from '../constants/colors';
 
-import { getSelectedCustomer, getSelectedServiceMessage, getSelectedMessageText, toggleTemplateOverlay, toggleEndServiceOverlay } from '../../store/reducers/environment';
+import { getSelectedCustomer, getSelectedServiceMessage, getSelectedMessageText, toggleTemplateOverlay, toggleEndServiceOverlay, getCurrentFilter, updateCustomerSearch } from '../../store/reducers/environment';
 import CustomerCellRow from './CustomerCellRow';
 import userb from '../../rersources/svg/userb.svg';
 import lockb from '../../rersources/svg/lockb.svg';
@@ -95,6 +95,11 @@ const MessengerSearchBar = styled.input`
         font-size: 16px;
         border: none;
         border-radius: 20px;
+        margin-right: 10px;
+
+        :focus {
+            outline: none;
+          }
     } 
 `
 
@@ -197,6 +202,7 @@ const ChatToRow = styled(NewDiv)`
     @media ${device.tablet} {
         width: 100%;
         height: auto;
+        clear: both;
     } 
 `
 
@@ -225,13 +231,15 @@ class ChatMessenger extends Component {
         }
     }
   componentDidMount() {
-    const {showNavBar, toggleNavBar, toggleNavToggle, getCustomerActiveToMessages, activeToMessages, selectedServiceMessage } = this.props
+    const {showNavBar, toggleNavBar, toggleNavToggle, getCustomerActiveToMessages, activeToMessages, selectedServiceMessage, getCurrentFilter, updateCustomerSearch } = this.props
 
     if (showNavBar === 'block') {
         toggleNavBar('none')
         toggleNavToggle(barsw);
+        updateCustomerSearch('')
     } else {
         console.log('Not showing....');
+        updateCustomerSearch('')
     }
 
     console.log(this.props)
@@ -298,7 +306,7 @@ class ChatMessenger extends Component {
 
   renderChatCells = () => {
     var activeServiceArray = []
-    const { customerServices, activeToMessages } = this.props
+    const { customerServices, activeToMessages, getCurrentFilter, search } = this.props
     console.log(customerServices);
 
     for (var i=0; i < customerServices.length; i++) {
@@ -307,13 +315,29 @@ class ChatMessenger extends Component {
         } else {
             console.log('Not active');
         }
-        console.log(activeServiceArray)
     }
-    activeServiceArray.reverse()
+    var reversedActiveServiceArray = activeServiceArray.reverse()
 
-        return activeServiceArray.map((v) => {
+    var searchedActiveServices;
+
+    if (search === null || search === '') {
+        searchedActiveServices = reversedActiveServiceArray
+      } else {
+        searchedActiveServices = reversedActiveServiceArray.filter((item) => {
+          var name = item.customerName.toLowerCase()
+          var filterVal = search.toLowerCase();
+          var n = name.match(filterVal)
+          if (n != null) {
+            return true
+          }
+        })
+      }
+
+        return searchedActiveServices.map((v) => {
             var vMessages = []
             var lastMessage;
+            var formattedTime;
+            var displayedMessage;
 
             for (var i=0; i < activeToMessages.length; i++) {
                 if (v.serviceid == activeToMessages[i].serviceid) {
@@ -324,9 +348,22 @@ class ChatMessenger extends Component {
             }
 
             if (vMessages.length > 0) {
-                lastMessage = vMessages.slice(-1)[0]
+                lastMessage = vMessages.slice(-1)[0];
+                displayedMessage = lastMessage.textMessage
+                var jsTime = lastMessage.date
+                var timestamp = jsTime.substring(0, jsTime.length - 3)
+                var newDate = new Date(timestamp*1000);
+                var fHours = newDate.getHours();
+                var fMinutes = '0' + newDate.getMinutes();
+                
+                var ampm = fHours >= 12 ? 'pm' : 'am';
+                fHours = fHours % 12;
+                fHours = fHours ? fHours : 12;
+                formattedTime = fHours + ':' + fMinutes.substr(-2) + ampm;
+
             } else {
-                lastMessage = 'No messages sent.'
+                formattedTime = '';
+                displayedMessage = 'No Messages sent';
             }
 
             return (
@@ -349,7 +386,7 @@ class ChatMessenger extends Component {
                             float='right'
                             maxWidth='80px'
                         >
-                            /
+                            {formattedTime}
                         </Text>
                     </MessageCellContentTop>
                     <MessageCellContentBottom>
@@ -358,7 +395,7 @@ class ChatMessenger extends Component {
                             ellipsis
                             maxWidth="100%"
                         >
-                            {lastMessage.textMessage}
+                            {displayedMessage}
                         </Text>
                     </MessageCellContentBottom>
                 </MessageCell>
@@ -455,9 +492,9 @@ class ChatMessenger extends Component {
         return displayedToMessages.map((v) => {
             return (
                 <ChatToRow>
-                    <ChatMessageToBubble>
-                        {v.textMessage}
-                    </ChatMessageToBubble>
+                        <ChatMessageToBubble>
+                            {v.textMessage}
+                        </ChatMessageToBubble>
                 </ChatToRow>
             )
         })
@@ -479,7 +516,7 @@ class ChatMessenger extends Component {
   }
 
   sendNewMessage = (e, value) => {
-      const { selectedMessageText, createNewToMessage, selectedServiceMessage, getCustomerActiveToMessages } = this.props
+      const { selectedMessageText, createNewToMessage, selectedServiceMessage, getCustomerActiveToMessages, getSelectedMessageText } = this.props
         e.preventDefault();
         console.log(value)
         console.log(selectedMessageText)
@@ -495,7 +532,6 @@ class ChatMessenger extends Component {
                 user: selectedServiceMessage.user
             }
             createNewToMessage(info);
-            this.forceUpdate();
         } else {
             console.log('It cannot be done.')
         }
@@ -503,6 +539,7 @@ class ChatMessenger extends Component {
         setTimeout(getCustomerActiveToMessages, 1000)
         setTimeout(this.renderChatMessages, 2000)
         //window.location.reload()
+        getSelectedMessageText('')
   }
 
   handleChange = (e) => {
@@ -516,8 +553,16 @@ class ChatMessenger extends Component {
     history.go(-1)
   }
 
+
+  searchMessageCells = (event) => {
+    const { search, updateCustomerSearch } = this.props
+    var searchText = event.target.value
+    updateCustomerSearch(searchText)
+  }
+  
+
   render() {
-    const { getSelectedMessageText, selectedMessageText, createNewToMessage, selectedServiceMessage } = this.props
+    const { getSelectedMessageText, selectedMessageText, createNewToMessage, selectedServiceMessage, search } = this.props
     console.log(createNewToMessage);
     const newText = "akjshdkjashdkjahsdkhasdkj"
     console.log(this.props)
@@ -528,11 +573,6 @@ class ChatMessenger extends Component {
           {this.displayOverlayEnd()}
         <MessengerContainer>
             <MessengerContainerTop>
-                <StyledBackIcon
-                    onClick={() => this.goBack()}
-                >
-                    <SVG src={arrowleftw} />
-                </StyledBackIcon>
                 <MessengerTopText>
                     <Text
                         white35
@@ -544,6 +584,8 @@ class ChatMessenger extends Component {
                 <MessengerSearchBar 
                     width="85%"
                     placeholder="Search..."
+                    onChange={this.searchMessageCells}
+                    value={search}
                 />
             </MessengerContainerTop>
             {this.renderChatCells()}
@@ -586,6 +628,7 @@ const mapStateToProps = (state) => ({
   realCustomers: state.realCustomers,
   selectedCustomer: state.environment.selectedCustomer,
   activeServices: state.activeServices,
+  search: state.environment.search,
   selectedServiceMessage: state.environment.selectedServiceMessage,
   selectedMessageText: state.environment.selectedMessageText,
   showTemplateOverlay: state.environment.showTemplateOverlay,
@@ -599,7 +642,9 @@ const dispatchToProps = (dispatch) => ({
    getSelectedMessageText: (text) => dispatch(getSelectedMessageText(text)),
    toggleTemplateOverlay: (status) => dispatch(toggleTemplateOverlay(status)),
    toggleEndServiceOverlay: (status) => dispatch(toggleEndServiceOverlay(status)),
-   getCustomerActiveToMessages: () => dispatch(getCustomerActiveToMessages())
+   getCustomerActiveToMessages: () => dispatch(getCustomerActiveToMessages()),
+   getCurrentFilter: (filter) => dispatch (getCurrentFilter(filter)),
+   updateCustomerSearch: (search) => dispatch (updateCustomerSearch(search))
 })
 
 export default withRouter(connect(mapStateToProps, dispatchToProps)(ChatMessenger));

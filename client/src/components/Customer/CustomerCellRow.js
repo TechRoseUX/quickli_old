@@ -31,22 +31,22 @@ const CellID = styled(NewDiv)`
     background: ${Colors.lightBlue};
     display: inline-block;
     float: left;
-    margin-left: 20px;
+    margin-left: 3%;
     margin-top: 15px;
 `
 
 const CellInfoLeft = styled(NewDiv)`
     float: left;
     display: inline-block;
-    margin-left: 100px;
+    margin-left: 12%;
     margin-top: 10px;
     height: 60px;
-    width: 275px;
+    width: 33%;
     text-align: left;
 `
 
 const CellInfoRight = styled(CellInfoLeft)`
-    margin-left: 50px;
+    margin-left: 6%;
 `
 
 class CustomerCellRow extends Component {
@@ -81,7 +81,6 @@ class CustomerCellRow extends Component {
           </CellID>
           <CellInfoLeft>
               <NewDiv
-                width="275px"
               >
                 <Text
                     inline

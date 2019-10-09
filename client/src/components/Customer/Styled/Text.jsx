@@ -124,6 +124,11 @@ const Text = styled.p`
 			max-width: 100px;
 			width: 100px;
 		}
+
+		@media ${device.laptopL} {
+			max-width: 150px;
+			width: 1500px;
+		}
 	`}
 
 `

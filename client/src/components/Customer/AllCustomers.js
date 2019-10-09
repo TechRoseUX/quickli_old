@@ -114,12 +114,14 @@ class AllCustomers extends Component {
 
   componentDidMount() {
     this.props.getRealCustomers();
-    const {showNavBar, toggleNavBar, toggleNavToggle } = this.props
+    const {showNavBar, toggleNavBar, toggleNavToggle, updateCustomerSearch } = this.props
     if (showNavBar === 'block') {
       toggleNavBar('none')
       toggleNavToggle(barsw);
+      updateCustomerSearch('');
     } else {
       console.log('Not showing....');
+      updateCustomerSearch('');
     }
   }
 
