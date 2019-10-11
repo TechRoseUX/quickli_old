@@ -84,9 +84,10 @@ class VehicleConfirmation extends Component {
         } = this.props
 
         const vehicleid = currentV.vehicleid
+        const currentCustomer = this.search(customerid, realCustomers)
 
         getSelectedVehicle(currentV);
-        getSelectedCustomer(customerid)
+        getSelectedCustomer(currentCustomer)
     
 
         console.log(selectedCustomer)

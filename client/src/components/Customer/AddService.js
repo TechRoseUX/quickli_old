@@ -107,6 +107,8 @@ class AddService extends Component {
 
       const sc = this.searchc(customerid, realCustomers);
       const sv = this.searchv(vehicleid, customerVehicles);
+
+      console.log(sc)
       
       getSelectedCustomer(sc);
       getSelectedVehicle(sv);
@@ -118,6 +120,7 @@ class AddService extends Component {
     console.log(selectedVehicle)
 
     if (selectedCustomer && selectedVehicle) {
+      console.log(selectedVehicle)
       const name = {
         label: 'Name', name: 'name', svg: userb, placeholder: 'Enter name...', noValueError: 'You must provide a name', defaultValue: selectedCustomer.name
       }
@@ -262,12 +265,20 @@ class AddService extends Component {
 const validate = (values) => {
   const errors = {};
 
+  if (!values.name) {
+    errors.name = 'Please confirm customer name by selecting the text field.'
+  }
+
+  if (!values.pnumber) {
+    errors.pnumber = 'Please confirm customer phone number by selecting the text field.'
+  }
+
   if (!values.mileage) {
-    errors.mileage = 'You must provide vehicle mileage'
+    errors.mileage = 'Please confirm vehicle mileage by selecting the field.'
   }
 
   if (!values.reason) {
-    errors.reason = 'You must provide vehicle mileage'
+    errors.reason = 'You must provide a reason for service.'
   }
 
   if (!values.tnumber) {

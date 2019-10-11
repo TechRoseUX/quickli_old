@@ -201,7 +201,7 @@ searchC = (id, myArray) => {
         }
     }
 
-    if (selectedVehicle) {
+    if (selectedVehicle && selectedCustomer) {
         return (
             <MainBG>
                 <StyledBackIcon
@@ -237,7 +237,7 @@ searchC = (id, myArray) => {
                       customerIE
                       white20
                       >
-                          {selectedVehicle.ownerid}
+                          {selectedCustomer.name}
                       </Text>
                   </InfoEText>
               </InfoElement>

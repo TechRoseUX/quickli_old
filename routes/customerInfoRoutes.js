@@ -80,13 +80,20 @@ module.exports = (app) => {
       
       app.post('/new-vehicle/:customerid', ensureAuthenticated, (req, res) => {
         var uniqid = Date.now();
+        var num2;
+        
+        if (!req.body.values.phoneNumber1) {
+          num1 = 'No phone number added'
+        } else {
+          num1 = req.body.values.phoneNumber1
+        }
       
         const newVehicle = new Vehicle ({
             user: req.body.props.selectedCustomer.user,
             date: uniqid,
             vehicleid: uniqid,
             ownerid: req.body.props.selectedCustomer.customerid,
-            phoneNumber1: req.body.values.pnumber,
+            phoneNumber1: num1,
             phoneNumber2: req.body.values.pnumber2,
             vehicleYear: req.body.values.vyear,
             vehicleMake: req.body.values.vmake,

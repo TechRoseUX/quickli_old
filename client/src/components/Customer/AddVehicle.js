@@ -72,7 +72,6 @@ getCustomerFromParams = () => {
 }
 
   renderFields = () => {
-
     const { selectedCustomer } = this.props
 
     if (selectedCustomer) {
@@ -253,6 +252,10 @@ const validate = (values, props, field) => {
 
   if (!values.mileage) {
     errors.mileage = 'You must provide vehicle mileage'
+  }
+
+  if (!values.pnumber) {
+    errors.pnumber = 'Please confirm phone number by selecting the text field.'
   }
 
   return errors;

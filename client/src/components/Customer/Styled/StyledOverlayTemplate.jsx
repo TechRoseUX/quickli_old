@@ -201,7 +201,6 @@ class StyledOverlayTemplate extends Component  {
         const text2 = 'we have completed your';
         const newText = `${text1} ${text2} ${this.state.customText}`;
 
-
        const getCorrectMessageText = () => {
             const { getSelectedMessageText, selectedMessageText, toggleTemplateOverlay } = this.props
             console.log(newText)
@@ -267,7 +266,6 @@ class StyledOverlayTemplate extends Component  {
         const text2 = 'We are looking forward to seeing you soon, thank you.';
         const newText = `${text1} ${text2} ${this.state.customText}`;
 
-
        const getCorrectMessageText = () => {
             const { getSelectedMessageText, selectedMessageText, toggleTemplateOverlay } = this.props
             console.log(newText)
@@ -326,13 +324,11 @@ class StyledOverlayTemplate extends Component  {
         )
     }
 
-
     template4 = () => {
         const { selectedServiceMessage } = this.props
         console.log(selectedServiceMessage)
         const text1 = `Hello ${selectedServiceMessage.customerName},`;
         const newText = `${text1} ${this.state.customText}`;
-
 
        const getCorrectMessageText = () => {
             const { getSelectedMessageText, selectedMessageText, toggleTemplateOverlay } = this.props
@@ -390,10 +386,8 @@ class StyledOverlayTemplate extends Component  {
         toggleTemplateOverlay(false);
     }
 
-
     forwardTemplate = () => {
         const messageTemplates = [this.template1, this.template2, this.template3, this.template4]
-
         if (this.state.templateNumber < messageTemplates.length - 1) {
             this.setState({
                 templateNumber: this.state.templateNumber + 1
@@ -407,7 +401,6 @@ class StyledOverlayTemplate extends Component  {
 
     backTemplate = () => {
         const messageTemplates = [this.template1, this.template2, this.template3, this.template4]
-
         if (this.state.templateNumber > 0) {
             this.setState({
                 templateNumber: this.state.templateNumber - 1
@@ -418,7 +411,6 @@ class StyledOverlayTemplate extends Component  {
             })
         }
     }
-
 
     render() {
         const messageTemplates = [this.template1, this.template2, this.template3, this.template4]
