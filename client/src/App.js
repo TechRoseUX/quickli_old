@@ -132,6 +132,7 @@ class App extends Component {
     const toggleNavToggle = this.props.toggleNavToggle;
     const getSelectedCustomer = this.props.getSelectedCustomer;
     const getSelectedVehicle = this.props.getSelectedVehicle;
+    const getRealCustomers = this.props.getRealCustomers;
     const getCurrentEmailId = this.props.getCurrentEmailId
     const environment = this.props.environment;
     const realCustomers = this.props.state.realCustomers;
@@ -193,11 +194,14 @@ class App extends Component {
             getCurrentEmailId={getCurrentEmailId}
              />  }
              />
-             <Route exact path="/new-vehicle" 
+             <Route exact path="/new-vehicle/:customerid" 
             render={(props) => <AddVehicle
+            {...props}
             createNewVehicle={createNewVehicle}
             selectedCustomer={environment.selectedCustomer}
             getSelectedCustomer={getSelectedCustomer}
+            getRealCustomers={getRealCustomers}
+            realCustomers={realCustomers}
             history={history}
              />  }
              />
@@ -206,6 +210,9 @@ class App extends Component {
             createNewService={createNewService}
             selectedCustomer={environment.selectedCustomer}
             selectedVehicle={environment.selectedVehicle}
+            customerVehicles={customerVehicles}
+            getSelectedVehicle={getSelectedVehicle}
+            getSelectedCustomer={getSelectedCustomer}
             history={history}
              />  }
              />
@@ -227,8 +234,9 @@ class App extends Component {
              />  }
              />
 
-            <Route exact path="/new-vehicle/confirmation" 
+            <Route exact path="/new-vehicle/:customerid/confirmation" 
             render={(props) => <VehicleConfirmation
+            {...props}
             selectedCustomer={environment.selectedCustomer}
             selectedVehicle={environment.selectedVehicle}
             getSelectedCustomer={getSelectedCustomer}
@@ -264,7 +272,7 @@ class App extends Component {
     
              />  }
              />
-             <Route exact path="/customers/vehicles/:vehicle" 
+             <Route exact path="/customers/vehicles/:customerid/:vehicleid" 
               render={(props) => <VehicleInfo
               {...props}
               getSelectedCustomer={getSelectedCustomer}
@@ -278,7 +286,7 @@ class App extends Component {
     
              />  }
              />
-             <Route exact path="/customers/vehicles/:vehicleid/:serviceid" 
+             <Route exact path="/customers/vehicles/:customerid/:vehicleid/:serviceid" 
               render={(props) => <ServiceInfo
               {...props}
               getSelectedCustomer={getSelectedCustomer}
@@ -293,12 +301,14 @@ class App extends Component {
     
              />  }
              />
-             <Route exact path="/customers/service/:customerid" 
+             <Route exact path="/customers/service/:customerid/:vehicleid" 
               render={(props) => <AddService
               {...props}
               getSelectedCustomer={getSelectedCustomer}
               selectedCustomer={environment.selectedCustomer}
               selectedVehicle={environment.selectedVehicle}
+              customerVehicles={customerVehicles}
+              getSelectedVehicle={getSelectedVehicle}
               realCustomers={realCustomers}
               history={history}
               createNewService={createNewService}

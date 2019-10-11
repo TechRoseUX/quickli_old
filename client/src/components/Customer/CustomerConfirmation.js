@@ -79,7 +79,8 @@ class CustomerConfirmation extends Component {
         const { realCustomers, selectedCustomer, getSelectedCustomer, history } = this.props
         const currentCus = realCustomers.slice(-1).pop();
         getSelectedCustomer(currentCus);
-        history.push(`/new-vehicle`);
+        const customerid = currentCus.customerid
+        history.push(`/new-vehicle/${customerid}`);
     }
 
     render() {

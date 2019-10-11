@@ -67,20 +67,27 @@ class CustomerInfo extends Component {
   componentDidMount() {
     const { selectedCustomer, getSelectedCustomer, realCustomers, customerVehicles, getRealCustomers } = this.props
 
-    getRealCustomers()
+    if (!realCustomers || realCustomers.length < 1) {
+        setTimeout(this.getCustomerFromParams, 3000)
+    } else {
+        console.log('There is something')
+        console.log(realCustomers)
+    }
+}
 
+getCustomerFromParams = () => {
+    const { realCustomers, selectedCustomer, getSelectedCustomer } = this.props
     const {
         match: { params: { customerid } }
     } = this.props
 
+    console.log(realCustomers)
     const sc = this.search(customerid, realCustomers);
-    if (realCustomers.length > 1) {
-        console.log(getSelectedCustomer);
-        getSelectedCustomer(sc);
-        console.log(sc);
-    } else {
-        console.log('error');
-    }
+    console.log(sc)
+    getSelectedCustomer(sc);
+}
+
+consoleLog = () => {
 }
 
   search = (id, myArray) => {
@@ -93,15 +100,17 @@ class CustomerInfo extends Component {
     openNewVehicle = () => {
         const customerid = this.props.selectedCustomer.customerid
         const history = this.props.history;
-        history.push(`/new-vehicle`);
+        history.push(`/new-vehicle/${customerid}`);
     }
 
     openVehicleDetails = (v) => {
-        const { getSelectedVehicle, selectedVehicle, history } = this.props
+        const { getSelectedVehicle, selectedVehicle, history, selectedCustomer } = this.props
         const vehicleid = v.vehicleid
+        console.log(selectedCustomer)
         getSelectedVehicle(v)
         console.log(selectedVehicle)
-        history.push(`/customers/vehicles/${vehicleid}`);
+        const customerid = selectedCustomer.customerid
+        history.push(`/customers/vehicles/${customerid}/${vehicleid}`);
    //   const sc = this.search(customerid, realCustomers);
    //   getSelectedCustomer(sc);
       console.log(v);
@@ -148,8 +157,16 @@ class CustomerInfo extends Component {
 
   render() {
     const { realCustomers, selectedCustomer, customerVehicles } = this.props
-    if (realCustomers.length >= 1) {
+    var twonum;
+    if (selectedCustomer) {
+        if (selectedCustomer.phoneNumber2) {
+            twonum = selectedCustomer.phoneNumber2
+        } else {
+            twonum = 'No secondary phone number'
+        }
+    }
 
+    if (selectedCustomer) {
         return (
             <MainBG>
                 <StyledBackIcon
@@ -210,6 +227,30 @@ class CustomerInfo extends Component {
                       white20
                       >
                           {selectedCustomer.phoneNumber1}
+                      </Text>
+                  </InfoEText>
+              </InfoElement>
+              <InfoElement>
+                  <InfoEIcon>
+                      <SVG src={phonew} />
+                  </InfoEIcon>
+                  <InfoEText
+                    width="250px"
+                    marginLeft="50px"
+                  >
+                      <Text
+                      customerIE
+                      dblue22
+                      >
+                          PHONE NUMBER 2:
+                      </Text>
+                  </InfoEText>
+                  <InfoEText>
+                      <Text
+                      customerIE
+                      white20
+                      >
+                          {twonum}
                       </Text>
                   </InfoEText>
               </InfoElement>
@@ -288,7 +329,6 @@ const mapStateToProps = (state) => ({
 })
 
 const dispatchToProps = (dispatch) => ({
-   getSelectedCustomer: (customer) => dispatch(getSelectedCustomer(customer)),
    getRealCustomers: () => dispatch(getRealCustomers())
 })
 

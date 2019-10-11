@@ -15,6 +15,7 @@ import CustomerCellRow from './CustomerCellRow';
 import userb from '../../rersources/svg/userb.svg';
 import lockb from '../../rersources/svg/lockb.svg';
 import userw from '../../rersources/svg/userw.svg';
+import mileagew from '../../rersources/svg/mileagew.svg';
 import phonew from '../../rersources/svg/phonew.svg';
 import mailw from '../../rersources/svg/mailw.svg';
 import carw from '../../rersources/svg/carw.svg';
@@ -69,22 +70,34 @@ const InfoEText = styled(NewDiv)`
 
 class VehicleInfo extends Component {
   componentDidMount() {
-    const { getSelectedVehicle, customerVehicles, customerServices, selectedVehicle } = this.props
+    const { realCustomers } = this.props
+
+    if (!realCustomers || realCustomers.length < 1) {
+        setTimeout(this.getCustomerFromParams, 3000)
+    } else {
+        console.log('There is something')
+        console.log(realCustomers)
+    }
+}
+
+getCustomerFromParams = () => {
+    const { getSelectedVehicle, getSelectedCustomer, customerVehicles, customerServices, selectedVehicle, realCustomers } = this.props
     const {
         match: { params: { vehicleid } }
     } = this.props
 
-    const sc = this.search(vehicleid, customerServices);
+    const {
+        match: { params: { customerid } }
+    } = this.props
 
-    if (customerServices.length > 1) {
-   //     getSelectedVehicle(sc);
-        console.log('selecteing customer')
-    } else {
-        console.log('error');
-    }
+    const sv = this.searchV(vehicleid, customerVehicles);
+    const sc = this.searchC(customerid, realCustomers)
+
+    getSelectedVehicle(sv)
+    getSelectedCustomer(sc)
 }
 
-  search = (id, myArray) => {
+  searchV = (id, myArray) => {
     for (var i=0; i < myArray.length; i++) {
         if (myArray[i].vehicleid === id) {
             return myArray[i];
@@ -92,17 +105,28 @@ class VehicleInfo extends Component {
     }
 }
 
+searchC = (id, myArray) => {
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].customerid === id) {
+            return myArray[i];
+        }
+    }
+}
+
     openServiceScreen = () => {
         const { getSelectedVehicle, selectedVehicle, history } = this.props
+        const vehicleid = selectedVehicle.vehicleid
         const customerid = selectedVehicle.ownerid
-        history.push(`/customers/service/${customerid}`);
+        history.push(`/customers/service/${customerid}/${vehicleid}`);
     }
 
     openServiceDetails = (v) => {
         const { history, getSelectedService } = this.props
         const vehicleid = v.vehicleid
         const serviceid = v.serviceid
-        history.push(`/customers/vehicles/${vehicleid}/${serviceid}`);
+        const customerid = v.customerid
+        console.log(v)
+        history.push(`/customers/vehicles/${customerid}/${vehicleid}/${serviceid}`);
         getSelectedService(v);
       console.log(v);
       console.log(getSelectedService);
@@ -124,6 +148,28 @@ class VehicleInfo extends Component {
        const services = newServiceArray
          console.log(services.length);
         return services.map((v) => {
+        var jsTime = v.date
+        var timestamp = jsTime.substring(0, jsTime.length - 3)
+        console.log(timestamp);
+        console.log(jsTime);
+        var newDate = new Date(timestamp*1000);
+        var fHours = newDate.getHours();
+        var fMinutes = '0' + newDate.getMinutes();
+
+        var fDay = newDate.getDate();
+        var fMonth = newDate.getMonth();
+        var fYear = newDate.getFullYear();
+        fMonth = fMonth + 1;
+        console.log(fMonth);
+        console.log(fDay);
+        
+        var ampm = fHours >= 12 ? 'pm' : 'am';
+        fHours = fHours % 12;
+        fHours = fHours ? fHours : 12;
+      //  fMinutes = fMinutes < 10 ? '0'+ fMinutes : fMinutes;
+      var formattedTime = fHours + ':' + fMinutes.substr(-2) + ampm;
+      var formattedDate = (`${fMonth}/${fDay}/${fYear}`)
+
             return (
                 <NewDiv>
                     <Text
@@ -131,7 +177,7 @@ class VehicleInfo extends Component {
                         padding="20px 0 5px 0"
                         onClick={() => this.openServiceDetails(v)}
                     >
-                        Service - {v.vehicleid}
+                        Service - {formattedDate}
                     </Text>
                 </NewDiv>
             )
@@ -145,6 +191,15 @@ class VehicleInfo extends Component {
 
   render() {
     const { selectedVehicle, selectedCustomer } = this.props
+    var twonum;
+
+    if (selectedVehicle) {
+        if (selectedVehicle.phoneNumber2) {
+            twonum = selectedVehicle.phoneNumber2
+        } else {
+            twonum = 'No secondary phone number'
+        }
+    }
 
     if (selectedVehicle) {
         return (
@@ -230,7 +285,7 @@ class VehicleInfo extends Component {
                       customerIE
                       white20
                       >
-                          {selectedVehicle.phoneNumber2}
+                          {twonum}
                       </Text>
                   </InfoEText>
               </InfoElement>
@@ -303,6 +358,30 @@ class VehicleInfo extends Component {
                       white20
                       >
                           {selectedVehicle.vehicleModel}
+                      </Text>
+                  </InfoEText>
+              </InfoElement>
+              <InfoElement>
+                  <InfoEIcon>
+                      <SVG src={mileagew} />
+                  </InfoEIcon>
+                  <InfoEText
+                    width="250px"
+                    marginLeft="50px"
+                  >
+                      <Text
+                      customerIE
+                      dblue22
+                      >
+                          MILEAGE:
+                      </Text>
+                  </InfoEText>
+                  <InfoEText>
+                      <Text
+                      customerIE
+                      white20
+                      >
+                          {selectedVehicle.vehicleMileage}
                       </Text>
                   </InfoEText>
               </InfoElement>

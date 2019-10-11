@@ -45,7 +45,8 @@ export const createNewCustomer = (values) => async dispatch => {
 }
 
 export const createNewVehicle = (dataa) => async dispatch => {
-  const res = await axios.post('/new-vehicle', dataa);
+  console.log('sending new vehicle to database......')
+  const res = await axios.post('/new-vehicle/:customerid', dataa);
   dispatch({type: GET_CUSTOMERS, payload: res.data});
 }
 
@@ -56,7 +57,7 @@ export const createNewUser = (values) => async dispatch => {
 }
 
 export const createNewService = (dataa) => async dispatch => {
-  const res = await axios.post('/customers/service/:customerid', dataa);
+  const res = await axios.post('/customers/service/:customerid/:serviceid', dataa);
   dispatch({type: GET_CUSTOMERS, payload: res.data})
 }
 

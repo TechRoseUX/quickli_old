@@ -5,6 +5,7 @@ const path = require('path');
 const Nexmo = require('nexmo');
 
 const Service = mongoose.model('services');
+const Vehicle = mongoose.model('vehicles');
 const ToMessage = mongoose.model('tomessages');
 
 const nexmo = new Nexmo({
@@ -13,7 +14,7 @@ const nexmo = new Nexmo({
 }, {debug: true})
 
 module.exports = (app) => {
-    app.post('/customers/service/:customerid', (req, res) => {
+    app.post('/customers/service/:customerid/:serviceid', (req, res) => {
         console.log(`CONSOLE.LOG${req.body}`);
         var uniqid = Date.now();
       
@@ -31,13 +32,15 @@ module.exports = (app) => {
             details: req.body.detailsText,
             status: true
         });
-        newService.save();
+        newService.save()
+        
       });
 
       //Update service info to end the process
       app.post('/end-service', async (req, res) => { 
         const myjson = JSON.stringify(req.body.props.selectedServiceMessage)
         console.log(`MYJSONNNNNNNNNNNNNNNNNNN${myjson}`);
+
         const newDetails = req.body.detailsText
         const serviceNum = req.body.props.selectedServiceMessage.serviceid
         var myquery = { serviceid: serviceNum };
@@ -46,6 +49,17 @@ module.exports = (app) => {
         Service.updateOne(myquery, newvalues, function(err, res) {
           if (err) throw err
           console.log("1 document updated");
+        })
+        .then(() => {
+          var vid = req.body.props.selectedServiceMessage.vehicleid
+          var vmiles = req.body.values.mileage
+          var vquery = { vehicleid: vid }
+          var newMiles = { $set: {vehicleMileage: vmiles } };
+  
+          Vehicle.updateOne(vquery, newMiles, function(err, res) {
+            if (err) throw err
+            console.log('mileage has been updated')
+          })
         })
       })
       

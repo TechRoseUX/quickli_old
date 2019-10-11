@@ -138,17 +138,19 @@ const validate = (values, props) => {
   //const { realCustomers } = this.props
   const errors = {};
 
-  console.log(values);
-  console.log(props);
-  console.log(values.email);
-  console.log(props.realCustomers);
+  if (!values.cname) {
+    errors.cname = 'ou must provide a customer name'
+  }
 
-  FIELDS.forEach(({ name, noValueError }) => {
-    if (!values[name]) {
-      errors[name] = noValueError;
-    }
-  });
+  if (!values.email) {
+    errors.email = 'You must provide an email'
+  }
 
+  if (!values.pnumber) {
+    errors.pnumber = 'You must provide a phone number'
+  }
+
+ 
   for (var i=0; i < props.realCustomers.length; i++) {
     if (values.email == props.realCustomers[i].email) {
       errors.email = 'This email is already in use'

@@ -35,59 +35,119 @@ const FormContainer = styled(NewDiv)`
     }
 `
 
-const FIELDS = [
-  {
-    label: 'Phone Number', name: 'pnumber', svg: phoneb, placeholder: 'Enter phone number...', noValueError: 'You must provide a phone number'
-  },
-  {
-    label: 'Secondary Phone Number', name: 'pnumber2', svg: phoneb, placeholder: 'Enter secondary phone number...',  noValueError: 'You must provide a secondary phone number'
-  },
-  {
-    label: 'Vehicle Year', name: 'vyear', svg: calendarb, placeholder: 'Enter vehicle year...', noValueError: 'You must provide a vehicle year'
-  },
-  {
-    label: 'Vehicle Make', name: 'vmake', svg: carb, placeholder: 'Enter vehicle make...', noValueError: 'You must provide a vehicle make'
-  },
-  {
-    label: 'Vehicle Model', name: 'vmodel', svg: carb, placeholder: 'Enter vehicle model..', noValueError: 'You must provide a vehicle model'
-  },
-  {
-    label: 'License Plate Number', name: 'lpnumber', svg: licenseb, placeholder: 'Enter license plate number...', noValueError: 'You must provide a license plate number'
-  },
-  {
-    label: 'Vehicle Vin Number', name: 'vnumber', svg: vinb, placeholder: 'Enter vehicle vin number...', noValueError: 'You must provide a vin number'
-  },
-  {
-    label: 'Mileage', name: 'mileage', svg: mileageb, placeholder: 'Enter mileage...', noValueError: 'You must provide the mileage'
-  },
-  {
-    label: 'Tag Number', name: 'tnumber', svg: hashb, placeholder: 'Enter tag number...', noValueError: 'You must provide a tag number'
-  },
-]
+const FIELDS = []
 
 class AddVehicle extends Component {
   componentDidMount() {
-    const { getSelectedCustomer, realCustomers } = this.props
+    const { selectedCustomer, realCustomers, getRealCustomers } = this.props
 
+    if (!selectedCustomer) {
+        setTimeout(this.getCustomerFromParams, 3000)
+    } else {
+        console.log('There is something')
+        console.log(realCustomers)
+    }
+}
+
+search = (id, myArray) => {
+  for (var i=0; i < myArray.length; i++) {
+      if (myArray[i].customerid === id) {
+          return myArray[i];
+      }
   }
+}
+
+getCustomerFromParams = () => {
+    const { realCustomers, selectedCustomer, getSelectedCustomer } = this.props
+
+    const {
+        match: { params: { customerid } }
+    } = this.props
+
+    console.log(realCustomers)
+    console.log(this.props)
+    const sc = this.search(customerid, realCustomers);
+    console.log(sc)
+    getSelectedCustomer(sc);
+}
 
   renderFields = () => {
-    const selectedCustomer = this.props.selectedCustomer
-    return FIELDS.map(field => {
-      return(
-        <Field 
-          key={field.name}
-          label={field.label} 
-          type="text" 
-          name={field.name} 
-          component={TextField} 
-          fieldWidth="428px"
-          containerWidth="500px" 
-          placeholder={field.placeholder}
-          svg={field.svg}
-      />
-      )  
-    });
+
+    const { selectedCustomer } = this.props
+
+    if (selectedCustomer) {
+      const number = {
+        label: 'Phone Number', name: 'pnumber', svg: phoneb, placeholder: 'Enter phone number...', noValueError: 'You must provide a phone number', defaultValue: selectedCustomer.phoneNumber1
+      }
+  
+      const number2 = {
+        label: 'Secondary Phone Number', name: 'pnumber2', svg: phoneb, placeholder: 'Enter secondary phone number...',  noValueError: 'You must provide a secondary phone number', defaultValue: selectedCustomer.phoneNumber2
+      }
+  
+      const vYear = {
+        label: 'Vehicle Year', name: 'vyear', svg: calendarb, placeholder: 'Enter vehicle year...', noValueError: 'You must provide a vehicle year'
+      }
+  
+      const vMake = {
+        label: 'Vehicle Make', name: 'vmake', svg: carb, placeholder: 'Enter vehicle make...', noValueError: 'You must provide a vehicle make'
+      }
+  
+      const vModel = {
+        label: 'Vehicle Model', name: 'vmodel', svg: carb, placeholder: 'Enter vehicle model..', noValueError: 'You must provide a vehicle model'
+      }
+  
+      const licenseP = {
+        label: 'License Plate Number', name: 'lpnumber', svg: licenseb, placeholder: 'Enter license plate number...', noValueError: 'You must provide a license plate number'
+      }
+  
+      const vVin = {
+        label: 'Vehicle Vin Number', name: 'vnumber', svg: vinb, placeholder: 'Enter vehicle vin number...', noValueError: 'You must provide a vin number'
+      }
+  
+      const vMileage = {
+        label: 'Mileage', name: 'mileage', svg: mileageb, placeholder: 'Enter mileage...', noValueError: 'You must provide the mileage'
+      }
+  
+      if (FIELDS.length < 1) {
+        FIELDS.push(number)
+        FIELDS.push(number2)
+        FIELDS.push(vYear)
+        FIELDS.push(vMake)
+        FIELDS.push(vModel)
+        FIELDS.push(licenseP)
+        FIELDS.push(vVin)
+        FIELDS.push(vMileage)
+    }
+  }
+
+    console.log(selectedCustomer)
+
+    if (selectedCustomer) {
+      return FIELDS.map(field => {
+        return(
+          <Field 
+            key={field.name}
+            label={field.label} 
+            type="text" 
+            name={field.name} 
+            component={TextField} 
+            fieldWidth="428px"
+            containerWidth="500px" 
+            placeholder={field.placeholder}
+            value='value'
+            defaultValue={field.defaultValue}
+            svg={field.svg}
+        />
+        )  
+      });
+    } else {
+      return (
+        <div>
+          Loading.......
+        </div>
+      )
+    }
+    
   }
 
   handleInputChange = () => {
@@ -102,20 +162,22 @@ class AddVehicle extends Component {
   }
 
   render() {
-    const { createNewVehicle, selectedCustomer } = this.props
+    const { createNewVehicle, selectedCustomer, customerid } = this.props
     console.log(this.props);
     console.log(selectedCustomer);
     const props = this.props
 
     const createBody = (values, props) => {
+
       const history = props.history
         let dataa = {
           values: values,
           props: props
         }
+        console.log('creating new vehicle.....')
         createNewVehicle(dataa);
         console.log(history)
-        history.push('/new-vehicle/confirmation');
+        history.push(`/new-vehicle/${selectedCustomer.customerid}/confirmation`);
         window.location.reload();
     }
 
@@ -158,14 +220,40 @@ class AddVehicle extends Component {
   }
 }
 
-const validate = (values) => {
+const validate = (values, props, field) => {
   const errors = {};
 
-  FIELDS.forEach(({ name, noValueError }) => {
-    if (!values[name]) {
-      errors[name] = noValueError;
-    }
-  });
+  console.log(values)
+  console.log(props)
+  console.log(field)
+
+  if (!values.cname) {
+    errors.cname = 'You must provide a customer name'
+  }
+
+  if (!values.vyear) {
+    errors.vyear = 'You must provide a vehicle year'
+  }
+
+  if (!values.vmake) {
+    errors.vmake = 'You must provide a vehicle make'
+  }
+
+  if (!values.vmodel) {
+    errors.vmodel = 'You must provide a vehicle model'
+  }
+
+  if (!values.lpnumber) {
+    errors.lpnumber = 'You must provide a license number'
+  }
+
+  if (!values.vnumber) {
+    errors.vnumber = 'You must provide a vin number'
+  }
+
+  if (!values.mileage) {
+    errors.mileage = 'You must provide vehicle mileage'
+  }
 
   return errors;
 }

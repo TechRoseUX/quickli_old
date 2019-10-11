@@ -25,7 +25,6 @@ const VehicleSchema = new Schema ({
     },
     phoneNumber2:{
         type: String,
-        required: true
     },
     vehicleYear:{
         type: String,
@@ -51,10 +50,6 @@ const VehicleSchema = new Schema ({
         type: String,
         required: true
     },
-    vehicleTagNumber:{
-        type: String,
-        required: true
-    }
 });
 
 mongoose.model('vehicles', VehicleSchema)

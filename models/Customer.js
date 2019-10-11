@@ -25,7 +25,6 @@ const CustomerSchema = new Schema ({
     },
     phoneNumber2:{
         type: String,
-        required: true
     },
     email:{
         type: String,

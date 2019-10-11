@@ -52,24 +52,6 @@ const DetailsTextarea = styled.textarea`
   }
 `
 
-const FIELDS = [
-  {
-    label: 'Name', name: 'name', svg: userb, placeholder: 'Enter name...', noValueError: 'You must provide a name'
-  },
-  {
-    label: 'Mileage', name: 'mileage', svg: mileageb, placeholder: 'Enter vehicle mileage...', noValueError: 'You must provide a value for mileage'
-  },
-  {
-    label: 'Phone Number', name: 'pnumber', svg: phoneb, placeholder: 'Enter phone number...',  noValueError: 'You must provide a phone number'
-  },
-  {
-    label: 'Reason For Visit', name: 'reason', svg: pencilb, placeholder: 'Enter reason...', noValueError: 'You must provide a reason for visit'
-  },
-  {
-    label: 'Tag Number', name: 'tnumber', svg: hashb, placeholder: 'Enter tag number...', noValueError: 'You must provide a tag number'
-  }
-]
-
 class EndService extends Component {
   constructor() {
     super()
@@ -119,7 +101,7 @@ class EndService extends Component {
           containerWidth="500px" 
           placeholder={field.placeholder}
           defaultValue={field.defaultValue}
-          value="Value"
+          value="value"
           svg={field.svg}
       />
       )  

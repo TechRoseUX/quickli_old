@@ -76,10 +76,23 @@ class VehicleConfirmation extends Component {
         history.push('/all-customers');
     }
     openAddService = () => {
-        const { realCustomers, selectedCustomer, getSelectedVehicle, history, customerVehicles, selectedVehicle } = this.props
-        const currentCus = customerVehicles.slice(-1).pop();
-        getSelectedVehicle(currentCus);
-        history.push('/new-service');
+        const { realCustomers, selectedCustomer, getSelectedVehicle, history, customerVehicles, selectedVehicle, getSelectedCustomer } = this.props
+        const currentV = customerVehicles.slice(-1).pop();
+
+        const {
+            match: { params: { customerid } }
+        } = this.props
+
+        const vehicleid = currentV.vehicleid
+
+        getSelectedVehicle(currentV);
+        getSelectedCustomer(customerid)
+    
+
+        console.log(selectedCustomer)
+        console.log(realCustomers)
+
+        history.push(`/customers/service/${customerid}/${vehicleid}`);
     }
 
     render() {

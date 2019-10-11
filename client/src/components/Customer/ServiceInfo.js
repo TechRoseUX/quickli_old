@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-d
 import SVG from 'react-inlinesvg';
 
 import Colors from '../constants/colors';
-import { getSelectedCustomer } from '../../store/reducers/environment';
+import { getSelectedCustomer, getSelectedService } from '../../store/reducers/environment';
 import CustomerCellRow from './CustomerCellRow';
 import userb from '../../rersources/svg/userb.svg';
 import lockb from '../../rersources/svg/lockb.svg';
@@ -69,15 +69,62 @@ const InfoEText = styled(NewDiv)`
 
 class ServiceInfo extends Component {
   componentDidMount() {
-    const { getSelectedVehicle, customerVehicles, customerServices, selectedVehicle } = this.props
+    const { realCustomers } = this.props
+
+    if (!realCustomers || realCustomers.length < 1) {
+        setTimeout(this.getCustomerFromParams, 3000)
+    } else {
+        console.log('There is something')
+        console.log(realCustomers)
+    }
+}
+
+getCustomerFromParams = () => {
+    const { getSelectedVehicle, getSelectedCustomer, getSelectedService, customerVehicles, customerServices, selectedVehicle, realCustomers } = this.props
     const {
         match: { params: { vehicleid } }
     } = this.props
+
+    const {
+        match: { params: { customerid } }
+    } = this.props
+
+    const {
+        match: { params: { serviceid } }
+    } = this.props
+
+    const sv = this.searchV(vehicleid, customerVehicles);
+    const sc = this.searchC(customerid, realCustomers);
+    const ss = this.searchS(serviceid, customerServices)
+
+    console.log(sv)
+    console.log(ss)
+    console.log(sc)
+
+    getSelectedVehicle(sv)
+    getSelectedCustomer(sc)
+    getSelectedService(ss)
 }
 
-  search = (id, myArray) => {
+  searchV = (id, myArray) => {
     for (var i=0; i < myArray.length; i++) {
         if (myArray[i].vehicleid === id) {
+            return myArray[i];
+        }
+    }
+}
+
+searchC = (id, myArray) => {
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].customerid === id) {
+            return myArray[i];
+        }
+    }
+}
+
+searchS = (id, myArray) => {
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].serviceid === id) {
             return myArray[i];
         }
     }
@@ -298,7 +345,8 @@ const mapStateToProps = (state) => ({
 })
 
 const dispatchToProps = (dispatch) => ({
-   getSelectedCustomer: (customer) => dispatch(getSelectedCustomer(customer))
+   getSelectedCustomer: (customer) => dispatch(getSelectedCustomer(customer)),
+   getSelectedService: (service) => dispatch(getSelectedService(service))
 })
 
 export default withRouter(connect(mapStateToProps, dispatchToProps)(ServiceInfo));

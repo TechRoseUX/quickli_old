@@ -24,6 +24,7 @@ import { device } from './Styled/StyledMediaQuery';
 import TextField from './TextField';
 import Button from './Styled/Button';
 import Text from './Styled/Text';
+import { getSelectedVehicle } from '../../store/reducers/environment';
 
 const FormContainer = styled(NewDiv)`
     @media ${device.tablet} {
@@ -52,23 +53,7 @@ const DetailsTextarea = styled.textarea`
   }
 `
 
-const FIELDS = [
-  {
-    label: 'Name', name: 'name', svg: userb, placeholder: 'Enter name...', noValueError: 'You must provide a name'
-  },
-  {
-    label: 'Mileage', name: 'mileage', svg: mileageb, placeholder: 'Enter vehicle mileage...', noValueError: 'You must provide a value for mileage'
-  },
-  {
-    label: 'Phone Number', name: 'pnumber', svg: phoneb, placeholder: 'Enter phone number...',  noValueError: 'You must provide a phone number'
-  },
-  {
-    label: 'Reason For Visit', name: 'reason', svg: pencilb, placeholder: 'Enter reason...', noValueError: 'You must provide a reason for visit'
-  },
-  {
-    label: 'Tag Number', name: 'tnumber', svg: hashb, placeholder: 'Enter tag number...', noValueError: 'You must provide a tag number'
-  }
-]
+const FIELDS = []
 
 class AddService extends Component {
   constructor() {
@@ -81,23 +66,113 @@ class AddService extends Component {
     this.updateTextarea = this.updateTextarea.bind(this)
   }
 
+  componentDidMount() {
+    const { selectedCustomer, selectedVehicle, getRealCustomers, realCustomers } = this.props
+    console.log(selectedVehicle)
+    console.log(selectedCustomer)
+
+    if (!selectedCustomer) {
+      setTimeout(this.getCustomerFromParams, 3000)
+    } else {
+        console.log('There is something')
+        console.log(realCustomers)
+    }
+  }
+
+  searchc = (id, myArray) => {
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].customerid === id) {
+            return myArray[i];
+        }
+    }
+  }
+
+  searchv = (id, myArray) => {
+    for (var i=0; i < myArray.length; i++) {
+        if (myArray[i].vehicleid === id) {
+            return myArray[i];
+        }
+    }
+  }
+  
+  getCustomerFromParams = () => {
+      const { realCustomers, selectedCustomer, customerVehicles, getSelectedCustomer, getSelectedVehicle } = this.props
+      const {
+          match: { params: { customerid } }
+      } = this.props
+
+      const {
+        match: { params: { vehicleid } }
+    } = this.props
+
+      const sc = this.searchc(customerid, realCustomers);
+      const sv = this.searchv(vehicleid, customerVehicles);
+      
+      getSelectedCustomer(sc);
+      getSelectedVehicle(sv);
+  }
+
   renderFields = () => {
-    const selectedCustomer = this.props.selectedCustomer
-    return FIELDS.map(field => {
-      return(
-        <Field 
-          key={field.name}
-          label={field.label} 
-          type="text" 
-          name={field.name} 
-          component={TextField} 
-          fieldWidth="428px"
-          containerWidth="500px" 
-          placeholder={field.placeholder}
-          svg={field.svg}
-      />
-      )  
-    });
+    const { selectedCustomer, selectedVehicle } = this.props
+    console.log(selectedCustomer)
+    console.log(selectedVehicle)
+
+    if (selectedCustomer && selectedVehicle) {
+      const name = {
+        label: 'Name', name: 'name', svg: userb, placeholder: 'Enter name...', noValueError: 'You must provide a name', defaultValue: selectedCustomer.name
+      }
+  
+      const vMileage = {
+        label: 'Mileage', name: 'mileage', svg: mileageb, placeholder: 'Enter mileage...', noValueError: 'You must provide the mileage', defaultValue: selectedVehicle.vehicleMileage
+      }
+  
+      const number = {
+        label: 'Phone Number', name: 'pnumber', svg: phoneb, placeholder: 'Enter phone number...', noValueError: 'You must provide a phone number', defaultValue: selectedCustomer.phoneNumber1
+      }
+  
+     const reason = {
+        label: 'Reason For Visit', name: 'reason', svg: pencilb, placeholder: 'Enter reason...', noValueError: 'You must provide a reason for visit'
+     }
+  
+      const tNumber = {
+        label: 'Tag Number', name: 'tnumber', svg: hashb, placeholder: 'Enter tag number...', noValueError: 'You must provide a tag number'
+      }
+  
+      if (FIELDS.length < 1) {
+        FIELDS.push(name)
+        FIELDS.push(vMileage)
+        FIELDS.push(number)
+        FIELDS.push(reason)
+        FIELDS.push(tNumber)
+      }
+
+    }
+
+    if (selectedCustomer && selectedVehicle) {
+      return FIELDS.map(field => {
+        return(
+          <Field 
+            key={field.name}
+            label={field.label} 
+            type="text" 
+            name={field.name} 
+            component={TextField} 
+            fieldWidth="428px"
+            containerWidth="500px" 
+            placeholder={field.placeholder}
+            value='value'
+            defaultValue={field.defaultValue}
+            svg={field.svg}
+        />
+        )  
+      });
+    } else {
+        return (
+          <div>Loading.....</div>
+        )
+    }
+
+    
   }
 
   renderDetailsField = () => {
@@ -187,11 +262,17 @@ class AddService extends Component {
 const validate = (values) => {
   const errors = {};
 
-  FIELDS.forEach(({ name, noValueError }) => {
-    if (!values[name]) {
-      errors[name] = noValueError;
-    }
-  });
+  if (!values.mileage) {
+    errors.mileage = 'You must provide vehicle mileage'
+  }
+
+  if (!values.reason) {
+    errors.reason = 'You must provide vehicle mileage'
+  }
+
+  if (!values.tnumber) {
+    errors.ptnumber = 'You must provide a tag number'
+  }
 
   return errors;
 }
