@@ -155,6 +155,41 @@ consoleLog = () => {
         history.go(-1)
     }
 
+    historyAndReload = () => {
+        const { history } = this.props
+        history.push('/login');
+        window.location.reload()
+      }
+    
+    renderNotLoggedIn = () => {
+        return (
+            <div>
+                <MainBG>
+                    <Text
+                    white35
+                    padding='100px 0 50px 0'
+                    maxWidth='600px'
+                    margin='0 auto'
+                    >
+                    You are not logged in. Please click the button below to return to the login screen.
+                    </Text>
+                <Button
+                    standardBtn
+                    margin='0 auto'
+                    onClick={this.historyAndReload}
+                >
+                    <Text
+                    buttonText
+                    >
+                    Login
+                    </Text>
+
+                </Button>
+                </MainBG>
+            </div>
+        )
+    }
+
   render() {
     const { realCustomers, selectedCustomer, customerVehicles } = this.props
     var twonum;
@@ -166,7 +201,10 @@ consoleLog = () => {
         }
     }
 
-    if (selectedCustomer) {
+    const props = this.props
+    const data = props && props.auth ? props.auth.data : null;
+
+    if (selectedCustomer && data) {
         return (
             <MainBG>
                 <StyledBackIcon

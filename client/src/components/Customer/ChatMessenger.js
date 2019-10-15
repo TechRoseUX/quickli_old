@@ -456,17 +456,12 @@ class ChatMessenger extends Component {
     if (selectedServiceMessage) {
         for (var i=0; i < activeToMessages.length; i++) {
             if (activeToMessages[i].serviceid === selectedServiceMessage.serviceid) {
-
-   //     this.setState({ correctChats: [...this.state.correctChats, activeToMessages[i]] })
-   // this.setState(prevState => ({ correctChats: [ activeToMessages[i], ...prevState.correctChats]}))
-
                 console.log('Pushed');
             }  else {
                 console.log('did not match');
             }  
         }
     }
-
   }
 
   renderChatMessages = () => {
@@ -479,8 +474,6 @@ class ChatMessenger extends Component {
         for (var i=0; i < activeToMessages.length; i++) {
             if (activeToMessages[i].serviceid === selectedServiceMessage.serviceid) {
                 displayedToMessages.push(activeToMessages[i]);
-
-
                 console.log(`pushed ${activeToMessages[i]}`);
             }  else {
                 console.log('did not match');
@@ -512,7 +505,6 @@ class ChatMessenger extends Component {
       } else {
           console.log('There is no selected message');
       }
-      
   }
 
   sendNewMessage = (e, value) => {
@@ -559,69 +551,111 @@ class ChatMessenger extends Component {
     var searchText = event.target.value
     updateCustomerSearch(searchText)
   }
-  
+
+  historyAndReload = () => {
+    const { history } = this.props
+    history.push('/login');
+  }
+
+  renderNotLoggedIn = () => {
+    return (
+      <div>
+          <MainBG>
+              <Text
+                white35
+                padding='100px 0 50px 0'
+                maxWidth='600px'
+                margin='0 auto'
+              >
+                You are not logged in. Please click the button below to return to the login screen.
+              </Text>
+            <Button
+              standardBtn
+              margin='0 auto'
+              onClick={this.historyAndReload}
+            >
+              <Text
+                buttonText
+              >
+                Login
+              </Text>
+
+            </Button>
+          </MainBG>
+      </div>
+    )
+  }
 
   render() {
     const { getSelectedMessageText, selectedMessageText, createNewToMessage, selectedServiceMessage, search } = this.props
     console.log(createNewToMessage);
     const newText = "akjshdkjashdkjahsdkhasdkj"
     console.log(this.props)
+    const props = this.props
+    const data = props && props.auth ? props.auth.data : null;
 
-    return (
-      <div>
-          {this.displayOverlay()}
-          {this.displayOverlayEnd()}
-        <MessengerContainer>
-            <MessengerContainerTop>
-                <MessengerTopText>
-                    <Text
-                        white35
-                        padding="25px 0"
-                    >
-                        Current Vehicles
-                    </Text>
-                </MessengerTopText>
-                <MessengerSearchBar 
-                    width="85%"
-                    placeholder="Search..."
-                    onChange={this.searchMessageCells}
-                    value={search}
-                />
-            </MessengerContainerTop>
-            {this.renderChatCells()}
-        </MessengerContainer>
-        <MessengerChatContainer>
-            <MessengerChatTopSec>
-                {this.renderServiceId()}
-            </MessengerChatTopSec>
-            <ChatMessagesContainer>
-                {this.renderChatMessages()}
-            </ChatMessagesContainer>
-            <MessengerFixedBottom>
-                <BottomLeftButton
-                    onClick={() => this.toggleTemplateTrue()}
-                >
-                    <SVG src={templatey} />
-                </BottomLeftButton>
-                <BottomMiddleText>
-                    <form method="POST" onChange={this.handleChange} onSubmit={(e) => this.sendNewMessage(e, this)}>
-                        <MessengerTextBox
-                            width="97%"
-                            placeholder="Enter Messege..."
-                            value={selectedMessageText}
-                            name="toMessage"
+
+    if (data) {
+        return (
+            <div>
+                {this.displayOverlay()}
+                {this.displayOverlayEnd()}
+                <MessengerContainer>
+                    <MessengerContainerTop>
+                        <MessengerTopText>
+                            <Text
+                                white35
+                                padding="25px 0"
+                            >
+                                Current Vehicles
+                            </Text>
+                        </MessengerTopText>
+                        <MessengerSearchBar 
+                            width="85%"
+                            placeholder="Search..."
+                            onChange={this.searchMessageCells}
+                            value={search}
                         />
-                    </form>
-                </BottomMiddleText>
-                <BottomRightButton 
-                onClick={(e) => this.sendNewMessage(e, this)}>
-                    <SVG src={senddb} />
-                </BottomRightButton>
-            </MessengerFixedBottom>
-        </MessengerChatContainer>
-      </div>
-    );
-  }
+                    </MessengerContainerTop>
+                    {this.renderChatCells()}
+                </MessengerContainer>
+                <MessengerChatContainer>
+                    <MessengerChatTopSec>
+                        {this.renderServiceId()}
+                    </MessengerChatTopSec>
+                    <ChatMessagesContainer>
+                        {this.renderChatMessages()}
+                    </ChatMessagesContainer>
+                    <MessengerFixedBottom>
+                        <BottomLeftButton
+                            onClick={() => this.toggleTemplateTrue()}
+                        >
+                            <SVG src={templatey} />
+                        </BottomLeftButton>
+                        <BottomMiddleText>
+                            <form method="POST" onChange={this.handleChange} onSubmit={(e) => this.sendNewMessage(e, this)}>
+                                <MessengerTextBox
+                                    width="97%"
+                                    placeholder="Enter Messege..."
+                                    value={selectedMessageText}
+                                    name="toMessage"
+                                />
+                            </form>
+                        </BottomMiddleText>
+                        <BottomRightButton 
+                        onClick={(e) => this.sendNewMessage(e, this)}>
+                            <SVG src={senddb} />
+                        </BottomRightButton>
+                    </MessengerFixedBottom>
+                </MessengerChatContainer>
+            </div>
+            );
+        } else {
+            return (
+                this.renderNotLoggedIn()
+            )
+        }
+    }
 }
 
 const mapStateToProps = (state) => ({

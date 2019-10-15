@@ -57,6 +57,41 @@ class AddCustomer extends Component {
     }
   }
 
+  historyAndReload = () => {
+    const { history } = this.props
+    history.push('/login');
+    window.location.reload()
+  }
+
+  renderNotLoggedIn = () => {
+    return (
+      <div>
+          <MainBG>
+              <Text
+                white35
+                padding='100px 0 50px 0'
+                maxWidth='600px'
+                margin='0 auto'
+              >
+                You are not logged in. Please click the button below to return to the login screen.
+              </Text>
+            <Button
+              standardBtn
+              margin='0 auto'
+              onClick={this.historyAndReload}
+            >
+              <Text
+                buttonText
+              >
+                Login
+              </Text>
+
+            </Button>
+          </MainBG>
+      </div>
+    )
+  }
+
   renderFields = () => {
     return FIELDS.map(field => {
       return(
@@ -93,44 +128,53 @@ class AddCustomer extends Component {
   }
 
   render() {
-    const { createNewCustomer } = this.props
+    const { createNewCustomer, history } = this.props
     console.log(createNewCustomer);
-    return (
-      <div>
-          <MainBG>
-            <StyledBackIcon
-                onClick={() => this.goBack()}
-            >
-                <SVG src={arrowleftw} />
-            </StyledBackIcon>
-              <MainHeading>
-                <Text
-                  mainHeading
-                  padding="30px 0 50px 0"
-                >
-                  Enter The Fields Below
-                </Text>
-              </MainHeading>
-            <FormContainer
-            >
-                <form onSubmit={this.props.handleSubmit(values => this.addNewCustomer(values))}>
-                  {this.renderFields()}
-                  <Button
-                    standardBtn
-                    margin="0 auto"
-                    type="submit"
+    const props = this.props
+    const data = props && props.auth ? props.auth.data : null;
+
+    if (data) {
+      return (
+        <div>
+            <MainBG>
+              <StyledBackIcon
+                  onClick={() => this.goBack()}
+              >
+                  <SVG src={arrowleftw} />
+              </StyledBackIcon>
+                <MainHeading>
+                  <Text
+                    mainHeading
+                    padding="30px 0 50px 0"
                   >
-                    <Text
-                      buttonText
+                    Enter The Fields Below
+                  </Text>
+                </MainHeading>
+              <FormContainer
+              >
+                  <form onSubmit={this.props.handleSubmit(values => this.addNewCustomer(values))}>
+                    {this.renderFields()}
+                    <Button
+                      standardBtn
+                      margin="0 auto"
+                      type="submit"
                     >
-                      Submit
-                    </Text>
-                  </Button>
-                </form>
-            </FormContainer>
-          </MainBG>
-      </div>
-    );
+                      <Text
+                        buttonText
+                      >
+                        Submit
+                      </Text>
+                    </Button>
+                  </form>
+              </FormContainer>
+            </MainBG>
+        </div>
+      );
+    } else {
+      return (
+        this.renderNotLoggedIn()
+      )
+    }
   }
 }
 

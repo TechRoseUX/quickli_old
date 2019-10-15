@@ -192,6 +192,8 @@ class App extends Component {
             selectedCustomer={environment.selectedCustomer}
             getSelectedCustomer={getSelectedCustomer}
             getCurrentEmailId={getCurrentEmailId}
+            auth={auth}
+            
              />  }
              />
              <Route exact path="/new-vehicle/:customerid" 
@@ -202,7 +204,9 @@ class App extends Component {
             getSelectedCustomer={getSelectedCustomer}
             getRealCustomers={getRealCustomers}
             realCustomers={realCustomers}
+            auth={auth}
             history={history}
+
              />  }
              />
              <Route exact path="/new-service" 
@@ -213,7 +217,9 @@ class App extends Component {
             customerVehicles={customerVehicles}
             getSelectedVehicle={getSelectedVehicle}
             getSelectedCustomer={getSelectedCustomer}
+            auth={auth}
             history={history}
+
              />  }
              />
              <Route exact path="/end-service" 
@@ -222,7 +228,9 @@ class App extends Component {
             selectedCustomer={environment.selectedCustomer}
             selectedVehicle={environment.selectedVehicle}
             updateService={updateService}
+            auth={auth}
             history={history}
+
              />  }
              />
              <Route exact path="/new-customer/confirmation" 
@@ -230,7 +238,9 @@ class App extends Component {
             selectedCustomer={environment.selectedCustomer}
             getSelectedCustomer={getSelectedCustomer}
             realCustomers={realCustomers}
+            auth={auth}
             history={history}
+
              />  }
              />
 
@@ -243,7 +253,9 @@ class App extends Component {
             realCustomers={realCustomers}
             customerVehicles={customerVehicles}
             getSelectedVehicle={getSelectedVehicle}
+            auth={auth}
             history={history}
+
              />  }
              />
 
@@ -256,7 +268,8 @@ class App extends Component {
               toggleNavBar={toggleNavBar}
               toggleNavToggle={toggleNavToggle}
               showNavBar={environment.showNavBar}
-    
+              auth={auth}
+
              />  }
              />
              <Route exact path="/customers/:customerid" 
@@ -269,7 +282,8 @@ class App extends Component {
               selectedCustomer={environment.selectedCustomer}
               realCustomers={realCustomers}
               customerVehicles={customerVehicles}
-    
+              auth={auth}
+
              />  }
              />
              <Route exact path="/customers/vehicles/:customerid/:vehicleid" 
@@ -283,7 +297,8 @@ class App extends Component {
               realCustomers={realCustomers}
               customerVehicles={customerVehicles}
               customerServices={customerServices}
-    
+              auth={auth}
+
              />  }
              />
              <Route exact path="/customers/vehicles/:customerid/:vehicleid/:serviceid" 
@@ -298,7 +313,8 @@ class App extends Component {
               customerVehicles={customerVehicles}
               customerServices={customerServices}
               selectedService={environment.selectedService}
-    
+              auth={auth}
+
              />  }
              />
              <Route exact path="/customers/service/:customerid/:vehicleid" 
@@ -312,6 +328,7 @@ class App extends Component {
               realCustomers={realCustomers}
               history={history}
               createNewService={createNewService}
+              auth={auth}
     
              />  }
              />
@@ -329,7 +346,8 @@ class App extends Component {
               toggleNavBar={toggleNavBar}
               toggleNavToggle={toggleNavToggle}
               showNavBar={environment.showNavBar}
-    
+              auth={auth}
+
              />  }
              />
             <Route exact path="/settings" component={Code} />

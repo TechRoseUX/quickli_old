@@ -146,7 +146,6 @@ getCustomerFromParams = () => {
         </div>
       )
     }
-    
   }
 
   handleInputChange = () => {
@@ -160,14 +159,49 @@ getCustomerFromParams = () => {
     history.go(-1)
   }
 
+  historyAndReload = () => {
+    const { history } = this.props
+    history.push('/login');
+    window.location.reload()
+  }
+
+  renderNotLoggedIn = () => {
+    return (
+      <div>
+          <MainBG>
+              <Text
+                white35
+                padding='100px 0 50px 0'
+                maxWidth='600px'
+                margin='0 auto'
+              >
+                You are not logged in. Please click the button below to return to the login screen.
+              </Text>
+            <Button
+              standardBtn
+              margin='0 auto'
+              onClick={this.historyAndReload}
+            >
+              <Text
+                buttonText
+              >
+                Login
+              </Text>
+
+            </Button>
+          </MainBG>
+      </div>
+    )
+  }
+
   render() {
     const { createNewVehicle, selectedCustomer, customerid } = this.props
     console.log(this.props);
     console.log(selectedCustomer);
     const props = this.props
+    const data = props && props.auth ? props.auth.data : null;
 
     const createBody = (values, props) => {
-
       const history = props.history
         let dataa = {
           values: values,
@@ -180,51 +214,53 @@ getCustomerFromParams = () => {
         window.location.reload();
     }
 
-    return (
-      <div>
-      <MainBG>
-        <StyledBackIcon
-            onClick={() => this.goBack()}
-        >
-           <SVG src={arrowleftw} />
-        </StyledBackIcon>
-          <MainHeading>
-            <Text
-              mainHeading
-              padding="30px 0 50px 0"
-            >
-              Enter The Fields Below
-            </Text>
-          </MainHeading>
-        <FormContainer
-        >
-            <form onSubmit={this.props.handleSubmit(values => createBody(values, props))}>
-              {this.renderFields()}
-              <Button
-                standardBtn
-                margin="0 auto"
-                type="submit"
+    if (data) {
+      return (
+            <div>
+            <MainBG>
+              <StyledBackIcon
+                  onClick={() => this.goBack()}
               >
-                <Text
-                  buttonText
-                >
-                  Submit
-                </Text>
-              </Button>
-            </form>
-        </FormContainer>
-      </MainBG>
-  </div>
-    );
+                <SVG src={arrowleftw} />
+              </StyledBackIcon>
+                <MainHeading>
+                  <Text
+                    mainHeading
+                    padding="30px 0 50px 0"
+                  >
+                    Enter The Fields Below
+                  </Text>
+                </MainHeading>
+              <FormContainer
+              >
+                  <form onSubmit={this.props.handleSubmit(values => createBody(values, props))}>
+                    {this.renderFields()}
+                    <Button
+                      standardBtn
+                      margin="0 auto"
+                      type="submit"
+                    >
+                      <Text
+                        buttonText
+                      >
+                        Submit
+                      </Text>
+                    </Button>
+                  </form>
+              </FormContainer>
+            </MainBG>
+        </div>
+      );
+    } else {
+      return (
+        this.renderNotLoggedIn()
+      )
+    }
   }
 }
 
 const validate = (values, props, field) => {
   const errors = {};
-
-  console.log(values)
-  console.log(props)
-  console.log(field)
 
   if (!values.cname) {
     errors.cname = 'You must provide a customer name'

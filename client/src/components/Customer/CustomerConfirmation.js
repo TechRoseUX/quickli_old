@@ -85,8 +85,10 @@ class CustomerConfirmation extends Component {
 
     render() {
         const { realCustomers, getSelectedCustomer, selectedCustomer } = this.props
+        const props = this.props
+        const data = props && props.auth ? props.auth.data : null;
 
-        if (realCustomers.length > 0) {
+        if (realCustomers.length > 0 && data) {
             console.log(realCustomers)
             const currentCus = realCustomers.slice(-1).pop()
             console.log(currentCus);

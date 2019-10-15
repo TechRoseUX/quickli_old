@@ -79,13 +79,14 @@ module.exports = (app) => {
 
       
       app.post('/new-vehicle/:customerid', ensureAuthenticated, (req, res) => {
+        console.log(`HEREEE PROPS ${req.body.values}`)
         var uniqid = Date.now();
         var num2;
         
-        if (!req.body.values.phoneNumber1) {
+        if (!req.body.values.pnumber) {
           num1 = 'No phone number added'
         } else {
-          num1 = req.body.values.phoneNumber1
+          num1 = req.body.values.pnumber
         }
       
         const newVehicle = new Vehicle ({

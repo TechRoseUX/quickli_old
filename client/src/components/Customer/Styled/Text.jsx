@@ -87,7 +87,7 @@ const Text = styled.p`
 
 	${is('white35')`
 		font-size: 35px;
-		line-height: 35px;
+		line-height: 45px;
 		color: ${Colors.fullWhite};
 		font-style: medium;
 	`}

@@ -6,7 +6,7 @@ import './customers.css';
 
 import styled from 'styled-components';
 import { device } from './Styled/StyledMediaQuery';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom';
 import SVG from 'react-inlinesvg';
 
 import Colors from '../constants/colors';
@@ -101,6 +101,8 @@ const AllCsBG = styled(NewDiv)`
     }
 `
 
+var showInfo;
+
 class AllCustomers extends Component {
 
   static propTypes = {
@@ -114,7 +116,7 @@ class AllCustomers extends Component {
 
   componentDidMount() {
     this.props.getRealCustomers();
-    const {showNavBar, toggleNavBar, toggleNavToggle, updateCustomerSearch } = this.props
+    const {showNavBar, toggleNavBar, toggleNavToggle, updateCustomerSearch, history } = this.props
     if (showNavBar === 'block') {
       toggleNavBar('none')
       toggleNavToggle(barsw);
@@ -132,7 +134,6 @@ class AllCustomers extends Component {
 
     var s = document.getElementById('search-select');
     var strSelect = s.options[s.selectedIndex].value
-
     console.log(strSelect)
   }
 
@@ -146,9 +147,7 @@ class AllCustomers extends Component {
   renderRows = () => {
     const { realCustomers, selectedCustomer, getSelectedCustomer, history, search, currentFilter } = this.props
     console.log(selectedCustomer);
-
     const realCustomersReversed = realCustomers.reverse()
-
     var filteredCustomers;
 
     if (currentFilter === 'Name') {
@@ -211,85 +210,123 @@ class AllCustomers extends Component {
     })
   }
 
-  render() {
-    const { realCustomers, updateCustomerSearch, search } = this.props
-
+  renderNotLoggedIn = () => {
+    const { history } = this.props
     return (
       <div>
-        <AllCsBG>
-          <MainHeading>
+          <MainBG>
               <Text
-                mainHeading
-                padding="30px 0 50px 0"
+                white35
+                padding='100px 0 50px 0'
+                maxWidth='600px'
+                margin='0 auto'
               >
-                All Customers
+                You are not logged in. Please click the button below to return to the login screen.
               </Text>
-            </MainHeading>
-        <NewDiv
-          width="662px"
-          height="40px"
-        >
-          <CustomerSearchBar 
-            placeholder="Search"
-            onChange={this.searchCustomers}
-            value={search}
-          />
-        </NewDiv>
-        <CustomerSearchSelectSec>
-          <SearchNameBox
-            float="left"
-          >
-            <Text
-              padding="0 0 15px 0"
-            >
-              Search By:
-            </Text>
-            <NameSelectDiv>
-              <StyledSelect 
-              id="search-select"
-              onChange={this.updateFilter}
-              >
-                <option>Name</option>
-                <option>Phone Number</option>
-                <option>Email</option>
-                <option>Vin Number</option>
-              </StyledSelect>
-            </NameSelectDiv>
-          </SearchNameBox>
-          <SearchNameBox>
-            <Text
-              padding="0 0 15px 0"
-            >
-              Sort By:
-            </Text>
-            <NameSelectDiv>
-              <StyledSelect>
-                <option>Default</option>
-              </StyledSelect>
-            </NameSelectDiv>
-          </SearchNameBox>
-          <SearchButton>
             <Button
-              width="100%"
-              height="100%"
-              borderRadius="40px"
               standardBtn
+              margin='0 auto'
+              onClick={() => history.push('/login')}
             >
               <Text
+                buttonText
               >
-                Search
-                </Text>
+                Login
+              </Text>
+
             </Button>
-          </SearchButton>
-        </CustomerSearchSelectSec>
-      </AllCsBG>
-        <NewDiv
-          width="100vw"
-        >
-            {this.renderRows()}
-        </NewDiv>
+          </MainBG>
       </div>
-    );
+    )
+  }
+
+  render() {
+    const { realCustomers, updateCustomerSearch, search, history, auth } = this.props
+    const props = this.props
+    const data = props && props.auth ? props.auth.data : null;
+
+    if (data) {
+      return (
+        <div>
+          <AllCsBG>
+            <MainHeading>
+                <Text
+                  mainHeading
+                  padding="30px 0 50px 0"
+                >
+                  All Customers
+                </Text>
+              </MainHeading>
+          <NewDiv
+            width="662px"
+            height="40px"
+          >
+            <CustomerSearchBar 
+              placeholder="Search"
+              onChange={this.searchCustomers}
+              value={search}
+            />
+          </NewDiv>
+          <CustomerSearchSelectSec>
+            <SearchNameBox
+              float="left"
+            >
+              <Text
+                padding="0 0 15px 0"
+              >
+                Search By:
+              </Text>
+              <NameSelectDiv>
+                <StyledSelect 
+                id="search-select"
+                onChange={this.updateFilter}
+                >
+                  <option>Name</option>
+                  <option>Phone Number</option>
+                  <option>Email</option>
+                  <option>Vin Number</option>
+                </StyledSelect>
+              </NameSelectDiv>
+            </SearchNameBox>
+            <SearchNameBox>
+              <Text
+                padding="0 0 15px 0"
+              >
+                Sort By:
+              </Text>
+              <NameSelectDiv>
+                <StyledSelect>
+                  <option>Default</option>
+                </StyledSelect>
+              </NameSelectDiv>
+            </SearchNameBox>
+            <SearchButton>
+              <Button
+                width="100%"
+                height="100%"
+                borderRadius="40px"
+                standardBtn
+              >
+                <Text
+                >
+                  Search
+                  </Text>
+              </Button>
+            </SearchButton>
+          </CustomerSearchSelectSec>
+        </AllCsBG>
+          <NewDiv
+            width="100vw"
+          >
+              {this.renderRows()}
+          </NewDiv>
+        </div>
+      );
+    } else {
+      return (
+        this.renderNotLoggedIn()
+      )
+    }
   }
 }
 
@@ -308,4 +345,4 @@ const dispatchToProps = (dispatch) => ({
    getCurrentFilter: (filter) => dispatch (getCurrentFilter(filter))
 })
 
-export default connect(mapStateToProps, dispatchToProps)(AllCustomers);
+export default withRouter(connect(mapStateToProps, dispatchToProps)(AllCustomers));

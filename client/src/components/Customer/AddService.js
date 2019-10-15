@@ -79,6 +79,41 @@ class AddService extends Component {
     }
   }
 
+  historyAndReload = () => {
+    const { history } = this.props
+    history.push('/login');
+    window.location.reload()
+  }
+
+  renderNotLoggedIn = () => {
+    return (
+      <div>
+          <MainBG>
+              <Text
+                white35
+                padding='100px 0 50px 0'
+                maxWidth='600px'
+                margin='0 auto'
+              >
+                You are not logged in. Please click the button below to return to the login screen.
+              </Text>
+            <Button
+              standardBtn
+              margin='0 auto'
+              onClick={this.historyAndReload}
+            >
+              <Text
+                buttonText
+              >
+                Login
+              </Text>
+
+            </Button>
+          </MainBG>
+      </div>
+    )
+  }
+
   searchc = (id, myArray) => {
     for (var i=0; i < myArray.length; i++) {
         if (myArray[i].customerid === id) {
@@ -148,7 +183,6 @@ class AddService extends Component {
         FIELDS.push(reason)
         FIELDS.push(tNumber)
       }
-
     }
 
     if (selectedCustomer && selectedVehicle) {
@@ -174,8 +208,6 @@ class AddService extends Component {
           <div>Loading.....</div>
         )
     }
-
-    
   }
 
   renderDetailsField = () => {
@@ -202,6 +234,8 @@ class AddService extends Component {
     const props = this.props
     const currentDetailsText = this.state.currentDetailsText
 
+    const data = props && props.auth ? props.auth.data : null;
+
     const createBody = (values, props) => {
       const history = this.props.history;
         let dataa = {
@@ -218,47 +252,53 @@ class AddService extends Component {
         window.location.reload();
     }
 
-    return (
-      <div>
-      <MainBG>
-        <StyledBackIcon
-            onClick={() => this.goBack()}
-        >
-           <SVG src={arrowleftw} />
-        </StyledBackIcon>
-          <MainHeading>
-            <Text
-              mainHeading
-              padding="30px 0 50px 0"
-            >
-              Enter The Fields Below
-            </Text>
-          </MainHeading>
-        <FormContainer
-        >
-            <form onSubmit={this.props.handleSubmit(values => createBody(values, props))}>
-              {this.renderFields()}
-              <DetailsTextarea 
-                value={this.state.currentDetailsText}
-                onChange={this.updateTextarea}
-                placeholder='Enter Details...'
-              />
-              <Button
-                standardBtn
-                margin="0 auto"
-                type="submit"
+    if (data) {
+      return (
+        <div>
+        <MainBG>
+          <StyledBackIcon
+              onClick={() => this.goBack()}
+          >
+             <SVG src={arrowleftw} />
+          </StyledBackIcon>
+            <MainHeading>
+              <Text
+                mainHeading
+                padding="30px 0 50px 0"
               >
-                <Text
-                  buttonText
+                Enter The Fields Below
+              </Text>
+            </MainHeading>
+          <FormContainer
+          >
+              <form onSubmit={this.props.handleSubmit(values => createBody(values, props))}>
+                {this.renderFields()}
+                <DetailsTextarea 
+                  value={this.state.currentDetailsText}
+                  onChange={this.updateTextarea}
+                  placeholder='Enter Details...'
+                />
+                <Button
+                  standardBtn
+                  margin="0 auto"
+                  type="submit"
                 >
-                  Submit
-                </Text>
-              </Button>
-            </form>
-        </FormContainer>
-      </MainBG>
-  </div>
-    );
+                  <Text
+                    buttonText
+                  >
+                    Submit
+                  </Text>
+                </Button>
+              </form>
+          </FormContainer>
+        </MainBG>
+    </div>
+      );
+    } else {
+      return (
+        this.renderNotLoggedIn()
+      )
+    }
   }
 }
 
