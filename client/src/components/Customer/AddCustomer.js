@@ -124,7 +124,7 @@ class AddCustomer extends Component {
       console.log(realCustomers);
       createNewCustomer(values);
       history.push('/new-customer/confirmation');
-      window.location.reload();
+        window.location.reload();
   }
 
   render() {

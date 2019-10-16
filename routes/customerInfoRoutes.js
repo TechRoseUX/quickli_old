@@ -25,6 +25,16 @@ module.exports = (app) => {
         res.json(realCustomers);
       });
 
+      app.get('/all-customers', async (req, res) => {
+        const rcs = await Customer.find({user: req.user.userid});
+        const realCustomers = Array.from(rcs);
+        res.json(realCustomers);
+      });
+
+      app.get('/customers/:customerid', async (req, res) => {
+        console.log('loading customer info')
+      })
+
       //Edit Customer Info Page
       app.get('/customer/edit/:customerid', async (req, res) => { 
       })
