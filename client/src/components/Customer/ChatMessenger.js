@@ -564,8 +564,8 @@ class ChatMessenger extends Component {
             console.log('It cannot be done.')
         }
 
-        setTimeout(getCustomerActiveToMessages, 1000)
-        setTimeout(this.renderChatMessages, 2000)
+        setTimeout(getCustomerActiveToMessages, 2000)
+        setTimeout(this.renderChatMessages, 3000)
         //window.location.reload()
         getSelectedMessageText('')
   }
@@ -624,7 +624,7 @@ class ChatMessenger extends Component {
   render() {
     const { getSelectedMessageText, selectedMessageText, createNewToMessage, selectedServiceMessage, search } = this.props
     console.log(createNewToMessage);
-    const newText = "akjshdkjashdkjahsdkhasdkj"
+    const newText = ""
     console.log(this.props)
     const props = this.props
     const data = props && props.auth ? props.auth.data : null;

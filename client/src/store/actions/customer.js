@@ -26,7 +26,7 @@ export const getCustomerServices = () => dispatch => {
 }
 
 export const getActiveCustomerServices = () => dispatch => {
-  return fetch('/customers/chat/service')
+  return fetch('/customers/chat/service/get')
   .then(res => res.json())
   .then(customerActiveServices => dispatch({type: GET_ACTIVE_SERVICES, payload: customerActiveServices}))
 }
@@ -69,7 +69,7 @@ export const updateService = (dataa) => async dispatch => {
 
 export const createNewToMessage = (value) => async dispatch => {
   console.log(value)
-  const res = await axios.post('/customers/chat/service', value);
+  const res = await axios.post('/customers/chat/service/post', value);
   dispatch({type: GET_CUSTOMERS, payload: res.data})
 }
 

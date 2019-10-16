@@ -64,7 +64,7 @@ module.exports = (app) => {
       })
       
       //Chat Messenger
-      app.get('/customers/chat/service', async (req, res) => {
+      app.get('/customers/chat/service/get', async (req, res) => {
         const as = await Service.find({user: req.user.id, status: true});
         const activeServices = Array.from(as);
         res.json(activeServices);
@@ -76,7 +76,7 @@ module.exports = (app) => {
         res.json(activeToMessages);
       })
       
-      app.post('/customers/chat/service', (req, res) => {
+      app.post('/customers/chat/service/post', (req, res) => {
         console.log(`MESSAGES${req.body}`)
         var uniqid = Date.now();
         console.log(req.body.textMessage)
