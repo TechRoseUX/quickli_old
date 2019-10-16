@@ -68,7 +68,7 @@ class CustomerInfo extends Component {
     const { selectedCustomer, getSelectedCustomer, realCustomers, customerVehicles, getRealCustomers } = this.props
 
     if (!realCustomers || realCustomers.length < 1) {
-        setTimeout(this.getCustomerFromParams, 3000)
+        setTimeout(this.getCustomerFromParams, 7000)
     } else {
         console.log('There is something')
         console.log(realCustomers)
