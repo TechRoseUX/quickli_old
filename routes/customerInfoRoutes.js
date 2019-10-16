@@ -37,9 +37,12 @@ module.exports = (app) => {
  //       res.json(realCustomers);
       })
 
-      app.get('/new-customer/confirmation', async (req, res) => {
-        console.log('customer confirmed')
- //       res.json(realCustomers);
+      app.get('/new-customer/confirmation', (req, res) => {
+        const customers = [
+          {id: 1, firstName: 'John', lastName: 'Doe'},
+          {id: 2, firstName: 'Brad', lastName: 'Traversy'},
+          {id: 3, firstName: 'Mary', lastName: 'Swanson'},
+        ];
       })
 
       //Edit Customer Info Page
