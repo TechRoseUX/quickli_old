@@ -581,7 +581,6 @@ class ChatMessenger extends Component {
     history.go(-1)
   }
 
-
   searchMessageCells = (event) => {
     const { search, updateCustomerSearch } = this.props
     var searchText = event.target.value
@@ -630,7 +629,6 @@ class ChatMessenger extends Component {
     const props = this.props
     const data = props && props.auth ? props.auth.data : null;
 
-
     if (data) {
         return (
             <div>
@@ -672,7 +670,7 @@ class ChatMessenger extends Component {
                             <form method="POST" onChange={this.handleChange} onSubmit={(e) => this.sendNewMessage(e, this)}>
                                 <MessengerTextBox
                                     width="97%"
-                                    placeholder="Enter Messege..."
+                                    placeholder="Enter Message..."
                                     value={selectedMessageText}
                                     name="toMessage"
                                 />
