@@ -8,7 +8,8 @@ export const getCustomers = () => dispatch => {
 }
 
 export const getRealCustomers = () => dispatch => {
-  return fetch('/all-customers')
+  return fetch('/all-customers/customers')
+    .then(res => res.json())
     .then(realCustomers => dispatch({type: GET_REAL_CUSTOMERS, payload: realCustomers}))
 }
 
