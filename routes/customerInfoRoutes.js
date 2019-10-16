@@ -31,10 +31,13 @@ module.exports = (app) => {
         res.json(realCustomers);
       });
 
-      app.get('/customers/:customerid', async (req, res) => {
-        const rcs = await Customer.find({user: req.user.userid});
-        const realCustomers = Array.from(rcs);
- //       res.json(realCustomers);
+      app.get('/customers/:customerid', (req, res) => {
+        const customers = [
+          {id: 1, firstName: 'John', lastName: 'Doe'},
+          {id: 2, firstName: 'Brad', lastName: 'Traversy'},
+          {id: 3, firstName: 'Mary', lastName: 'Swanson'},
+        ];
+        res.send('good');
       })
 
       app.get('/new-customer/confirmation', (req, res) => {
