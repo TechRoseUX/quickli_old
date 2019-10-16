@@ -38,8 +38,7 @@ module.exports = (app) => {
       })
 
       app.get('/new-customer/confirmation', async (req, res) => {
-        const rcs = await Customer.find({user: req.user.userid});
-        const realCustomers = Array.from(rcs);
+        console.log('customer confirmed')
  //       res.json(realCustomers);
       })
 
