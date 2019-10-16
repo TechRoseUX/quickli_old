@@ -37,6 +37,12 @@ module.exports = (app) => {
  //       res.json(realCustomers);
       })
 
+      app.get('/new-customer/confirmation', async (req, res) => {
+        const rcs = await Customer.find({user: req.user.userid});
+        const realCustomers = Array.from(rcs);
+ //       res.json(realCustomers);
+      })
+
       //Edit Customer Info Page
       app.get('/customer/edit/:customerid', async (req, res) => { 
       })
