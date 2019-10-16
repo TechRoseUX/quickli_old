@@ -41,7 +41,9 @@ export const createNewCustomer = (values) => async dispatch => {
   const res = await axios.post('/new-customer', values);
   console.log('Here is the new customer nfndfnsdfnskdhfkshdf')
   dispatch({type: GET_CUSTOMERS, payload: res.data});
-  window.location.reload();
+  setTimeout(function(){
+    window.location.reload();
+  });
 }
 
 export const createNewVehicle = (dataa) => async dispatch => {
