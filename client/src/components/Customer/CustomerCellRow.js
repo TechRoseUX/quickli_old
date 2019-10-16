@@ -111,6 +111,7 @@ class CustomerCellRow extends Component {
                     inline
                     padding="0 0 0 15px"
                     dblue16
+                    acEmail
                 >
                     {phoneNumber1}
                 </Text>
@@ -129,6 +130,7 @@ class CustomerCellRow extends Component {
                     inline
                     padding="0 0 0 15px"
                     dblue16
+                    acEmail
                 >
                     {email}
                 </Text>

@@ -121,13 +121,50 @@ const Text = styled.p`
 		vertical-align: bottom;
 
 		@media ${device.mobileS} {
+			max-width: 40px;
+			width: 40px;
+		}
+
+		@media ${device.tablet} {
+			max-width: 70px;
+			width: 70px;
+		}
+
+		@media ${device.tabletL} {
 			max-width: 100px;
 			width: 100px;
 		}
 
 		@media ${device.laptopL} {
 			max-width: 150px;
-			width: 1500px;
+			width: 150px;
+		}
+	`}
+
+	${is('acEmail')`
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		vertical-align: bottom;
+
+		@media ${device.mobileS} {
+			max-width: 70px;
+			width: 70px;
+		}
+
+		@media ${device.tablet} {
+			max-width: 150px;
+			width: 150px;
+		}
+
+		@media ${device.tabletL} {
+			max-width: 175px;
+			width: 175px;
+		}
+
+		@media ${device.laptopL} {
+			max-width: 300px;
+			width: 300px;
 		}
 	`}
 

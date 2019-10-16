@@ -30,6 +30,17 @@ import { isContext } from 'vm';
 
 const MessengerContainer = styled(NewDiv)`
     @media ${device.tablet} {
+        width: 300px;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        overflow-y: scroll;
+        background: ${Colors.lightBlue};
+        float: left;
+    }
+
+    @media ${device.tabletL} {
         width: 323px;
         height: 100vh;
         position: fixed;
@@ -43,6 +54,12 @@ const MessengerContainer = styled(NewDiv)`
 
 const MessengerContainerTop = styled(NewDiv)`
     @media ${device.tablet} {
+        width: 300px;
+        height: 190px;
+        background: ${Colors.lightBlue};
+        border-bottom: 1px solid ${Colors.fullWhite};
+    }
+    @media ${device.tabletL} {
         width: 323px;
         height: 190px;
         background: ${Colors.lightBlue};
@@ -122,6 +139,12 @@ const MessengerTextBox = styled.textarea`
 
 const MessengerChatContainer = styled(NewDiv)`
     @media ${device.tablet} {
+        width: 450px;
+        height: 100vh;
+        background-color: ${Colors.lighterGray};
+        float: right
+    } 
+    @media ${device.tabletL} {
         width: 511px;
         height: 100vh;
         background-color: ${Colors.lighterGray};
@@ -143,6 +166,13 @@ const MessengerChatTopSec = styled(NewDiv)`
 
 const MessengerFixedBottom = styled(NewDiv)`
     @media ${device.tablet} {
+        width: 450px;
+        height: 115px;
+        position: fixed;
+        bottom: 0;
+    } 
+
+    @media ${device.tabletL} {
         width: 511px;
         height: 115px;
         position: fixed;
@@ -180,7 +210,6 @@ const BottomRightButton = styled(NewDiv)`
         padding: 5px;
         display: inline-block;
         padding-top: 60px;
-        float: right;
 
         svg {
             width: 40px;
@@ -191,6 +220,13 @@ const BottomRightButton = styled(NewDiv)`
 
 const BottomMiddleText = styled(NewDiv)`
     @media ${device.tablet} {
+        width: 350px;
+        height: 100px;
+        padding: 5px 0;
+        display: inline-block;
+    } 
+
+    @media ${device.tabletL} {
         width: 400px;
         height: 100px;
         padding: 5px 0;

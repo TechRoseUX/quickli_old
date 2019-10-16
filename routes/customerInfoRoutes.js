@@ -19,7 +19,7 @@ module.exports = (app) => {
       });
       
       //All Customers Page
-      app.get('/all-customers', ensureAuthenticated, async (req, res) => {
+      app.get('/all-customers', async (req, res) => {
         const rcs = await Customer.find({user: req.user.userid});
         const realCustomers = Array.from(rcs);
         res.json(realCustomers);
@@ -30,7 +30,7 @@ module.exports = (app) => {
       })
       
       //Customer Vehicles Page 
-      app.get('/customer-vehicles', ensureAuthenticated, async (req, res) => {
+      app.get('/customer-vehicles', async (req, res) => {
         console.log(req.body);
         const vs = await Vehicle.find({});
         console.log(`yooooo ${vs}`);
@@ -39,7 +39,7 @@ module.exports = (app) => {
       });
       
       //Customer Services Page 
-      app.get('/customer/vehicles-services', ensureAuthenticated, async (req, res) => {
+      app.get('/customer/vehicles-services', async (req, res) => {
         const myJSON = JSON.stringify(req.user);
         console.log(`first boooo ${myJSON}`);
         const vs = await Service.find({user: req.user.userid});
@@ -52,7 +52,7 @@ module.exports = (app) => {
         console.log(req.body);
       });
       
-      app.post('/new-customer', ensureAuthenticated, (req, res) => {
+      app.post('/new-customer', (req, res) => {
         console.log(req.body);
         var uniqid = Date.now();
         var user = req.user.userid
@@ -78,7 +78,7 @@ module.exports = (app) => {
       });
 
       
-      app.post('/new-vehicle/:customerid', ensureAuthenticated, (req, res) => {
+      app.post('/new-vehicle/:customerid', (req, res) => {
         console.log(`HEREEE PROPS ${req.body.values}`)
         var uniqid = Date.now();
         var num2;
