@@ -190,7 +190,13 @@ class EndService extends Component {
 }
 
 const validate = (values) => {
+  const errors = {};
 
+  if (!values.mileage) {
+    errors.mileage = 'Please confirm mileage by selecting the text field.'
+  }
+
+  return errors
 }
 
 export default reduxForm({

@@ -8,7 +8,7 @@ import Colors from '../../constants/colors'
 import { device } from './StyledMediaQuery';
 
 const Text = styled.p`
-	font-size: 16px;
+	font-size: ${({ fontSize }) => (fontSize || '16px')};
 	line-height: ${({ lineHeight }) => (lineHeight || '16px')};
 	color: ${({ color }) => (color || Colors.fullWhite)};
 	margin: ${props => (props.margin || '0')};
@@ -126,18 +126,18 @@ const Text = styled.p`
 		}
 
 		@media ${device.tablet} {
-			max-width: 70px;
-			width: 70px;
+			max-width: 130px;
+			width: 130px;
 		}
 
 		@media ${device.tabletL} {
-			max-width: 100px;
-			width: 100px;
+			max-width: 150px;
+			width: 150px;
 		}
 
 		@media ${device.laptopL} {
-			max-width: 150px;
-			width: 150px;
+			max-width: 165px;
+			width: 165px;
 		}
 	`}
 
@@ -153,13 +153,13 @@ const Text = styled.p`
 		}
 
 		@media ${device.tablet} {
-			max-width: 150px;
-			width: 150px;
+			max-width: 215px;
+			width: 215px;
 		}
 
 		@media ${device.tabletL} {
-			max-width: 175px;
-			width: 175px;
+			max-width: 235px;
+			width: 235px;
 		}
 
 		@media ${device.laptopL} {

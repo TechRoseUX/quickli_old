@@ -43,6 +43,16 @@ const CellInfoLeft = styled(NewDiv)`
     height: 60px;
     width: 33%;
     text-align: left;
+
+    @media ${device.tablet} {
+        margin-left: 6%;
+        width: 39%;
+    }
+
+    @media ${device.laptop} {
+        margin-left: 10%;
+        width: 33%;
+    }
 `
 
 const CellInfoRight = styled(CellInfoLeft)`
@@ -78,6 +88,12 @@ class CustomerCellRow extends Component {
         onClick={() => {this.openCustomerProfile() }}
       >
           <CellID>
+            <Text
+                fontSize='6px'
+                padding='15px 0 0 0'
+            >
+                {customerid}
+            </Text>
           </CellID>
           <CellInfoLeft>
               <NewDiv
@@ -111,7 +127,7 @@ class CustomerCellRow extends Component {
                     inline
                     padding="0 0 0 15px"
                     dblue16
-                    acEmail
+                    acName
                 >
                     {phoneNumber1}
                 </Text>
