@@ -30,7 +30,7 @@ import { isContext } from 'vm';
 
 const MessengerContainer = styled(NewDiv)`
     @media ${device.tablet} {
-        width: 300px;
+        width: 40%;
         height: 100vh;
         position: fixed;
         left: 0;
@@ -41,7 +41,7 @@ const MessengerContainer = styled(NewDiv)`
     }
 
     @media ${device.tabletL} {
-        width: 323px;
+        width: 35%;
         height: 100vh;
         position: fixed;
         left: 0;
@@ -54,14 +54,14 @@ const MessengerContainer = styled(NewDiv)`
 
 const MessengerContainerTop = styled(NewDiv)`
     @media ${device.tablet} {
-        width: 300px;
-        height: 190px;
+        width: 100%;
+        height: 200px;
         background: ${Colors.lightBlue};
         border-bottom: 1px solid ${Colors.fullWhite};
     }
     @media ${device.tabletL} {
-        width: 323px;
-        height: 190px;
+        width: 100%;
+        height: 200px;
         background: ${Colors.lightBlue};
         border-bottom: 1px solid ${Colors.fullWhite};
     }
@@ -139,13 +139,13 @@ const MessengerTextBox = styled.textarea`
 
 const MessengerChatContainer = styled(NewDiv)`
     @media ${device.tablet} {
-        width: 450px;
+        width: 60%;
         height: 100vh;
         background-color: ${Colors.lighterGray};
         float: right
     } 
     @media ${device.tabletL} {
-        width: 511px;
+        width: 65%;
         height: 100vh;
         background-color: ${Colors.lighterGray};
         float: right
@@ -154,7 +154,17 @@ const MessengerChatContainer = styled(NewDiv)`
 
 const MessengerChatTopSec = styled(NewDiv)`
     @media ${device.tablet} {
-        width: 511px;
+        width: 60%;
+        height: 90px;
+        background-color: ${Colors.lighterGray};
+        border-bottom: 1px solid ${Colors.lightBlue};
+        position: fixed;
+        top: 0;
+        text-align: left;
+    } 
+
+    @media ${device.tabletL} {
+        width: 65%;
         height: 90px;
         background-color: ${Colors.lighterGray};
         border-bottom: 1px solid ${Colors.lightBlue};
@@ -166,14 +176,17 @@ const MessengerChatTopSec = styled(NewDiv)`
 
 const MessengerFixedBottom = styled(NewDiv)`
     @media ${device.tablet} {
-        width: 450px;
+        width: 60%;
         height: 115px;
         position: fixed;
         bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     } 
 
     @media ${device.tabletL} {
-        width: 511px;
+        width: 65%;
         height: 115px;
         position: fixed;
         bottom: 0;
@@ -220,14 +233,14 @@ const BottomRightButton = styled(NewDiv)`
 
 const BottomMiddleText = styled(NewDiv)`
     @media ${device.tablet} {
-        width: 350px;
+        width: 80%;
         height: 100px;
         padding: 5px 0;
         display: inline-block;
     } 
 
     @media ${device.tabletL} {
-        width: 400px;
+        width: 80%;
         height: 100px;
         padding: 5px 0;
         display: inline-block;
