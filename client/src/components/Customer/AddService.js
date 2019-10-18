@@ -229,6 +229,10 @@ class AddService extends Component {
     console.log(this.state.currentDetailsText)
   }
 
+  refreshWindow = () => {
+    window.location.reload()
+  }
+
   render() {
     const { createNewService, selectedCustomer, selectedVehicle } = this.props
     const props = this.props
@@ -248,8 +252,8 @@ class AddService extends Component {
 
         console.log(`Here is the data ${myJSON}`)
         createNewService(dataa);
-        history.push('/customers/chat/service')
-        window.location.reload();
+        history.push('/customers/chat/service');
+        setTimeout(this.refreshWindow, 1000)
     }
 
     if (data) {

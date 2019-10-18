@@ -58,6 +58,7 @@ export const createNewUser = (values) => async dispatch => {
 
 export const createNewService = (dataa) => async dispatch => {
   const res = await axios.post('/customers/service/:customerid/:serviceid', dataa);
+  window.location.reload();
   dispatch({type: GET_CUSTOMERS, payload: res.data})
 }
 
