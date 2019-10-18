@@ -119,12 +119,16 @@ class AddCustomer extends Component {
     history.go(-1)
   }
 
+  refreshWindow = () => {
+    window.location.reload()
+  }
+
   addNewCustomer = (values) => {
       const { createNewCustomer, history, realCustomers } = this.props
       console.log(realCustomers);
       createNewCustomer(values);
       history.push('/new-customer/confirmation');
-        window.location.reload();
+      setTimeout(this.refreshWindow, 1000)
   }
 
   render() {

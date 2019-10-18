@@ -194,6 +194,10 @@ getCustomerFromParams = () => {
     )
   }
 
+  refreshWindow = () => {
+    window.location.reload()
+  }
+
   render() {
     const { createNewVehicle, selectedCustomer, customerid } = this.props
     console.log(this.props);
@@ -211,7 +215,7 @@ getCustomerFromParams = () => {
         createNewVehicle(dataa);
         console.log(history)
         history.push(`/new-vehicle/${selectedCustomer.customerid}/confirmation`);
-        window.location.reload();
+        setTimeout(this.refreshWindow, 1000);
     }
 
     if (data) {

@@ -127,6 +127,10 @@ class EndService extends Component {
     console.log(this.state.currentDetailsText)
   }
 
+  refreshWindow = () => {
+    window.location.reload()
+  }
+
   render() {
     const { selectedCustomer, selectedVehicle, selectedServiceText, selectedServiceMessage, updateService } = this.props
     const props = this.props
@@ -147,7 +151,7 @@ class EndService extends Component {
         console.log(`Here is the data ${myJSON}`)
         updateService(dataa);
         history.push('/customers/chat/service')
-        window.location.reload();
+    //    setTimeout(this.refreshWindow, 1000)
     }
 
     return (

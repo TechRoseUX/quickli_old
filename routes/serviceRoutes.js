@@ -38,13 +38,15 @@ module.exports = (app) => {
 
       //Update service info to end the process
       app.post('/end-service', async (req, res) => { 
-        const myjson = JSON.stringify(req.body.props.selectedServiceMessage)
+        const myjson = JSON.stringify(req.body.values)
         console.log(`MYJSONNNNNNNNNNNNNNNNNNN${myjson}`);
 
         const newDetails = req.body.detailsText
+        const newMiles = req.body.values.mileage
         const serviceNum = req.body.props.selectedServiceMessage.serviceid
         var myquery = { serviceid: serviceNum };
-        var newvalues = { $set: { details: newDetails, status: false } };
+
+        var newvalues = { $set: { details: newDetails, mileage: newMiles, status: false } };
 
         Service.updateOne(myquery, newvalues, function(err, res) {
           if (err) throw err
