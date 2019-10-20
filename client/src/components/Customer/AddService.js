@@ -14,7 +14,7 @@ import userb from '../../rersources/svg/userb.svg';
 import phoneb from '../../rersources/svg/phoneb.svg';
 import pencilb from '../../rersources/svg/pencilb.svg';
 import mileageb from '../../rersources/svg/mileageb.svg';
-import hashb from '../../rersources/svg/hashb.svg';
+import numberb from '../../rersources/svg/numberb.svg';
 import arrowleftw from '../../rersources/svg/arrowleftw.svg';
 import StyledBackIcon from './Styled/StyledBackIcon';
 import { MainBG, NewDiv, MainHeading } from './Styled/StyledComponents';
@@ -173,7 +173,7 @@ class AddService extends Component {
      }
   
       const tNumber = {
-        label: 'Tag Number', name: 'tnumber', svg: hashb, placeholder: 'Enter tag number...', noValueError: 'You must provide a tag number'
+        label: 'Tag Number', name: 'tnumber', svg: numberb, placeholder: 'Enter tag number...', noValueError: 'You must provide a tag number'
       }
   
       if (FIELDS.length < 1) {

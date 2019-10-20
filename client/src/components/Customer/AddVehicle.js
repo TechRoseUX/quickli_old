@@ -16,7 +16,6 @@ import licenseb from '../../rersources/svg/licenseb.svg';
 import vinb from '../../rersources/svg/vinb.svg';
 import pencilb from '../../rersources/svg/pencilb.svg';
 import mileageb from '../../rersources/svg/mileageb.svg';
-import hashb from '../../rersources/svg/hashb.svg';
 import arrowleftw from '../../rersources/svg/arrowleftw.svg';
 import StyledBackIcon from './Styled/StyledBackIcon';
 import { MainBG, NewDiv, MainHeading } from './Styled/StyledComponents';

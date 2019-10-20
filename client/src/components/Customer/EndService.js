@@ -14,7 +14,7 @@ import userb from '../../rersources/svg/userb.svg';
 import phoneb from '../../rersources/svg/phoneb.svg';
 import pencilb from '../../rersources/svg/pencilb.svg';
 import mileageb from '../../rersources/svg/mileageb.svg';
-import hashb from '../../rersources/svg/hashb.svg';
+import numberb from '../../rersources/svg/numberb.svg';
 import arrowleftw from '../../rersources/svg/arrowleftw.svg';
 import StyledBackIcon from './Styled/StyledBackIcon';
 import { MainBG, NewDiv, MainHeading } from './Styled/StyledComponents';
@@ -84,7 +84,7 @@ class EndService extends Component {
           label: 'Reason For Visit', name: 'reason', svg: pencilb, placeholder: 'Enter reason...', noValueError: 'You must provide a reason for visit', defaultValue: selectedServiceMessage.reason
         },
         {
-          label: 'Tag Number', name: 'tnumber', svg: hashb, placeholder: 'Enter tag number...', noValueError: 'You must provide a tag number', defaultValue: selectedServiceMessage.tagNumber
+          label: 'Tag Number', name: 'tnumber', svg: numberb, placeholder: 'Enter tag number...', noValueError: 'You must provide a tag number', defaultValue: selectedServiceMessage.tagNumber
         }
       ]
 
@@ -151,7 +151,7 @@ class EndService extends Component {
         console.log(`Here is the data ${myJSON}`)
         updateService(dataa);
         history.push('/customers/chat/service')
-    //    setTimeout(this.refreshWindow, 1000)
+        setTimeout(this.refreshWindow, 1000)
     }
 
     return (

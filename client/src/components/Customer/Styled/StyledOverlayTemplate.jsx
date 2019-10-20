@@ -199,7 +199,8 @@ class StyledOverlayTemplate extends Component  {
         console.log(selectedServiceMessage)
         const text1 = `Hello ${selectedServiceMessage.customerName},`;
         const text2 = 'we have completed your';
-        const newText = `${text1} ${text2} ${this.state.customText}`;
+        const period = '.'
+        const newText = `${text1} ${text2} ${this.state.customText}${period}`;
 
        const getCorrectMessageText = () => {
             const { getSelectedMessageText, selectedMessageText, toggleTemplateOverlay } = this.props
@@ -328,7 +329,8 @@ class StyledOverlayTemplate extends Component  {
         const { selectedServiceMessage } = this.props
         console.log(selectedServiceMessage)
         const text1 = `Hello ${selectedServiceMessage.customerName},`;
-        const newText = `${text1} ${this.state.customText}`;
+        const period = '.';
+        const newText = `${text1} ${this.state.customText}${period}`;
 
        const getCorrectMessageText = () => {
             const { getSelectedMessageText, selectedMessageText, toggleTemplateOverlay } = this.props

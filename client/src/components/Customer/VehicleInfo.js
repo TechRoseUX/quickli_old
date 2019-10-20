@@ -16,6 +16,7 @@ import userb from '../../rersources/svg/userb.svg';
 import lockb from '../../rersources/svg/lockb.svg';
 import userw from '../../rersources/svg/userw.svg';
 import mileagew from '../../rersources/svg/mileagew.svg';
+import servicew from '../../rersources/svg/servicew.svg';
 import phonew from '../../rersources/svg/phonew.svg';
 import mailw from '../../rersources/svg/mailw.svg';
 import carw from '../../rersources/svg/carw.svg';
@@ -434,8 +435,8 @@ searchC = (id, myArray) => {
                   </InfoEText>
               </InfoElement>
               <InfoElement>
-              <InfoEIcon>
-                      <SVG src={vinw} />
+                <InfoEIcon>
+                      <SVG src={servicew} />
                   </InfoEIcon>
                   <InfoEText
                     height="auto"
