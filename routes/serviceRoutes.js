@@ -15,7 +15,22 @@ const nexmo = new Nexmo({
 
 module.exports = (app) => {
     app.post('/customers/service/:customerid/:serviceid', (req, res) => {
-        console.log(`CONSOLE.LOG${req.body}`);
+
+        const myjson = JSON.stringify(req.body)
+        console.log(`MYJSONNNNNNNNNNNNNNNNNNN${myjson}`);
+
+        var updMiles;
+        
+
+        if (req.body.values.mileage == null || '') {
+            updMiles = req.body.props.selectedVehicle.vehicleMileage
+        } else {
+            updMiles = req.body.values.mileage
+        }
+
+        console.log(updMiles)
+
+
         var uniqid = Date.now();
       
         const newService = new Service ({
@@ -26,7 +41,7 @@ module.exports = (app) => {
             vehicleid: req.body.props.selectedVehicle.vehicleid,
             customerName: req.body.values.name,
             phoneNumber: req.body.values.pnumber,
-            mileage: req.body.values.mileage,
+            mileage: updMiles,
             reason: req.body.values.reason,
             tagNumber: req.body.values.tnumber,
             details: req.body.detailsText,

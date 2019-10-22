@@ -20,7 +20,8 @@ export const MainBG = styled.div`
     width: 100%;
     background: rgb(0,142,204);
 	background: linear-gradient(90deg, rgba(0,142,204,1) 0%, rgba(89,200,248,1) 100%);
-	height: 1200px;
+	min-height: 100px;
+	padding-bottom: 75px;
 
     @media ${device.tablet} {
         

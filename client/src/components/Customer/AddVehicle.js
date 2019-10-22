@@ -29,7 +29,7 @@ import Text from './Styled/Text';
 const FormContainer = styled(NewDiv)`
     @media ${device.tablet} {
           width: 500px;
-          height: 700px;
+          min-height: 100px;
           margin: 0 auto;  
     }
 `

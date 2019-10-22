@@ -29,7 +29,7 @@ import { getSelectedVehicle } from '../../store/reducers/environment';
 const FormContainer = styled(NewDiv)`
     @media ${device.tablet} {
           width: 500px;
-          height: 700px;
+          min-height: 100px;
           margin: 0 auto;  
     }
 `
@@ -315,10 +315,6 @@ const validate = (values) => {
 
   if (!values.pnumber) {
     errors.pnumber = 'Please confirm customer phone number by selecting the text field.'
-  }
-
-  if (!values.mileage) {
-    errors.mileage = 'Please confirm vehicle mileage by selecting the field.'
   }
 
   if (!values.reason) {

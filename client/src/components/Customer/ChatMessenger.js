@@ -58,6 +58,7 @@ const MessengerContainerTop = styled(NewDiv)`
         height: 200px;
         background: ${Colors.lightBlue};
         border-bottom: 1px solid ${Colors.fullWhite};
+        padding-bottom: 8px;
     }
     @media ${device.tabletL} {
         width: 100%;
@@ -69,9 +70,10 @@ const MessengerContainerTop = styled(NewDiv)`
 
 const MessengerTopText = styled(NewDiv)`
     @media ${device.tablet} {
-        max-width: 175px;
+        max-width: 300px;
         text-align: center;
         height: auto;
+        padding-top: 24px;
     }
 `
 
@@ -112,7 +114,6 @@ const MessengerSearchBar = styled.input`
         font-size: 16px;
         border: none;
         border-radius: 20px;
-        margin-right: 10px;
 
         :focus {
             outline: none;

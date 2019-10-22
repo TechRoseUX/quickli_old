@@ -28,11 +28,15 @@ const CellID = styled(NewDiv)`
     width: 50px;
     height: 50px;
     border-radius: 25px;
-    background: ${Colors.lightBlue};
     display: inline-block;
     float: left;
     margin-left: 3%;
     margin-top: 15px;
+
+    svg {
+        width: 100%;
+        height: 100%;
+    }
 `
 
 const CellInfoLeft = styled(NewDiv)`
@@ -88,12 +92,7 @@ class CustomerCellRow extends Component {
         onClick={() => {this.openCustomerProfile() }}
       >
           <CellID>
-            <Text
-                fontSize='6px'
-                padding='15px 0 0 0'
-            >
-                {customerid}
-            </Text>
+            <SVG src={userb} />
           </CellID>
           <CellInfoLeft>
               <NewDiv

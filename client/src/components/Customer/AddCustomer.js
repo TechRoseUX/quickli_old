@@ -26,7 +26,7 @@ import StyledBackIcon from './Styled/StyledBackIcon';
 const FormContainer = styled(NewDiv)`
     @media ${device.tablet} {
           width: 500px;
-          height: 700px;
+          min-height: 100px;
           margin: 0 auto;  
     }
 `
@@ -196,6 +196,10 @@ const validate = (values, props) => {
 
   if (!values.pnumber) {
     errors.pnumber = 'You must provide a phone number'
+  }
+
+  if (!values.pnumber) {
+    errors.pnumber2 = 'You must provide a secondary phone number'
   }
 
  

@@ -241,9 +241,15 @@ class AllCustomers extends Component {
   }
 
   render() {
-    const { realCustomers, updateCustomerSearch, search, history, auth } = this.props
+    const { realCustomers, updateCustomerSearch, search, history, auth, selectedCustomer } = this.props
     const props = this.props
     const data = props && props.auth ? props.auth.data : null;
+
+    if (selectedCustomer) {
+      window.location.reload()
+    } else {
+      console.log('No selected customer');
+    }
 
     if (data) {
       return (

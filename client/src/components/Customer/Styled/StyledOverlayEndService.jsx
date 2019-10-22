@@ -32,7 +32,7 @@ const StyledOverlayContentBox = styled(NewDiv)`
         height: 550px;
         background: rgb(89,200,248);
         background: linear-gradient(180deg, rgba(89,200,248,1) 0%, rgba(255,255,255,1) 100%);
-        position: fixed
+        position: fixed;
         left: 50%;
         margin-left: -250px;
         margin-top: 150px;
