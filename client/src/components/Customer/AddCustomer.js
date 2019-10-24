@@ -26,7 +26,7 @@ import StyledBackIcon from './Styled/StyledBackIcon';
 const FormContainer = styled(NewDiv)`
     @media ${device.tablet} {
           width: 500px;
-          min-height: 100px;
+          min-height: 100vh;
           margin: 0 auto;  
     }
 `
