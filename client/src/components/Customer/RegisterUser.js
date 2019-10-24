@@ -11,11 +11,24 @@ import lockb from '../../rersources/svg/lockb.svg';
 import userb from '../../rersources/svg/userb.svg';
 import { MainBG, NewDiv } from './Styled/StyledComponents';
 import mainLogo from '../../rersources/mainLogo.png';
+import logoSvg from '../../rersources/logoSvg.svg';
 import { device } from './Styled/StyledMediaQuery';
 
 import TextField from './TextField';
 import Button from './Styled/Button';
 import Text from './Styled/Text';
+
+const LogoContainer = styled(NewDiv)`
+  @media ${device.tablet} {
+    padding: 100px 0 56px 0;
+
+    img {
+      height: 128px;
+      width: 180px;
+      margin: 0 auto;
+    }
+  } 
+`
 
 const RegisterContainer = styled(NewDiv)`
   @media ${device.tablet} {
@@ -79,11 +92,10 @@ class RegisterUser extends Component {
           <MainBG>
             <RegisterContainer
             >
-              <NewDiv
-                padding="200px 0 56px 0"
+              <LogoContainer
               >
-                  <img src = { mainLogo } />
-                </NewDiv>
+                  <img src = { logoSvg } />
+                </LogoContainer>
                 <form onSubmit={this.props.handleSubmit(values => this.handleNewUser(values))}>
                   {this.renderFields()}
                   <Button
