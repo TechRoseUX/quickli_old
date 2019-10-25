@@ -26,9 +26,15 @@ import StyledBackIcon from './Styled/StyledBackIcon';
 const FormContainer = styled(NewDiv)`
     @media ${device.tablet} {
           width: 500px;
-          min-height: 100vh;
+          min-height: 1200px;
           margin: 0 auto;  
     }
+
+    @media ${device.laptop} {
+      width: 500px;
+      min-height: 100vh;
+      margin: 0 auto;  
+}
 `
 
 const FIELDS = [

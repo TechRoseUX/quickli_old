@@ -20,11 +20,15 @@ export const MainBG = styled.div`
     width: 100%;
     background: rgb(0,142,204);
 	background: linear-gradient(90deg, rgba(0,142,204,1) 0%, rgba(89,200,248,1) 100%);
-	min-height: 100px;
+	min-height: 1200px;
 	padding-bottom: 75px;
 
     @media ${device.tablet} {
-        
+        min-height: 1200px;
+	}
+	
+	@media ${device.tablet} {
+        min-height: 700px;
     }
 `
 
