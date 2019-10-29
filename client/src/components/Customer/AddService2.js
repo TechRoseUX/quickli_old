@@ -168,7 +168,7 @@ class AddService extends Component {
       }
   
       const vMileage = {
-        label: 'Mileage', name: 'mileage', svg: mileageb, placeholder: 'Enter mileage...', noValueError: 'You must provide the mileage'
+        label: 'Mileage', name: 'mileage', svg: mileageb, placeholder: 'Enter mileage...', noValueError: 'You must provide the mileage', defaultValue: selectedVehicle.vehicleMileage
       }
   
       const number = {
@@ -334,7 +334,7 @@ const validate = (values) => {
   }
 
   if (!values.mileage) {
-    errors.mileage = 'You must provide a mileage number.'
+    errors.mileage = 'Please confirm mileage by selecting the text field.'
   }
 
   return errors;

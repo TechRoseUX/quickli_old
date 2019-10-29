@@ -88,7 +88,6 @@ class EndService extends Component {
         }
       ]
 
-
     return FIELDS.map(field => {
       return(
         <Field 
@@ -177,6 +176,7 @@ class EndService extends Component {
               <Button
                 standardBtn
                 margin="0 auto"
+                marginBottom='50px'
                 type="submit"
               >
                 <Text

@@ -93,7 +93,7 @@ class VehicleConfirmation extends Component {
         console.log(selectedCustomer)
         console.log(realCustomers)
 
-        history.push(`/customers/service/${customerid}/${vehicleid}`);
+        history.push(`/customers/service2/${customerid}/${vehicleid}`);
     }
 
     render() {

@@ -17,6 +17,7 @@ import VehicleConfirmation from './components/Customer/VehicleConfirmation';
 import UserLogin from './components/Customer/userLogin';
 import AddCustomer from './components/Customer/AddCustomer';
 import AddService from './components/Customer/AddService';
+import AddService2 from './components/Customer/AddService2';
 import AddVehicle from './components/Customer/AddVehicle';
 import AddVehicle2 from './components/Customer/AddVehicle2';
 import RegisterUser from './components/Customer/RegisterUser';
@@ -210,19 +211,6 @@ class App extends Component {
 
              />  }
              />
-             <Route exact path="/new-vehicle2/:customerid" 
-            render={(props) => <AddVehicle2
-            {...props}
-            createNewVehicle={createNewVehicle}
-            selectedCustomer={environment.selectedCustomer}
-            getSelectedCustomer={getSelectedCustomer}
-            getRealCustomers={getRealCustomers}
-            realCustomers={realCustomers}
-            auth={auth}
-            history={history}
-
-             />  }
-             />
              <Route exact path="/new-service" 
             render={(props) => <AddService
             createNewService={createNewService}
@@ -333,6 +321,22 @@ class App extends Component {
              />
              <Route exact path="/customers/service/:customerid/:vehicleid" 
               render={(props) => <AddService
+              {...props}
+              getSelectedCustomer={getSelectedCustomer}
+              selectedCustomer={environment.selectedCustomer}
+              selectedVehicle={environment.selectedVehicle}
+              customerVehicles={customerVehicles}
+              getSelectedVehicle={getSelectedVehicle}
+              realCustomers={realCustomers}
+              history={history}
+              createNewService={createNewService}
+              auth={auth}
+    
+             />  }
+             />
+
+            <Route exact path="/customers/service2/:customerid/:vehicleid" 
+              render={(props) => <AddService2
               {...props}
               getSelectedCustomer={getSelectedCustomer}
               selectedCustomer={environment.selectedCustomer}

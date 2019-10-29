@@ -14,6 +14,7 @@ const Button = styled.button`
     width: ${({ width }) => (width || '150px')};
     height: ${({ height }) => (height || '40px')};
     margin ${({ margin }) => (margin || '0')}; 
+    margin-bottom ${({ marginBottom }) => (marginBottom || '0')}; 
     padding ${({ padding }) => (padding || '0')}; 
     background-color: ${({ backgroundColor }) => (backgroundColor || 'initial')};
     display: ${({ display }) => (display || 'flex')};

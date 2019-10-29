@@ -247,6 +247,7 @@ getCustomerFromParams = () => {
                     <Button
                       standardBtn
                       margin="0 auto"
+                      marginBottom='50px'
                       type="submit"
                     >
                       <Text

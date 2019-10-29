@@ -23,12 +23,19 @@ export const MainBG = styled.div`
 	min-height: 1200px;
 	padding-bottom: 75px;
 
+	-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  overflow: auto;
+
     @media ${device.tablet} {
         min-height: 1200px;
 	}
 	
-	@media ${device.tablet} {
-        min-height: 700px;
+	@media ${device.laptop} {
+        min-height: 800px;
     }
 `
 
