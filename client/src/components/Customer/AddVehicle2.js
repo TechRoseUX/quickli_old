@@ -271,8 +271,6 @@ getCustomerFromParams = () => {
 const validate = (values, props, field) => {
   const errors = {};
 
-  console.log(props)
-
   if (!values.cname) {
     errors.cname = 'You must provide a customer name'
   }
@@ -303,6 +301,12 @@ const validate = (values, props, field) => {
 
   if (!values.pnumber) {
     errors.pnumber = 'Please confirm phone number by selecting the text field.'
+  }
+
+  if (props.selectedCustomer.phoneNumber2) {
+    if (!values.pnumber2) {
+      errors.pnumber2 = 'Please confirm second phone number by selecting the text field.'
+    }
   }
 
   return errors;

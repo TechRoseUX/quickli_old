@@ -80,7 +80,7 @@ class CustomerConfirmation extends Component {
         const currentCus = realCustomers.slice(-1).pop();
         getSelectedCustomer(currentCus);
         const customerid = currentCus.customerid
-        history.push(`/new-vehicle/${customerid}`);
+        history.push(`/new-vehicle2/${customerid}`);
     }
 
     render() {

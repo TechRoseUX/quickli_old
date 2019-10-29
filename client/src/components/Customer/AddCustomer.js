@@ -193,7 +193,7 @@ const validate = (values, props) => {
   const errors = {};
 
   if (!values.cname) {
-    errors.cname = 'ou must provide a customer name'
+    errors.cname = 'You must provide a customer name'
   }
 
   if (!values.email) {
