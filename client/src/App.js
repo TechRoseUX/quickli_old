@@ -211,6 +211,19 @@ class App extends Component {
 
              />  }
              />
+            <Route exact path="/new-vehicle2/:customerid" 
+            render={(props) => <AddVehicle2
+            {...props}
+            createNewVehicle={createNewVehicle}
+            selectedCustomer={environment.selectedCustomer}
+            getSelectedCustomer={getSelectedCustomer}
+            getRealCustomers={getRealCustomers}
+            realCustomers={realCustomers}
+            auth={auth}
+            history={history}
+
+             />  }
+             />
              <Route exact path="/new-service" 
             render={(props) => <AddService
             createNewService={createNewService}
