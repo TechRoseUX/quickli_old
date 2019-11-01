@@ -196,7 +196,7 @@ const MessengerFixedBottom = styled(NewDiv)`
 
 const ChatMessagesContainer = styled(NewDiv)`
     @media ${device.mobileS} {
-        margin-top: 150px;
+        margin-top: 135px;
         background-color: ${Colors.lighterGray};
     }
     
