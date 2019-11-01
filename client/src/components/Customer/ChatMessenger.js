@@ -91,7 +91,7 @@ const MessageCellContentTop = styled(NewDiv)`
     @media ${device.mobileS} {
         width: 90%;
         height: 25px;
-        padding: 15px 0px 10px 0px
+        padding: 15px 0px 10px 0px;
     }
 `
 
@@ -99,7 +99,7 @@ const MessageCellContentBottom = styled(NewDiv)`
     @media ${device.mobileS} {
         width: 90%;
         height: 40px;
-        padding: 10px 0px
+        padding: 10px 0px;
         text-align: left;
     }
 `
@@ -143,13 +143,13 @@ const MessengerChatContainer = styled(NewDiv)`
         width: 60%;
         height: 100vh;
         background-color: ${Colors.lighterGray};
-        float: right
+        float: right;
     } 
     @media ${device.tabletL} {
         width: 65%;
         height: 100vh;
         background-color: ${Colors.lighterGray};
-        float: right
+        float: right;
     } 
 `
 
@@ -270,7 +270,7 @@ const ChatMessageToBubble = styled(NewDiv)`
         margin-right: 10px;
         background: ${Colors.lightBlue};
         border-radius: 30px;
-        margin-bottom: 5px;
+        margin-top: 15px;
         text-align: left;
         color: ${Colors.fullWhite};
     } 
