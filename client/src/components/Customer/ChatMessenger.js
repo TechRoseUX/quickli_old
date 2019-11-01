@@ -46,7 +46,7 @@ const MessengerContainer = styled(NewDiv)`
         position: fixed;
         left: 0;
         top: 0;
-        overflow-y: scroll;
+        overflow-y: auto;
         background: ${Colors.lightBlue};
         float: left;
     }
@@ -196,6 +196,11 @@ const MessengerFixedBottom = styled(NewDiv)`
 
 const ChatMessagesContainer = styled(NewDiv)`
     @media ${device.tablet} {
+        margin-top: 150px;
+        background-color: ${Colors.lighterGray};
+    }
+    
+    @media ${device.laptop} {
         margin-top: 100px;
         background-color: ${Colors.lighterGray};
     } 
