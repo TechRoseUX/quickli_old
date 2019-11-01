@@ -29,7 +29,7 @@ import Text from './Styled/Text';
 import { isContext } from 'vm';
 
 const MessengerContainer = styled(NewDiv)`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         width: 40%;
         height: 100vh;
         position: fixed;
@@ -53,7 +53,7 @@ const MessengerContainer = styled(NewDiv)`
 `
 
 const MessengerContainerTop = styled(NewDiv)`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         width: 100%;
         height: 200px;
         background: ${Colors.lightBlue};
@@ -69,7 +69,7 @@ const MessengerContainerTop = styled(NewDiv)`
 `
 
 const MessengerTopText = styled(NewDiv)`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         max-width: 300px;
         text-align: center;
         height: auto;
@@ -78,7 +78,7 @@ const MessengerTopText = styled(NewDiv)`
 `
 
 const MessageCell = styled(NewDiv)`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         width: 100%;
         height: 90px;
         background: ${Colors.lightBlue};
@@ -88,7 +88,7 @@ const MessageCell = styled(NewDiv)`
 `
 
 const MessageCellContentTop = styled(NewDiv)`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         width: 90%;
         height: 25px;
         padding: 15px 0px 10px 0px
@@ -96,7 +96,7 @@ const MessageCellContentTop = styled(NewDiv)`
 `
 
 const MessageCellContentBottom = styled(NewDiv)`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         width: 90%;
         height: 40px;
         padding: 10px 0px
@@ -105,7 +105,7 @@ const MessageCellContentBottom = styled(NewDiv)`
 `
 
 const MessengerSearchBar = styled.input`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         width: ${({ width }) => (width|| '100%')};
         height: ${props => (props.height || '40px')};
         background-color: ${Colors.fullWhite};
@@ -122,7 +122,7 @@ const MessengerSearchBar = styled.input`
 `
 
 const MessengerTextBox = styled.textarea`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         width: ${({ width }) => (width|| '100%')};
         height: 90px;
         background-color: ${Colors.fullWhite};
@@ -139,7 +139,7 @@ const MessengerTextBox = styled.textarea`
 `
 
 const MessengerChatContainer = styled(NewDiv)`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         width: 60%;
         height: 100vh;
         background-color: ${Colors.lighterGray};
@@ -154,7 +154,7 @@ const MessengerChatContainer = styled(NewDiv)`
 `
 
 const MessengerChatTopSec = styled(NewDiv)`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         width: 60%;
         height: 90px;
         background-color: ${Colors.lighterGray};
@@ -176,7 +176,7 @@ const MessengerChatTopSec = styled(NewDiv)`
 `
 
 const MessengerFixedBottom = styled(NewDiv)`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         width: 60%;
         height: 115px;
         position: fixed;
@@ -195,7 +195,7 @@ const MessengerFixedBottom = styled(NewDiv)`
 `
 
 const ChatMessagesContainer = styled(NewDiv)`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         margin-top: 150px;
         background-color: ${Colors.lighterGray};
     }
@@ -207,7 +207,7 @@ const ChatMessagesContainer = styled(NewDiv)`
 `
 
 const BottomLeftButton = styled(NewDiv)`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         width: 40px;
         height: 40px;
         padding: 5px;
@@ -223,7 +223,7 @@ const BottomLeftButton = styled(NewDiv)`
 `
 
 const BottomRightButton = styled(NewDiv)`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         width: 40px;
         height: 40px;
         padding: 5px;
@@ -238,7 +238,7 @@ const BottomRightButton = styled(NewDiv)`
 `
 
 const BottomMiddleText = styled(NewDiv)`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         width: 80%;
         height: 100px;
         padding: 5px 0;
@@ -254,7 +254,7 @@ const BottomMiddleText = styled(NewDiv)`
 `
 
 const ChatToRow = styled(NewDiv)`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         width: 100%;
         height: auto;
         clear: both;
@@ -262,7 +262,7 @@ const ChatToRow = styled(NewDiv)`
 `
 
 const ChatMessageToBubble = styled(NewDiv)`
-    @media ${device.tablet} {
+    @media ${device.mobileS} {
         max-width: 250px;
         height: auto;
         padding: 15px 15px;
