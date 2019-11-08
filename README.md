@@ -4,7 +4,6 @@
 
 ### Version Without Redux
 This version includes Redux
-[Click Here For the Version WITHOUT Redux](https://github.com/bradtraversy/react_express_starter) 
 
 ## Quick Start
 
