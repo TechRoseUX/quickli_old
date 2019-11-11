@@ -19,7 +19,8 @@ app.post('/register', (req, res) => {
               date: uniqid,
               password: req.body.password,
               userid: uniqid,
-              companyName: req.body.companyName
+              companyName: req.body.companyName,
+              image: req.body.companyImage
             });
   
           bcrypt.genSalt(10, (err, salt) => {

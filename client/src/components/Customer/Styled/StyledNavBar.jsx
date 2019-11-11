@@ -60,7 +60,9 @@ export const HeaderTopImg = styled(NewDiv)`
         height: 100px;
         border-radius: 50px;
         margin: 0 auto;
-        background: ${Colors.darkBlue};
+        background-image: ${({ bgImg }) => (`url(${bgImg})` || 'none')};
+        background-position: center;
+	    background-size: cover;
     }
 `
 
@@ -147,10 +149,13 @@ class StyledNavBar extends Component  {
         const { renderContent, toggleNavBar, toggleNavToggle, fetchUser, showNavBar, showNavToggle, auth } = this.props
         const data = this.props && this.props.auth ? this.props.auth.data: null
         var companyName;
+        var companyImg
         if (data) {
-            companyName = data.email
+            companyName = data.companyName
+            companyImg = data.image
         } else {
             companyName = 'No Company Name'
+            companyImg = 'none'
         }
         console.log(showNavToggle);
         console.log(showNavBar);
@@ -172,7 +177,9 @@ class StyledNavBar extends Component  {
                 display={showNavBar}
             >
                 <HeaderTop>
-                      <HeaderTopImg />
+                      <HeaderTopImg 
+                        bgImg={companyImg}
+                      />
                       <HeaderTopText>
                           <Text
                             lblue22

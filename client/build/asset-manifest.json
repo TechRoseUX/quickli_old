@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.6e002471.chunk.css",
-    "main.js": "/static/js/main.a038dbbc.chunk.js",
-    "main.js.map": "/static/js/main.a038dbbc.chunk.js.map",
+    "main.js": "/static/js/main.fef20fb2.chunk.js",
+    "main.js.map": "/static/js/main.fef20fb2.chunk.js.map",
     "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
     "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
     "static/js/2.0849331a.chunk.js": "/static/js/2.0849331a.chunk.js",
     "static/js/2.0849331a.chunk.js.map": "/static/js/2.0849331a.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.7582995e44bcc88ea0cf4300c3b98f55.js": "/precache-manifest.7582995e44bcc88ea0cf4300c3b98f55.js",
+    "precache-manifest.a14d8720ccb98e6788f0cd6b53bd30b4.js": "/precache-manifest.a14d8720ccb98e6788f0cd6b53bd30b4.js",
     "service-worker.js": "/service-worker.js",
     "static/css/main.6e002471.chunk.css.map": "/static/css/main.6e002471.chunk.css.map",
     "static/media/arrowleftw.svg": "/static/media/arrowleftw.a55b94fb.svg",

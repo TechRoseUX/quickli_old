@@ -39,6 +39,13 @@ const RegisterContainer = styled(NewDiv)`
 
 `
 
+const ImageUploadInput = styled.input`
+  width: 200px;
+  height: 25px;
+  float: left;
+  margin-bottom: 48px;
+`
+
 
 const FIELDS = [
   {
@@ -52,6 +59,9 @@ const FIELDS = [
   },
   {
     label: 'Company Name', name: 'companyName', svg: lockb, placeholder: 'Enter Company Name....', noValueError: 'Please enter a name for your company'
+  },
+  {
+    label: 'Company Image', name: 'companyImage', svg: userb, placeholder: 'Enter Link To Company Image....', noValueError: 'No image link provided'
   }
 ]
 
