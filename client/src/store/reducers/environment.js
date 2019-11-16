@@ -6,6 +6,7 @@ import barsw from '../../rersources/svg/barsw.svg';
 const initialState = {
     showNavBar: 'none',
     showNavToggle: barsw,
+    navIconDisplay: 'none',
     selectedCustomer: null,
     selectedVehicle: null,
     selectedService: null,
@@ -17,6 +18,13 @@ const initialState = {
     search: '',
     currentFilter: 'Name'
 };
+
+export function toggleNavIconDisplay(display) {
+    return {
+        type: TOGGLE_NAV_ICON_DISPLAY,
+        display
+    }
+}
 
 export function toggleNavBar(display) {
     return {
@@ -102,6 +110,7 @@ export function getCurrentFilter(filter) {
     }
 }
 
+const TOGGLE_NAV_ICON_DISPLAY = 'TOGGLE_NAV_ICON_DISPLAY';
 const TOGGLE_NAV_BAR = 'TOGGLE_NAV_BAR';
 const TOGGLE_NAV_TOGGLE = 'TOGGLE_NAV_TOGGLE';  
 const GET_SELECTED_CUSTOMER = 'GET_SELECTED_CUSTOMER';
@@ -126,6 +135,11 @@ export default function (state = initialState, action) {
         return {
             ...state,
             showNavToggle: action.display
+        }
+    case TOGGLE_NAV_ICON_DISPLAY:
+        return {
+            ...state,
+            navIconDisplay: action.display
         }
     case GET_SELECTED_CUSTOMER:
         return {

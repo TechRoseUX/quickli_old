@@ -34,7 +34,7 @@ const FormContainer = styled(NewDiv)`
       width: 500px;
       min-height: 100vh;
       margin: 0 auto;  
-}
+    }
 `
 
 const FIELDS = [

@@ -8,6 +8,7 @@ import store from './store';
 import history from './history';
 import Customers from './components/Customer/customers';
 import ChatMessenger from './components/Customer/ChatMessenger';
+import LandingPage from './components/Customer/LandingPage';
 import AllCustomers from './components/Customer/AllCustomers';
 import CustomerInfo from './components/Customer/CustomerInfo';
 import VehicleInfo from './components/Customer/VehicleInfo';
@@ -28,7 +29,7 @@ import CustomerService from './components/Customer/CustomerService';
 import { connect } from 'react-redux';
 
 import { createNewCustomer, createNewUser, createNewVehicle, userLogin, logoutUser, fetchUser, getRealCustomers, getCustomerVehicles, createNewService, getCustomerServices, createNewToMessage, getCustomerActiveToMessages, updateService } from './store/actions/customer';
-import { toggleNavBar, toggleNavToggle, getSelectedCustomer, getSelectedVehicle, getCurrentEmailId } from './store/reducers/environment';
+import { toggleNavBar, toggleNavToggle, toggleNavIconDisplay, getSelectedCustomer, getSelectedVehicle, getCurrentEmailId } from './store/reducers/environment';
 
 import styled from 'styled-components';
 
@@ -84,26 +85,21 @@ class App extends Component {
       case null:
         console.log('null');
         return (
-          <LoginUser
-           userLogin={userLogin}
-            logoutUser={logoutUser}
+          <LandingPage
+            history={history}
           />
         )
       case false:
           console.log('false');
           return (
-            <LoginUser
-              userLogin={userLogin}
-              logoutUser={logoutUser}
+            <LandingPage
               history={history}
            />
         )
       case '':
           console.log('empty');
           return (
-            <LoginUser
-              userLogin={userLogin}
-              logoutUser={logoutUser}
+            <LandingPage
               history={history}
            />
         )
@@ -132,6 +128,7 @@ class App extends Component {
     const logoutUser = this.props.logoutUser;
     const toggleNavBar = this.props.toggleNavBar;
     const toggleNavToggle = this.props.toggleNavToggle;
+    const toggleNavIconDisplay = this.props.toggleNavIconDisplay;
     const getSelectedCustomer = this.props.getSelectedCustomer;
     const getSelectedVehicle = this.props.getSelectedVehicle;
     const getRealCustomers = this.props.getRealCustomers;
@@ -159,6 +156,8 @@ class App extends Component {
               fetchUser={fetchUser}
               showNavBar={environment.showNavBar}
               showNavToggle={environment.showNavToggle}
+              navIconDisplay={environment.navIconDisplay}
+              toggleNavIconDisplay={toggleNavIconDisplay}
               logoutUser={logoutUser}
               history={history}
               auth={auth}
@@ -176,6 +175,11 @@ class App extends Component {
               {this.renderCorrectPage()}
             </div> }
             history={history}
+             />
+             <Route exact path="/landing" 
+            render={(props) => <LandingPage
+            history={history}
+             />  }
              />
             <Route exact path="/register" 
             render={(props) => <RegisterUser
@@ -410,6 +414,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchUser: (values) => dispatch(fetchUser(values)),
     toggleNavBar: (display) => dispatch(toggleNavBar(display)),
     toggleNavToggle: (display) => dispatch(toggleNavToggle(display)),
+    toggleNavIconDisplay: (display) => dispatch(toggleNavIconDisplay(display)),
     getSelectedCustomer: (customer) => dispatch(getSelectedCustomer(customer)),
     getSelectedVehicle: (vehicle) => dispatch(getSelectedVehicle(vehicle)),
     getCurrentEmailId: (email) => dispatch(getCurrentEmailId(email)),

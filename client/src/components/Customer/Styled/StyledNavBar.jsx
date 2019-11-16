@@ -122,7 +122,7 @@ export const NavToggleIcon = styled(NewDiv)`
         position: fixed;
         bottom: 35px;
         left: 25px;
-        display: ${({ display }) => (display || 'none')};
+        display: ${({ display }) => (display || 'block')};
         z-index: 999;
 
         svg {
@@ -133,6 +133,24 @@ export const NavToggleIcon = styled(NewDiv)`
 `
 
 class StyledNavBar extends Component  {
+    componentDidMount() {
+        const data = this.props && this.props.auth ? this.props.auth.data: null
+        const { toggleNavIconDisplay } = this.props
+        console.log(this.props);
+
+        setTimeout(this.navIconCheck, 1000)
+    }
+
+    navIconCheck = () => {
+        const data = this.props && this.props.auth ? this.props.auth.data: null
+        const { toggleNavIconDisplay } = this.props
+        if (!data || data === '') {
+            toggleNavIconDisplay('none')
+            console.log('toggle done')
+        } else {
+            toggleNavIconDisplay('block');
+        }
+    }
 
     handleLogout = () => {
         const { logoutUser, history } = this.props
@@ -146,10 +164,10 @@ class StyledNavBar extends Component  {
     }
 
     render() {
-        const { renderContent, toggleNavBar, toggleNavToggle, fetchUser, showNavBar, showNavToggle, auth } = this.props
+        const { renderContent, toggleNavBar, toggleNavToggle, fetchUser, showNavBar, showNavToggle, auth, navIconDisplay } = this.props
         const data = this.props && this.props.auth ? this.props.auth.data: null
         var companyName;
-        var companyImg
+        var companyImg;
         if (data) {
             companyName = data.companyName
             companyImg = data.image
@@ -157,17 +175,16 @@ class StyledNavBar extends Component  {
             companyName = 'No Company Name'
             companyImg = 'none'
         }
-        console.log(showNavToggle);
-        console.log(showNavBar);
         const toggleNav = () => {
             if (showNavBar === 'block') {
-                toggleNavBar('none')
+                toggleNavBar('none');
                 toggleNavToggle(barsw);
             } else {
                 toggleNavBar('block');
                 toggleNavToggle(returnw);
             }
         }
+
         return (
           <div>
               <MainNavContainer 
@@ -262,8 +279,8 @@ class StyledNavBar extends Component  {
                   </HeaderLIContainer>
             </HeaderContainer>
              <NavToggleIcon
-             onClick={toggleNav}
-             display='block'
+                onClick={toggleNav}
+                display={navIconDisplay}
            >
                <SVG src={showNavToggle} />
            </NavToggleIcon>

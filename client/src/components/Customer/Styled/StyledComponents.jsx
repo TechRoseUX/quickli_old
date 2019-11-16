@@ -24,9 +24,9 @@ export const MainBG = styled.div`
 	padding-bottom: 75px;
 
 	-webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
 
   overflow: auto;
 

@@ -16,7 +16,7 @@ const Text = styled.p`
     max-width: ${props => (props.maxWidth || 'none')};
     font-weight: ${({ fontWeight }) => (fontWeight || 'normal')};
     font-style: ${({ fontStyle }) => (fontStyle || 'normal ')};
-	font-family: ${({ fontFamily }) => (fontFamily || 'Helvetica')};
+	font-family: ${({ fontFamily }) => (fontFamily || 'Helvetica Neue')};
 	background: ${({ background }) => (background || 'none')};
 	float: ${({ float }) => (float || 'none')};
 
