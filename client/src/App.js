@@ -71,6 +71,57 @@ class App extends Component {
     }
   }
 
+  renderCorrectPage2 = () => {
+    const props = this.props
+    const auth = this.props.auth
+    const data = props && props.auth ? props.auth.data: null
+
+    const userLogin = this.props.userLogin;
+    const logoutUser = this.props.logoutUser;
+    const getSelectedCustomer = this.props.getSelectedCustomer;
+    const environment = this.props.environment;
+
+    switch (data) {
+      case null:
+        console.log('null');
+        return (
+          <LoginUser
+           userLogin={userLogin}
+            logoutUser={logoutUser}
+          />
+        )
+      case false:
+          console.log('false');
+          return (
+            <LoginUser
+              userLogin={userLogin}
+              logoutUser={logoutUser}
+              history={history}
+           />
+        )
+      case '':
+          console.log('empty');
+          return (
+            <LoginUser
+              userLogin={userLogin}
+              logoutUser={logoutUser}
+              history={history}
+           />
+        )
+      default:
+          console.log('default');
+        return (
+            <AllCustomers
+              {...props}
+              getSelectedCustomer={getSelectedCustomer}
+              selectedCustomer={environment.selectedCustomer}
+              history={history}
+             />
+        )
+
+    }
+  }
+
   renderCorrectPage = () => {
     const props = this.props
     const auth = this.props.auth
@@ -116,6 +167,7 @@ class App extends Component {
 
     }
   }
+
 
   render () {
     const createNewCustomer = this.props.createNewCustomer;
@@ -172,7 +224,7 @@ class App extends Component {
              />
             <Route exact path="/login" 
             render={(props) => <div>
-              {this.renderCorrectPage()}
+              {this.renderCorrectPage2()}
             </div> }
             history={history}
              />
