@@ -36,7 +36,6 @@ const RegisterContainer = styled(NewDiv)`
     height: 700px;
     margin: 0 auto;
   } 
-
 `
 
 const ImageUploadInput = styled.input`

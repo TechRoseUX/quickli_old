@@ -22,6 +22,7 @@ import AddService2 from './components/Customer/AddService2';
 import AddVehicle from './components/Customer/AddVehicle';
 import AddVehicle2 from './components/Customer/AddVehicle2';
 import RegisterUser from './components/Customer/RegisterUser';
+import RegisterCode from './components/Customer/RegisterCode';
 import LoginUser from './components/Customer/LoginUser';
 import EndService from './components/Customer/EndService';
 import StyledNavBar from './components/Customer/Styled/StyledNavBar';
@@ -236,6 +237,11 @@ class App extends Component {
             <Route exact path="/register" 
             render={(props) => <RegisterUser
             createNewUser={createNewUser}
+            history={history}
+             />  }
+             />
+             <Route exact path="/register-code" 
+            render={(props) => <RegisterCode
             history={history}
              />  }
              />
