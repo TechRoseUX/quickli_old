@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Link, withRouter } from 'react-router-dom';
 
 import Colors from '../constants/colors';
+import passcode from '../constants/passcode';
 import lockb from '../../rersources/svg/lockb.svg';
 import userb from '../../rersources/svg/userb.svg';
 import { MainBG, NewDiv } from './Styled/StyledComponents';
@@ -34,15 +35,21 @@ class RegisterCode extends Component {
     state = {
         codeValue: ''
     }
+
+    handleChange = (e) => {
+        const codeText = e.target.value
+        this.setState({ currentValue: codeText});
+    }
+
     render() {
         return (
             <MainBG>
                 <CodeContainer>
-                    <form method="POST" onChange={this.handleChange} onSubmit={(e) => this.sendNewMessage(e, this)}>
+                    <form method="POST" onChange={this.handleChange} onSubmit={(e) => this.submitCode(e, this)}>
                         <CodeTextBox
                             width="97%"
-                            placeholder="Enter Message..."
-                            value=''
+                            placeholder="Enter Code..."
+                            value={this.state.codeValue}
                             name="toMessage"
                         />
                     </form>
@@ -56,7 +63,7 @@ class RegisterCode extends Component {
         const { history } = this.props
         const correctVal = 'hello'
         const codeVal = this.state.codeValue
-        if (codeVal === correctVal) {
+        if (codeVal === passcode) {
             history.push('/register');
         } else {
             console.log('that was not the right value')

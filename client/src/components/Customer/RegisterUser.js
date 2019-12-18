@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import Colors from '../constants/colors';
+import passcode from '../constants/passcode';
 import lockb from '../../rersources/svg/lockb.svg';
 import userb from '../../rersources/svg/userb.svg';
 import { MainBG, NewDiv } from './Styled/StyledComponents';
@@ -17,6 +18,33 @@ import { device } from './Styled/StyledMediaQuery';
 import TextField from './TextField';
 import Button from './Styled/Button';
 import Text from './Styled/Text';
+
+const CodeTextBox = styled.input`
+  -webkit-appearance: none;
+  background-color: ${Colors.fullWhite};
+  outline: none;
+  border: none;
+  margin ${({ margin }) => (margin || '0')}; 
+  border-radius: 10px;
+  padding: 0;
+  padding-left: 10px;
+  font-size: 16px;
+
+  @media ${device.tablet} {
+      width: ${({ width }) => (width || '345px')};
+      height: 50px;
+      margin: 0 auto;
+  }
+`
+
+const CodeContainer = styled(NewDiv)`
+  @media ${device.tablet} {
+    width: 418px;
+    height: 500px;
+    margin: 0 auto;
+    margin-top: 200px;
+  } 
+`
 
 const LogoContainer = styled(NewDiv)`
   @media ${device.tablet} {
@@ -65,6 +93,10 @@ const FIELDS = [
 ]
 
 class RegisterUser extends Component {
+    state = {
+      codeValue: '',
+      showCode: true
+  }
 
   renderFields = () => {
     return FIELDS.map(field => {
@@ -88,42 +120,96 @@ class RegisterUser extends Component {
       console.log('The input field is being changed.')
   }
 
+  handleChange = (e) => {
+    const codeText = e.target.value
+    this.setState({ codeValue: codeText});
+}
+
   handleNewUser = (values) => {
     const { createNewUser, history } = this.props
     createNewUser(values);
   //  history.push('/login')
   }
 
+  submitCode = (e) => {
+    e.preventDefault();
+    const codeVal = this.state.codeValue
+    if (codeVal === passcode.passcode) {
+      this.setState({ showCode: false});
+    } else {
+        console.log('that was not the right value')
+    }
+}
+
   render() {
     const { createNewUser } = this.props
-    return (
-      <div>
-          <MainBG>
-            <RegisterContainer
-            >
-              <LogoContainer
-              >
-                  <img src = { logoSvg } />
-                </LogoContainer>
-                <form onSubmit={this.props.handleSubmit(values => this.handleNewUser(values))}>
-                  {this.renderFields()}
-                  <Button
-                    width="416px"
-                    height="50px"
-                    backgroundColor={Colors.darkBlue}
-                    type="submit"
-                  >
-                    <Text
-                      buttonText
+    if (this.state.showCode === true) {
+      return (
+        <MainBG>
+              <CodeContainer>
+                <Text
+                  margin='0 0 24px 0'
+                  dblue30
+                >Please enter the correct code to go to register
+                </Text>
+                  <form method="POST" onChange={this.handleChange} onSubmit={(e) => this.submitCode(e, this)}>
+                    <NewDiv
+                      margin='0 0 24px 0'
                     >
-                      Sign Up
-                    </Text>
-                  </Button>
-                </form>
-            </RegisterContainer>
+                      <CodeTextBox
+                          width="97%"
+                          placeholder="Enter Code..."
+                          value={this.state.codeValue}
+                          name="toMessage"
+                      />
+                      </NewDiv>
+                      <Button
+                          width="416px"
+                          height="50px"
+                          backgroundColor={Colors.darkBlue}
+                          type="submit"
+                          margin='24px 0 0 0'
+                      >
+                        <Text
+                          white20
+                        >
+                          Enter Code
+                        </Text>
+                    </Button>
+                  </form>
+              </CodeContainer>
           </MainBG>
-      </div>
-    );
+      )
+    } else {
+      return (
+        <div>
+            <MainBG>
+              <RegisterContainer
+              >
+                <LogoContainer
+                >
+                    <img src = { logoSvg } />
+                  </LogoContainer>
+                  <form onSubmit={this.props.handleSubmit(values => this.handleNewUser(values))}>
+                    {this.renderFields()}
+                    <Button
+                      width="416px"
+                      height="50px"
+                      backgroundColor={Colors.darkBlue}
+                      type="submit"
+                    >
+                      <Text
+                        buttonText
+                      >
+                        Sign Up
+                      </Text>
+                    </Button>
+                  </form>
+              </RegisterContainer>
+            </MainBG>
+        </div>
+      );
+    }
   }
 }
 
