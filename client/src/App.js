@@ -15,6 +15,7 @@ import VehicleInfo from './components/Customer/VehicleInfo';
 import ServiceInfo from './components/Customer/ServiceInfo';
 import CustomerConfirmation from './components/Customer/CustomerConfirmation';
 import VehicleConfirmation from './components/Customer/VehicleConfirmation';
+import UserConfirmation from './components/Customer/UserConfirmation';
 import UserLogin from './components/Customer/userLogin';
 import AddCustomer from './components/Customer/AddCustomer';
 import AddService from './components/Customer/AddService';
@@ -307,6 +308,16 @@ class App extends Component {
             updateService={updateService}
             auth={auth}
             history={history}
+
+             />  }
+             />
+              <Route exact path="/new-user/confirmation" 
+              render={(props) => <UserConfirmation
+              selectedCustomer={environment.selectedCustomer}
+              getSelectedCustomer={getSelectedCustomer}
+              realCustomers={realCustomers}
+              auth={auth}
+              history={history}
 
              />  }
              />

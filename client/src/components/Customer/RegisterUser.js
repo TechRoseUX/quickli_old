@@ -116,6 +116,10 @@ class RegisterUser extends Component {
     });
   }
 
+  refreshWindow = () => {
+    window.location.reload()
+  }
+
   handleInputChange = () => {
       console.log('The input field is being changed.')
   }
@@ -128,7 +132,8 @@ class RegisterUser extends Component {
   handleNewUser = (values) => {
     const { createNewUser, history } = this.props
     createNewUser(values);
-  //  history.push('/login')
+    history.push('/new-user/confirmation');
+    setTimeout(this.refreshWindow, 1000);
   }
 
   submitCode = (e) => {

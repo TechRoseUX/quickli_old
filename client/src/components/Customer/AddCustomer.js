@@ -134,7 +134,7 @@ class AddCustomer extends Component {
       console.log(realCustomers);
       createNewCustomer(values);
       history.push('/new-customer/confirmation');
-      setTimeout(this.refreshWindow, 1000)
+      setTimeout(this.refreshWindow, 1000);
   }
 
   render() {
