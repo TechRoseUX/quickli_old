@@ -14,13 +14,15 @@ const socketio = require('socket.io');
 const app = express();
 
 //DB Config
-const db = require('./config/keys');
+//const db = require('./config/keys');
+const db = 'mongodb://user1:password1@ds211708.mlab.com:11708/quickly-dev';
 
 //Map global promise
 mongoose.Promise = global.Promise
 
 //Connect to mongoose
-mongoose.connect(db.mongoURI, {
+//mongoose.connect(db.mongoURI, {
+mongoose.connect(db, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })

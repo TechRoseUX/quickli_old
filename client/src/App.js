@@ -194,12 +194,6 @@ class App extends Component {
     const activeToMessages = this.props.state.activeToMessages;
     const auth = this.props.auth;
 ;
-    console.log(this.props);
-    console.log(this.props.environment);
-    console.log(realCustomers);
-    console.log(customerVehicles);
-    console.log(customerServices);
-    console.log(activeToMessages)
 
     return (
           <div className="App">

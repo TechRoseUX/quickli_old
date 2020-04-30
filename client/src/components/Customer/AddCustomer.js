@@ -23,6 +23,15 @@ import Button from './Styled/Button';
 import Text from './Styled/Text';
 import StyledBackIcon from './Styled/StyledBackIcon';
 
+const ConfirmContentContainer = styled.div`
+    @media ${device.tablet} {
+        padding-top: 300px;
+        width: 500px;
+        text-align: center;
+        margin: 0 auto;
+    }
+`
+
 const FormContainer = styled(NewDiv)`
     @media ${device.tablet} {
           width: 500px;
@@ -143,6 +152,8 @@ class AddCustomer extends Component {
     const props = this.props
     const data = props && props.auth ? props.auth.data : null;
 
+    console.log(this.props)
+
     if (data) {
       return (
         <div>
@@ -182,7 +193,13 @@ class AddCustomer extends Component {
       );
     } else {
       return (
-        this.renderNotLoggedIn()
+        <div>
+                    <MainBG>
+                        <ConfirmContentContainer>
+                           <p>Loading...</p>
+                        </ConfirmContentContainer>
+                    </MainBG>
+                </div>
       )
     }
   }
