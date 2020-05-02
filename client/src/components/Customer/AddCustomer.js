@@ -196,7 +196,7 @@ class AddCustomer extends Component {
         <div>
                     <MainBG>
                         <ConfirmContentContainer>
-                           <p>Loading...</p>
+                           <p>Loading..</p>
                         </ConfirmContentContainer>
                     </MainBG>
                 </div>
