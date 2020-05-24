@@ -40,6 +40,15 @@ const FormContainer = styled(NewDiv)`
 }
 `
 
+const ConfirmContentContainer = styled.div`
+    @media ${device.tablet} {
+        padding-top: 300px;
+        width: 500px;
+        text-align: center;
+        margin: 0 auto;
+    }
+`
+
 const FIELDS = []
 
 class AddVehicle extends Component {
@@ -263,7 +272,13 @@ getCustomerFromParams = () => {
       );
     } else {
       return (
-        this.renderNotLoggedIn()
+        <div>
+            <MainBG>
+                <ConfirmContentContainer>
+                    <p>Loading..</p>
+                </ConfirmContentContainer>
+            </MainBG>
+        </div>
       )
     }
   }

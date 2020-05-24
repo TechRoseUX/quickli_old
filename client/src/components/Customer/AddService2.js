@@ -60,6 +60,15 @@ const DetailsTextarea = styled.textarea`
   }
 `
 
+const ConfirmContentContainer = styled.div`
+    @media ${device.tablet} {
+        padding-top: 300px;
+        width: 500px;
+        text-align: center;
+        margin: 0 auto;
+    }
+`
+
 const FIELDS = []
 
 class AddService extends Component {
@@ -308,7 +317,13 @@ class AddService extends Component {
       );
     } else {
       return (
-        this.renderNotLoggedIn()
+        <div>
+            <MainBG>
+                <ConfirmContentContainer>
+                    <p>Loading..</p>
+                </ConfirmContentContainer>
+            </MainBG>
+        </div>
       )
     }
   }

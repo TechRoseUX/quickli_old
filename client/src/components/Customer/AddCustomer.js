@@ -194,12 +194,12 @@ class AddCustomer extends Component {
     } else {
       return (
         <div>
-                    <MainBG>
-                        <ConfirmContentContainer>
-                           <p>Loading..</p>
-                        </ConfirmContentContainer>
-                    </MainBG>
-                </div>
+            <MainBG>
+                <ConfirmContentContainer>
+                    <p>Loading..</p>
+                </ConfirmContentContainer>
+            </MainBG>
+        </div>
       )
     }
   }
