@@ -27,7 +27,7 @@ mongoose.connect(db, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-    .then(() => console.log(db.mongoURI))
+    .then(() => console.log(db))
     .catch(err => console.log(err));
 
 //Load Customer Model
