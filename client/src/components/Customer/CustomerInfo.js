@@ -17,6 +17,7 @@ import lockb from '../../rersources/svg/lockb.svg';
 import userw from '../../rersources/svg/userw.svg';
 import phonew from '../../rersources/svg/phonew.svg';
 import mailw from '../../rersources/svg/mailw.svg';
+import servicew from '../../rersources/svg/servicew.svg';
 import carw from '../../rersources/svg/carw.svg';
 import arrowleftw from '../../rersources/svg/arrowleftw.svg';
 import { NewDiv, MainBG, MainHeading } from './Styled/StyledComponents';
@@ -117,6 +118,68 @@ consoleLog = () => {
       console.log(v);
     }
 
+    openServiceScreen = () => {
+        const { getSelectedVehicle, selectedVehicle, history } = this.props
+        const vehicleid = selectedVehicle.vehicleid
+        const customerid = selectedVehicle.ownerid
+        history.push(`/customers/service/${customerid}/1`);
+    }
+
+
+    renderServices = () => {
+        const { getSelectedVehicle, customerVehicles, customerServices, selectedVehicle, selectedCustomer } = this.props
+        const newServiceArray = []
+
+        for (var i=0; i < customerServices.length; i++) {
+            if (customerServices[i].customerid === selectedCustomer.customerid) {
+                newServiceArray.push(customerServices[i]);
+                console.log('Pushed');
+            }  else {
+                console.log('did not match');
+            }  
+        }
+
+       const services = newServiceArray
+         console.log(services.length);
+        return services.map((v) => {
+        var jsTime = v.date
+        var timestamp = jsTime.substring(0, jsTime.length - 3)
+        console.log(timestamp);
+        console.log(jsTime);
+        var newDate = new Date(timestamp*1000);
+        var fHours = newDate.getHours();
+        var fMinutes = '0' + newDate.getMinutes();
+
+        var fDay = newDate.getDate();
+        var fMonth = newDate.getMonth();
+        var fYear = newDate.getFullYear();
+        fMonth = fMonth + 1;
+        console.log(fMonth);
+        console.log(fDay);
+        
+        var ampm = fHours >= 12 ? 'pm' : 'am';
+        fHours = fHours % 12;
+        fHours = fHours ? fHours : 12;
+      //  fMinutes = fMinutes < 10 ? '0'+ fMinutes : fMinutes;
+      var formattedTime = fHours + ':' + fMinutes.substr(-2) + ampm;
+      var formattedDate = (`${fMonth}/${fDay}/${fYear}`)
+
+            return (
+                <NewDiv>
+                    <Text
+                        white20
+                        padding="20px 0 5px 0"
+                        onClick={() => this.openServiceDetails(v)}
+                    >
+                        Service - {formattedDate}
+                    </Text>
+                </NewDiv>
+            )
+        })
+    }
+
+    
+
     renderVehicles = () => {
         const { customerVehicles, selectedCustomer } = this.props
         const customerid = this.props.selectedCustomer.customerid
@@ -129,6 +192,7 @@ consoleLog = () => {
             }  
         }
 
+        console.log(this.props);
         console.log(customerVehicles);
         console.log(newVehicleArray);
         const vehicles = newVehicleArray
@@ -334,6 +398,23 @@ consoleLog = () => {
                       {this.renderVehicles()}
                   </InfoEText>
               </InfoElement>
+              <InfoElement>
+                <InfoEIcon>
+                      <SVG src={servicew} />
+                  </InfoEIcon>
+                  <InfoEText
+                    height="auto"
+                    marginLeft="50px"
+                  >
+                      <Text
+                      customerIE
+                      dblue22
+                      >
+                            Service History
+                      </Text>
+                      {this.renderServices()}
+                  </InfoEText>
+              </InfoElement>
               <NewDiv
                 margin="0 auto"
                 width="100%"
@@ -348,6 +429,23 @@ consoleLog = () => {
                       white20
                     >
                       Add New Vehicle
+                    </Text>
+                  </Button>
+              </NewDiv>
+              <NewDiv
+                margin="0 auto"
+                width="100%"
+              >
+                  <Button
+                    largeBtn
+                    margin="0 auto"
+                    backgroundColor={Colors.darkBlue}
+                    onClick={() => this.openServiceScreen()}
+                  >
+                    <Text
+                      white20
+                    >
+                      Add New Service
                     </Text>
                   </Button>
               </NewDiv>

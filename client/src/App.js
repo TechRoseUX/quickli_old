@@ -364,6 +364,7 @@ class App extends Component {
               selectedCustomer={environment.selectedCustomer}
               realCustomers={realCustomers}
               customerVehicles={customerVehicles}
+              customerServices={customerServices}
               auth={auth}
 
              />  }
